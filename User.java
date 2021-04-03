@@ -1,6 +1,7 @@
 /**
  * Abstract class User, providing basic operations and attributes to all users including 
  * Customers, Trainers and Admins.
+ * @see User.Type
  */
 public abstract class User {
     /**

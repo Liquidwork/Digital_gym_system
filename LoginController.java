@@ -1,3 +1,6 @@
+/**
+ * A login controller which provide methods to access user's login data 
+ */
 public class LoginController {
     private static final String loginPathname = "./data/login.csv"; // file path of login data
 
@@ -7,8 +10,9 @@ public class LoginController {
      * @param name username to login
      * @param password password of login account
      * @return the user if login success, null if login failed
+     * @see User
      */
-    public User login(String name, String password){
+    public static User login(String name, String password){
         // TODO: Read a csv to check if user's login data correct, return user if login successfully, otherwise null will be returned
         return null;
     }
@@ -20,8 +24,9 @@ public class LoginController {
      * @param name username to login
      * @param password password of login account
      * @return the user if login success, null if login failed
+     * @see User
      */
-    public User register(String name, String password){
+    public static User register(String name, String password){
         // TODO: Read a csv to check if user's register data valid, return user if register successfully, otherwise null will be returned
         return null;
     }
