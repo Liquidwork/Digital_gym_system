@@ -1,5 +1,5 @@
 public class LoginController {
-    private static final String loginPathname = "./"; // file path of login data
+    private static final String loginPathname = "./data/login.csv"; // file path of login data
 
     /**
      * Login to an account, initiate and return the user if success, return null if login failed. 
