@@ -6,7 +6,11 @@ import java.util.Iterator;
 public class CashDB {
     private static final String cashPath = "./data/cash.csv";
     private ArrayList<String> cash_data;
-
+    
+    /**
+     * @Descrption: This is the constructor of aCash Database, no parameters needed, because the file path
+     * is not likely to be changed, You should only call it once in a whole programme
+     */
     public CashDB(){
         this.cash_data = readGeneral(cashPath);
     }
@@ -49,7 +53,8 @@ public class CashDB {
 
     /**
      * @Descrption: This is a function that will change the data in local files
-     * @Param: id for users, and the money you want to save
+     * @param: id  the id of the user
+     * @param: money the actual amount after updating
      * @retun: none
      */
     public void setMoney(int id, double money) {
@@ -64,7 +69,7 @@ public class CashDB {
     /**
      * @Descrption: This is the function that will get the money amount of the user
      * you should only use it when you create a Customer object
-     * @Param: id for the id
+     * @Param: id  id of the the
      * @retun: double the money. if not exist ,it will return 0
      */
     public double getMoney(int id) {
