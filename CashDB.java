@@ -1,3 +1,7 @@
+/**
+ * A calss that will handle the data of money in local file, 
+ * You should only have 1 object at most of this class  
+ */
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
