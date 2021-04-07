@@ -1,25 +1,20 @@
 /**
- * A calss that will handle the data of money in local file, 
- * You should only have 1 object at most of this class  
+ * A static class that will handle the data of money in local file
+ * Also allow access from other classes
  */
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
 public class CashDB {
-    private static final String cashPath = "./data/cash.csv";
-    private ArrayList<String> cash_data;
-    
-    /**
-     * @Descrption: This is the constructor of aCash Database, no parameters needed, because the file path
-     * is not likely to be changed, You should only call it once in a whole programme
-     */
-    public CashDB(){
-        this.cash_data = readGeneral(cashPath);
-    }
 
-    private ArrayList<String> readGeneral(String path){
+    //private static final String cashPath = "D:\\Work Zone\\JavaZone\\SoftwareEng\\src\\data\\cash.csv";
+    private static final String cashPath = "./data/cash.csv";
+    private static ArrayList<String> cash_data;
+
+    private static ArrayList<String> readGeneral(String path){
         String line ;
         ArrayList<String> data =new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -33,7 +28,7 @@ public class CashDB {
         return data;
     }
 
-    private boolean writeGeneral(ArrayList<String> list, String path){
+    private static boolean writeGeneral(ArrayList<String> list, String path){
         String line;
         boolean result = false;
         try{
@@ -56,12 +51,15 @@ public class CashDB {
     }
 
     /**
-     * @Descrption: This is a function that will change the data in local files
-     * @param: id  the id of the user
-     * @param: money the actual amount after updating
-     * @retun: none
+     * @descrption: This is a function that will change the data in local files
+     * @param id   id of the customer
+     * @param money  the actual value after updating
+     * @return: none
      */
-    public void setMoney(int id, double money) {
+    public static void setMoney(int id, double money) {
+        if (cash_data == null){
+            cash_data = readGeneral(cashPath);
+        }
         String updated ="";
         cash_data.removeIf(e ->e.matches(id+",(.*)"));
         updated = id + "," + money;
@@ -71,12 +69,14 @@ public class CashDB {
 
 
     /**
-     * @Descrption: This is the function that will get the money amount of the user
-     * you should only use it when you create a Customer object
-     * @Param: id  id of the the
-     * @retun: double the money. if not exist ,it will return 0
+     * @Descrption: This is the function that will get the money amount of the user by id
+     * @param id  id of the user
+     * @return money the value in double. if not exist ,it will return 0
      */
-    public double getMoney(int id) {
+    public static double getMoney(int id) {
+        if (cash_data == null){
+            cash_data = readGeneral(cashPath);
+        }
         String line;
         String cvsSplitBy = ",";
         double cash = 0;
@@ -90,11 +90,11 @@ public class CashDB {
         return cash;
     }
 
+    //Test main function
     public static void main(String[] args) {
-        CashDB test = new CashDB();
-        System.out.println(test.getMoney(4));
-        test.setMoney(4,37);
-        System.out.println(test.getMoney(4));
+        System.out.println(CashDB.getMoney(4));
+        CashDB.setMoney(4,37);
+        System.out.println(CashDB.getMoney(4));
 
     }
 }
