@@ -1,3 +1,6 @@
+/**
+ * A money controller which provide methods to access finance data
+ */
 public class CashController {
     /**
      * @Descrption: This is a function that will control the customers money,
