@@ -2,7 +2,6 @@
  * A static class that will handle the data of money in local file
  * Also allow access from other classes
  */
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
