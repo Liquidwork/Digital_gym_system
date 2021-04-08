@@ -1,7 +1,8 @@
 /**
  *This is a static class
  * that provide static functions for all data transaction between local file and JVM
- */import java.io.*;
+ */
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -25,6 +26,7 @@ public class DataHandler {
         return data;
     }
 
+    
     /**
      * @Descrption This is a function that can over-write the data in local file
      * @param list the data you want store in file, of course a csv style.
