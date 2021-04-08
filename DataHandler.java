@@ -26,7 +26,6 @@ public class DataHandler {
         return data;
     }
 
-    
     /**
      * @Descrption This is a function that can over-write the data in local file
      * @param list the data you want store in file, of course a csv style.
@@ -45,6 +44,29 @@ public class DataHandler {
                 bw.write(line);
                 bw.newLine();
             }
+            bw.close();
+            result =true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    /**
+     * @descrption This is a function that allow you to append the data in local file
+     * You do not need re-write the old data, which can improve the File-IO speed
+     * But you can only add one line string into file.
+     * @param data the data you want to append in local file
+     * @param path  the path of local file
+     * @return boolean to tell you if the local file changed successfully
+     */
+    public static boolean append(String data, String path){
+        boolean result = false;
+        try{
+            File csv = new File(path);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(csv,true));
+            bw.write(data);
             bw.close();
             result =true;
         } catch (FileNotFoundException e) {

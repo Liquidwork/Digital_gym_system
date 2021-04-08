@@ -2,6 +2,7 @@
  * A static class that will handle the data of money in local file
  * Also allow access from other classes
  */
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,11 +24,16 @@ public class CashDB {
         if (cash_data == null){
             cash_data = DataHandler.read(cashPath);
         }
-        String updated ="";
-        cash_data.removeIf(e ->e.matches(id+",(.*)"));
-        updated = id + "," + money;
+        boolean existed = cash_data.removeIf(e ->e.matches(id+",(.*)"));
+        String updated = id + "," + money;
         cash_data.add(updated);
-        DataHandler.write(cash_data,cashPath);
+        if (existed){
+            DataHandler.write(cash_data,cashPath);
+        }
+        else {
+            DataHandler.append(updated,cashPath);
+        }
+
     }
 
 
