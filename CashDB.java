@@ -49,7 +49,7 @@ public class CashDB {
         String line;
         String cvsSplitBy = ",";
         double cash = 0;
-        Iterator iterator = cash_data.iterator();
+        Iterator<String> iterator = cash_data.iterator();
         while (iterator.hasNext()) {
             line = (String) (iterator.next());
             String[] ele = line.split(cvsSplitBy);
