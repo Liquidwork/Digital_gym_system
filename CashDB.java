@@ -3,6 +3,7 @@
  * Also allow access from other classes
  */
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -13,6 +14,41 @@ public class CashDB {
     private static final String cashPath = "./data/cash.csv";
     private static ArrayList<String> cash_data;
 
+    private static ArrayList<String> readGeneral(String path){
+        String line ;
+        ArrayList<String> data =new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            while ((line = br.readLine()) != null) {
+                data.add(line);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    private static boolean writeGeneral(ArrayList<String> list, String path){
+        String line;
+        boolean result = false;
+        try{
+            File csv = new File(path);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(csv,false));
+            Iterator iterator =list.iterator();
+            while (iterator.hasNext()){
+                line = (String)iterator.next();
+                bw.write(line);
+                bw.newLine();
+            }
+            bw.close();
+            result =true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /**
      * @descrption: This is a function that will change the data in local files
@@ -22,18 +58,13 @@ public class CashDB {
      */
     public static void setMoney(int id, double money) {
         if (cash_data == null){
-            cash_data = DataHandler.read(cashPath);
+            cash_data = readGeneral(cashPath);
         }
-        boolean existed = cash_data.removeIf(e ->e.matches(id+",(.*)"));
-        String updated = id + "," + money;
+        String updated ="";
+        cash_data.removeIf(e ->e.matches(id+",(.*)"));
+        updated = id + "," + money;
         cash_data.add(updated);
-        if (existed){
-            DataHandler.write(cash_data,cashPath);
-        }
-        else {
-            DataHandler.append(updated,cashPath);
-        }
-
+        writeGeneral(cash_data,cashPath);
     }
 
 
@@ -44,7 +75,7 @@ public class CashDB {
      */
     public static double getMoney(int id) {
         if (cash_data == null){
-            cash_data = DataHandler.read(cashPath);
+            cash_data = readGeneral(cashPath);
         }
         String line;
         String cvsSplitBy = ",";

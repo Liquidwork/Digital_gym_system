@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Customer extends User {
 
@@ -9,7 +10,8 @@ public class Customer extends User {
      * This is the constructor of a customer extending user.
      * Actually it is useless
      */
-    public Customer(int id, String name, Type type) {
+    public Customer(int id, String name, Type type, double money) {
         super(id, name, type);
     }
+
 }
