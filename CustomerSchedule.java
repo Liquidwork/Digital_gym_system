@@ -16,9 +16,8 @@ public class CustomerSchedule extends JFrame {
     private LoginController loginController = new LoginController();
 
     public CustomerSchedule(JFrame frame) {
-        //设置窗体的位置及大小
+        //Set the position and size of GUI window
         jFrame = frame;
-        //设置窗体的位置及大小
         jFrame.setSize(800,500);
         jFrame.setLocationRelativeTo(null);                    
         jFrame.add(panel);                                  
@@ -28,7 +27,7 @@ public class CustomerSchedule extends JFrame {
     }
     
     /**
-     * 面板具体布局
+     * Layout for panel
      * @param panel
      */
     public void placeComponents(JPanel panel) {
@@ -49,11 +48,11 @@ public class CustomerSchedule extends JFrame {
         passText.setBounds(420, 290, 100, 25);
         panel.add(passText);
 
-        loginButton.setBounds(300, 350, 80, 25);
+        loginButton.setBounds(50, 50, 80, 25);
         LoginMonitor loginMonitor = new LoginMonitor();
         loginButton.addActionListener(loginMonitor);
         panel.add(loginButton);
-        registerButton.setBounds(430, 350, 80, 25);
+        registerButton.setBounds(50, 100, 80, 25);
         RegisterMonitor registerMonitor = new RegisterMonitor();
         registerButton.addActionListener(registerMonitor);
         panel.add(registerButton);
@@ -62,7 +61,6 @@ public class CustomerSchedule extends JFrame {
     class LoginMonitor implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            panel.setVisible(false);
             System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             loginController.login(userText.getText(), passText.getText());
         }

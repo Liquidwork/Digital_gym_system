@@ -18,7 +18,7 @@ public class Login extends JFrame {
 
     public Login(JFrame frame) {
         jFrame = frame;
-        //设置窗体的位置及大小
+        //Set the position and size of GUI window
         jFrame.setSize(800,500);
         jFrame.setLocationRelativeTo(null);                    
         jFrame.add(panel);                                  
@@ -28,7 +28,7 @@ public class Login extends JFrame {
     }
     
     /**
-     * 面板具体布局
+     * Layout for panel
      * @param panel
      */
     public void placeComponents(JPanel panel) {
@@ -62,7 +62,7 @@ public class Login extends JFrame {
     class LoginMonitor implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            customerSchedule = new CustomerSchedule(jFrame);
+            customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
             panel.setVisible(false);
             System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             loginController.login(userText.getText(), passText.getText());
