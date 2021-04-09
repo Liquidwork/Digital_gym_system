@@ -1,4 +1,4 @@
-public class Trainer extends User{
+public class Admin extends User{
     /**
      * This is the basic constructor of a user. All subclasses should include it.
      *
@@ -7,7 +7,7 @@ public class Trainer extends User{
      * @param type the type of the user
      * @see User.Type
      */
-    public Trainer(int id, String name, User.Type type) {
+    public Admin(int id, String name, User.Type type) {
         super(id, name, type);
     }
 }
