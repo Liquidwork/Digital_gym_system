@@ -38,7 +38,7 @@ public class DataHandler {
         try{
             File csv = new File(path);
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv,false));
-            Iterator iterator =list.iterator();
+            Iterator<String> iterator =list.iterator();
             while (iterator.hasNext()){
                 line = (String)iterator.next();
                 bw.write(line);

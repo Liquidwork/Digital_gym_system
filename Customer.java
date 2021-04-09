@@ -9,7 +9,7 @@ public class Customer extends User {
      * This is the constructor of a customer extending user.
      * Actually it is useless
      */
-    public Customer(int id, String name, Type type) {
-        super(id, name, type);
+    public Customer(int id, String name) {
+        super(id, name);
     }
 }

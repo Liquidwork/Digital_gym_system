@@ -7,9 +7,9 @@ public abstract class User {
     /**
      * This is a enum showing which type the user is.
      */
-    public enum Type{Customer, Trainer, Admin};
+    //public enum Type{Customer, Trainer, Admin};
 
-    private Type type;
+
     private String name;
     private int id;
 
@@ -17,13 +17,10 @@ public abstract class User {
      * This is the basic constructor of a user. All subclasses should include it.
      * @param id the id of the user
      * @param name the name of the user
-     * @param type the type of the user
-     * @see User.Type
      */
-    public User(int id, String name, Type type){
+    public User(int id, String name){
         this.id = id;
         this.name = name;
-        this.type = type;
     }
 
     /**
@@ -42,12 +39,4 @@ public abstract class User {
         return this.id;
     }
 
-    /**
-     * Getter of type of user
-     * @return enum type
-     * @see User.Type
-     */
-    public Type getType(){
-        return this.type;
-    }
 }
