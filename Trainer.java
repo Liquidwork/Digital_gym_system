@@ -7,7 +7,7 @@ public class Trainer extends User{
      * @param type the type of the user
      * @see User.Type
      */
-    public Trainer(int id, String name, User.Type type) {
-        super(id, name, type);
+    public Trainer(int id, String name) {
+        super(id, name);
     }
 }

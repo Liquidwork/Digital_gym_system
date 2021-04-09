@@ -7,7 +7,7 @@ public class Admin extends User{
      * @param type the type of the user
      * @see User.Type
      */
-    public Admin(int id, String name, User.Type type) {
-        super(id, name, type);
+    public Admin(int id, String name) {
+        super(id, name);
     }
 }

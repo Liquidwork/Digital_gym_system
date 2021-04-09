@@ -15,7 +15,6 @@ public class GiveScore {
      * @param id   id of the customer
      * @param score the score given by costumer
      */
-
     public static void changescore(int id, double score) {
         double newscore = 0, totalscore = 0, newtotal = 0;
         int scorecount = 0, oldcount = 0;
