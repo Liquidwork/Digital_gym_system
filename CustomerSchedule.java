@@ -3,20 +3,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends JFrame {
+public class CustomerSchedule extends JFrame {
     private JFrame jFrame;
     private JPanel panel = new JPanel();
-    private JLabel userLabel = new JLabel("User Name:", JLabel.CENTER);  
+    private JLabel userLabel = new JLabel("Test:", JLabel.CENTER);  
     private JTextField userText = new JTextField();       
-    private JLabel passLabel = new JLabel("Password:", JLabel.CENTER);       
+    private JLabel passLabel = new JLabel("Test:", JLabel.CENTER);       
     private JPasswordField passText = new JPasswordField(20); 
-    private JButton loginButton = new JButton("login");       
-    private JButton registerButton = new JButton("register"); 
-    private JLabel title = new JLabel("Digital Gym", JLabel.CENTER);
+    private JButton loginButton = new JButton("Button1");       
+    private JButton registerButton = new JButton("Button2");
+    private JLabel title = new JLabel("Test", JLabel.CENTER);
     private LoginController loginController = new LoginController();
-    private CustomerSchedule customerSchedule;
 
-    public Login(JFrame frame) {
+    public CustomerSchedule(JFrame frame) {
+        //设置窗体的位置及大小
         jFrame = frame;
         //设置窗体的位置及大小
         jFrame.setSize(800,500);
@@ -24,7 +24,7 @@ public class Login extends JFrame {
         jFrame.add(panel);                                  
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         placeComponents(panel);                               
-        jFrame.setVisible(true);                        
+        jFrame.setVisible(true);                     
     }
     
     /**
@@ -62,7 +62,6 @@ public class Login extends JFrame {
     class LoginMonitor implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            customerSchedule = new CustomerSchedule(jFrame);
             panel.setVisible(false);
             System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             loginController.login(userText.getText(), passText.getText());
