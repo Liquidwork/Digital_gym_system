@@ -22,14 +22,6 @@ public class CashController {
         }
     }
 
-    //Test main function
-    public static void main(String[] args) {
-        int id =4;
-        CashDB cashData = new CashDB();
-        Customer customer = new Customer(id,"Luca", User.Type.Customer, cashData.getMoney(id));
-        System.out.println("Money from object: "+CashDB.getMoney(customer.getId()));
-        CashController.addCash(customer,1.0);
-        System.out.println("Updated money from object: "+CashDB.getMoney(customer.getId()));
-    }
+
 
 }
