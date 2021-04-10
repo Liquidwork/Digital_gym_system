@@ -1,19 +1,21 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
-
+/**
+ * A score controller for the trainer, providing static methods to score
+ */
 public class ScoreController {
-    private static final String scorePath = "F:\\Digital_gym_system\\data\\score.csv";
-    //private static final String scorePath = "./data/score.csv";
+    //private static final String scorePath = "F:\\Digital_gym_system\\data\\score.csv";
+    private static final String scorePath = "./data/score.csv";
     private static ArrayList<String> score_data;
 
 
     /**
-     *Crate new information for a trainer. If there already have information of this trainer. This method will change score stored in file.
-     * @param id   id of the customer
-     * @param score the score given by costumer
+     * This method will add a new scoring record for the trainer.
+     * Create new information for a trainer if there is no information of this trainer recorded.
+     * @param id id of the trainer
+     * @param score the score given by customer
      */
     public static void addNewScore(int id, double score) {
         double totalscore = 0, newtotal = 0;
@@ -34,7 +36,7 @@ public class ScoreController {
 
     /**
      *Get average score of trainer
-     * @param id   id of the customer
+     * @param id id of the trainer
      */
 
     public static double getAverageScore(int id){
@@ -47,8 +49,8 @@ public class ScoreController {
     }
 
     /**
-     *Get number of times scored
-     * @param id   id of the customer
+     * Get number of times scored
+     * @param id id of the trainer
      */
 
     public static int getCount(int id){
@@ -70,7 +72,7 @@ public class ScoreController {
 
     /**
      *Get total score to calculate average score
-     * @param id   id of the customer
+     * @param id id of the trainer
      */
 
     public static double getTotalScore(int id){
@@ -99,7 +101,7 @@ public class ScoreController {
         double score;
         int id;
         id = 1;
-        addNewScore(id,5);
+        //addNewScore(id,3.5);
         score = getAverageScore(id);
         System.out.println(score);
     }
