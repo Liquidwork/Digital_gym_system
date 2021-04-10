@@ -59,7 +59,7 @@ public class ScoreController {
         if (score_data == null){
             score_data = DataHandler.read(scorePath);
         }
-        Iterator iterator = score_data.iterator();
+        Iterator<String> iterator = score_data.iterator();
         while (iterator.hasNext()) {
             line = (String) (iterator.next());
             String[] bot = line.split(",");
@@ -81,7 +81,7 @@ public class ScoreController {
         if (score_data == null){
             score_data = DataHandler.read(scorePath);
         }
-        Iterator iterator = score_data.iterator();
+        Iterator<String> iterator = score_data.iterator();
         while (iterator.hasNext()) {
             line = (String) (iterator.next());
             String[] bot = line.split(",");
