@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import exceptions.*;
+import java.io.*;
 
 public class Login extends JFrame {
     private JFrame jFrame;
@@ -62,10 +64,18 @@ public class Login extends JFrame {
     class LoginMonitor implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
-            panel.setVisible(false);
-            System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
-            loginController.login(userText.getText(), passText.getText());
+            try{
+                loginController.login(userText.getText(), passText.getText());
+                customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
+                panel.setVisible(false);
+                System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
+            }catch(PasswordException exception){
+                System.out.println("PasswordException");
+            }catch(NoMemberException exception){
+                System.out.println("NoMemberException");
+            }catch(IOException exception){
+                System.out.println("IOException");
+            }
         }
     }
 
@@ -73,7 +83,15 @@ public class Login extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Register：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
-            loginController.register(userText.getText(), passText.getText());
+            try{
+                loginController.register(userText.getText(),  passText.getText(), User.Type.Customer);
+            }catch(IllegalException exception){
+                System.out.println("IllegalException");
+            }catch(MemberExistedException exception){
+                System.out.println("MemberExistedException");
+            }catch(IOException exception){
+                System.out.println("IOException");
+            }
         }
     }
 }
