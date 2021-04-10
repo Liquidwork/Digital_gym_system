@@ -11,7 +11,7 @@ public class CashDB {
 
     //private static final String cashPath = "D:\\Work Zone\\JavaZone\\SoftwareEng\\src\\data\\cash.csv";
     private static final String cashPath = "./data/cash.csv";
-    private static ArrayList<String> cash_data;
+    private static ArrayList<String> cashData;
 
 
     /**
@@ -21,14 +21,14 @@ public class CashDB {
      * @return: none
      */
     public static void setMoney(int id, double money) {
-        if (cash_data == null){
-            cash_data = DataHandler.read(cashPath);
+        if (cashData == null){
+            cashData = DataHandler.read(cashPath);
         }
-        boolean existed = cash_data.removeIf(e ->e.matches(id+",(.*)"));
+        boolean existed = cashData.removeIf(e ->e.matches(id+",(.*)"));
         String updated = id + "," + money;
-        cash_data.add(updated);
+        cashData.add(updated);
         if (existed){
-            DataHandler.write(cash_data,cashPath);
+            DataHandler.write(cashData,cashPath);
         }
         else {
             DataHandler.append(updated,cashPath);
@@ -43,13 +43,13 @@ public class CashDB {
      * @return money the value in double. if not exist ,it will return 0
      */
     public static double getMoney(int id) {
-        if (cash_data == null){
-            cash_data = DataHandler.read(cashPath);
+        if (cashData == null){
+            cashData = DataHandler.read(cashPath);
         }
         String line;
         String cvsSplitBy = ",";
         double cash = 0;
-        Iterator<String> iterator = cash_data.iterator();
+        Iterator<String> iterator = cashData.iterator();
         while (iterator.hasNext()) {
             line = (String) (iterator.next());
             String[] ele = line.split(cvsSplitBy);
