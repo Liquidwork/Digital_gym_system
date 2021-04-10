@@ -7,7 +7,6 @@ import exceptions.*;
  */
 public class LoginController {
     private static final String loginPathname =  "./data/login.csv"; // file path of login data
-    private static final String cashPathname = "./data/cash.csv"; // file path of cash
     private static final ArrayList<String> idlist=new ArrayList<>();
     private static final ArrayList<String> namelist= new ArrayList<String>();
     private  static  final ArrayList<String> passwordlist= new ArrayList<String>();
@@ -27,11 +26,7 @@ public class LoginController {
     public static User login(String name, String password) throws PasswordException, NoMemberException, IOException {
         File csv=new File(loginPathname);
         BufferedReader br=null;
-        try{
-            br=new BufferedReader(new FileReader(csv));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        br=new BufferedReader(new FileReader(csv));
         String line=null;
         int flag=0;
         int i=1;
@@ -43,10 +38,10 @@ public class LoginController {
             if((name.equalsIgnoreCase(item[1]))) { //compare the argument name and password with File csv and if the user is a member
                 if (password.equals(item[2])){
                     //return diffirent types of users
-                    if (typelist.get(i - 1).equals(User.Type.Customer)) {
+                    if (type.equals(User.Type.Customer)) {
                         Customer customer = new Customer(i, item[1]);// create a customer and return it
                         return customer;
-                    } else if (typelist.get(i - 1).equals(User.Type.Admin)) {
+                    } else if (type.equals(User.Type.Admin)) {
                         Admin admin = new Admin(i, item[1]);
                         return admin;
                     } else {
@@ -72,7 +67,7 @@ public class LoginController {
      * Register an account, initiate and return the user if success, return null if register failed.
      * The method read a file of logindata to check if new account valid, then create a new one to
      * the end of the file with an auto-allocated id.
-     * The new uid will be the (max(id) + 1)
+     * The new uid will be the (max(id) + 1).
      * @param name username to login
      * @param password password of login account
      * @param type type to be registered, (admin not adviced)
@@ -153,9 +148,8 @@ public class LoginController {
      * Some test methods.
      */
     public static void main(String[] args) throws Exception {
-        //System.out.println(login("winter", "14530529"));
-        System.out.println(register("winterrain2", "a12345", User.Type.Trainer));
-        System.out.println(login("winterrain2", "a12345"));
+        System.out.println(login("winter", "14530529"));
+        System.out.println(login("luca", "123456"));
     }
 
 }
