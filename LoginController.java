@@ -25,8 +25,7 @@ public class LoginController {
      */
     public static User login(String name, String password) throws PasswordException, NoMemberException, IOException {
         File csv=new File(loginPathname);
-        BufferedReader br=null;
-        br=new BufferedReader(new FileReader(csv));
+        BufferedReader br=new BufferedReader(new FileReader(csv));
         String line=null;
         int flag=0;
         int i=1;
@@ -56,6 +55,7 @@ public class LoginController {
             }
             i+=1;
         }
+        br.close();
         if(flag==0){// the user is not a member  and throw a exception
             NoMemberException nomemberException=new NoMemberException("You are not a member");
             throw nomemberException;
@@ -65,7 +65,7 @@ public class LoginController {
 
     /**
      * Register an account, initiate and return the user if success, return null if register failed.
-     * The method read a file of logindata to check if new account valid, then create a new one to
+     * The method read a file of login data to check if new account valid, then create a new one to
      * the end of the file with an auto-allocated id.
      * The new uid will be the (max(id) + 1).
      * @param name username to login

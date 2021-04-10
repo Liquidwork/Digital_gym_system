@@ -74,7 +74,7 @@ public class Login extends JFrame {
                 LoginController.login(userText.getText(), passText.getText());
                 customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
                 panel.setVisible(false);
-                System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
+                System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){
                 alertLabel.setText(exception.getMessage());
             }catch(NoMemberException exception){
@@ -88,7 +88,7 @@ public class Login extends JFrame {
     class RegisterMonitor implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Register：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
+            System.out.println("Register:msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             try{
                 LoginController.register(userText.getText(),  passText.getText(), User.Type.Customer);
             }catch(IllegalException exception){
