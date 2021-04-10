@@ -16,27 +16,22 @@ public class CustomerSchedule extends JFrame {
 	private static final long serialVersionUID = 4360298097575552707L;
 	private JFrame jFrame;
     private JPanel panel = new JPanel();
-    //月份和年份下拉 列表框
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
 	
-	//年份月份标签
-	private JLabel YearLabel = new JLabel("年份：");
-	private JLabel MonthLabel = new JLabel("月份：");
+	private JLabel YearLabel = new JLabel("Year:");
+	private JLabel MonthLabel = new JLabel("Month:");
 	
-	//确定和今天按钮
-	private JButton button_ok = new JButton("查看");
-	private JButton button_today = new JButton("今天");
+	private JButton button_ok = new JButton("OK");
+	private JButton button_today = new JButton("Today");
 	
 	
-	//获取今天的日期、年份和月份
 	private Date now_date = new Date();
 	
 	private int now_year = now_date.getYear() + 1900;
 	private int now_month = now_date.getMonth();
 	private boolean todayFlag = false;
 	
-	//用一组按钮显示日期，一共7行7列。第一行是星期
 	private JButton[] button_day = new JButton[42];
 	private final String[] week = {"SUN","MON","TUE","WEN","THR","FRI","SAT"};
 	private JButton[] button_week = new JButton[7];
@@ -55,14 +50,12 @@ public class CustomerSchedule extends JFrame {
         jFrame.setVisible(true);                     
     }
 
-    //初始化日历
 	private void placeCalender(JPanel panel) {
 		Font font = new Font("Dialog",Font.BOLD,16);
 		YearLabel.setFont(font);
 		MonthLabel.setFont(font);
 		button_ok.setFont(font);
 		button_today.setFont(font);
-		//过去20年--未来20年
 		for(int i = now_year - 20;i <= now_year + 100;i++){
 			YearBox.addItem(i+"");
 		}
@@ -73,7 +66,6 @@ public class CustomerSchedule extends JFrame {
 		}
 		MonthBox.setSelectedIndex(now_month);
 		
-		//放置下拉列表框和控制按钮的面板
 		JPanel panel_ym = new JPanel();
 		panel_ym.add(YearLabel);
 		panel_ym.add(YearBox);
@@ -82,7 +74,6 @@ public class CustomerSchedule extends JFrame {
 		panel_ym.add(button_ok);
 		panel_ym.add(button_today);
 		CalenderMonitor calenderMonitor = new CalenderMonitor();
-		//为两个按钮添加时间监听器
 		button_ok.addActionListener(calenderMonitor);
 		button_today.addActionListener(calenderMonitor);
 		
@@ -104,7 +95,7 @@ public class CustomerSchedule extends JFrame {
 			panel_day.add(button_day[i]);
 		}
 		
-		this.paintDay();//显示当前日期
+		this.paintDay();
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
 		panel_main.add(panel_day,BorderLayout.SOUTH);
@@ -184,12 +175,10 @@ public class CustomerSchedule extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==button_ok){
                 todayFlag=false;
-                /* this.paintDay(); */
             }else if(e.getSource()==button_today){
                 todayFlag=true;
                 YearBox.setSelectedIndex(20);
                 MonthBox.setSelectedIndex(now_month);
-                /* this.paintDay(); */
             }
             
         }
