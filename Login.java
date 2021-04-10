@@ -6,16 +6,17 @@ import exceptions.*;
 import java.io.*;
 
 public class Login extends JFrame {
+    private static final long serialVersionUID = -5706577170874174842L;
     private JFrame jFrame;
     private JPanel panel = new JPanel();
-    private JLabel userLabel = new JLabel("User Name:", JLabel.CENTER);  
+    private JLabel userLabel = new JLabel("Username:", JLabel.CENTER);  
     private JTextField userText = new JTextField();       
     private JLabel passLabel = new JLabel("Password:", JLabel.CENTER);       
     private JPasswordField passText = new JPasswordField(20); 
+    private JLabel alertLabel = new JLabel("", JLabel.CENTER);
     private JButton loginButton = new JButton("login");       
     private JButton registerButton = new JButton("register"); 
     private JLabel title = new JLabel("Digital Gym", JLabel.CENTER);
-    private LoginController loginController = new LoginController();
     private CustomerSchedule customerSchedule;
 
     public Login(JFrame frame) {
@@ -45,17 +46,21 @@ public class Login extends JFrame {
         panel.add(userLabel);
         userText.setBounds(420, 190, 100, 25);
         panel.add(userText);
-        passLabel.setBounds(250, 200, 200, 200);
+        passLabel.setBounds(250, 150, 200, 200);
         passLabel.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(passLabel);
-        passText.setBounds(420, 290, 100, 25);
+        alertLabel.setBounds(300, 300, 200, 200);
+        alertLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        alertLabel.setForeground(Color.RED);
+        panel.add(alertLabel);
+        passText.setBounds(420, 240, 100, 25);
         panel.add(passText);
 
-        loginButton.setBounds(300, 350, 80, 25);
+        loginButton.setBounds(300, 300, 80, 25);
         LoginMonitor loginMonitor = new LoginMonitor();
         loginButton.addActionListener(loginMonitor);
         panel.add(loginButton);
-        registerButton.setBounds(430, 350, 80, 25);
+        registerButton.setBounds(430, 300, 80, 25);
         RegisterMonitor registerMonitor = new RegisterMonitor();
         registerButton.addActionListener(registerMonitor);
         panel.add(registerButton);
@@ -63,18 +68,19 @@ public class Login extends JFrame {
 
     class LoginMonitor implements ActionListener {
         @Override
+        @SuppressWarnings("Deprecation")
         public void actionPerformed(ActionEvent e) {
             try{
-                loginController.login(userText.getText(), passText.getText());
+                LoginController.login(userText.getText(), passText.getText());
                 customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
                 panel.setVisible(false);
                 System.out.println("Login：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){
-                System.out.println("PasswordException");
+                alertLabel.setText(exception.getMessage());
             }catch(NoMemberException exception){
-                System.out.println("NoMemberException");
+                alertLabel.setText(exception.getMessage());
             }catch(IOException exception){
-                System.out.println("IOException");
+                alertLabel.setText(exception.getMessage());
             }
         }
     }
@@ -84,13 +90,13 @@ public class Login extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Register：msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             try{
-                loginController.register(userText.getText(),  passText.getText(), User.Type.Customer);
+                LoginController.register(userText.getText(),  passText.getText(), User.Type.Customer);
             }catch(IllegalException exception){
-                System.out.println("IllegalException");
+                alertLabel.setText(exception.getMessage());
             }catch(MemberExistedException exception){
-                System.out.println("MemberExistedException");
+                alertLabel.setText(exception.getMessage());
             }catch(IOException exception){
-                System.out.println("IOException");
+                alertLabel.setText(exception.getMessage());
             }
         }
     }

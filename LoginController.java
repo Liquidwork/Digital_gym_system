@@ -75,13 +75,13 @@ public class LoginController {
      * The new uid will be the (max(id) + 1)
      * @param name username to login
      * @param password password of login account
-     * @param type type to be registered, (admin not adviced)
+     * @param type type to be registered, (admin not advised)
      * @return the user if login success, null if login failed
      * @throws IllegalException Password or Username illegal, see implNote
      * @throws MemberExistedException Username already taken, which is ignore to cases
      * @throws IOException IOExceptions in handling files
      * @see User.Type
-     * @implNote Password patern "[a-zA-Z]\\w{5,17}", Username patern "[a-zA-Z]\\w{3,17}"
+     * @implNote Password pattern "[A-Za-z0-9]{6,20}", Username pattern "[A-Za-z0-9]{4,20}"
      */
     public static User register(String name, String password, User.Type type) throws IllegalException, MemberExistedException, IOException {
         if (type == null){
@@ -108,11 +108,11 @@ public class LoginController {
             User.Type tpye=User.Type.valueOf(item[3]);
             typelist.add(tpye);
         }
-        String usrPattern="[a-zA-Z]\\w{3,17}";
+        String usrPattern="[A-Za-z0-9]{4,20}";
         if(!name.matches(usrPattern)){
             throw new IllegalException("The username is illegal");
         }
-        String pswPattern="[a-zA-Z]\\w{5,17}";// specifies the format of password
+        String pswPattern="[A-Za-z0-9]{6,20}";// specifies the format of password
         if(!password.matches(pswPattern)){//The password is illegal and throw an exception.
             throw new IllegalException("The password is illegal");
         }
