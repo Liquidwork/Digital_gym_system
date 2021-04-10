@@ -7,7 +7,7 @@ public abstract class User {
     /**
      * This is a enum showing which type the user is.
      */
-    //public enum Type{Customer, Trainer, Admin};
+    public enum Type{Customer, Trainer, Admin};
 
 
     private String name;
