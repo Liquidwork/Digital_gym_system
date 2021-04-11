@@ -97,7 +97,7 @@ public class Login {
         public void actionPerformed(ActionEvent e) {
             try{
                 LoginController.login(userText.getText(), passText.getText());
-                customerSchedule = new CustomerSchedule(null); // Just for test the function of switch between windows, need to be update later
+                customerSchedule = new CustomerSchedule(); // Just for test the function of switch between windows, need to be update later
                 GUIController.switchPage(customerSchedule.getPanel());
                 System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){

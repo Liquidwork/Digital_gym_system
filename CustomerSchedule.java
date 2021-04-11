@@ -8,15 +8,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 /**
  * A CustomerSchedule class which provide Login GUI panel
  */
-public class CustomerSchedule extends JFrame {
-	private static final long serialVersionUID = 4360298097575552707L;
-	private JFrame jFrame;
+public class CustomerSchedule {
     private JPanel panel = new JPanel();
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
@@ -46,16 +43,8 @@ public class CustomerSchedule extends JFrame {
      * @return void
      * @seeUser
      */
-    public CustomerSchedule(JFrame frame) {
-        //Set the position and size of GUI window
-        jFrame = frame;
-        jFrame.setSize(800,500);
-        jFrame.setLocationRelativeTo(null);                    
-        jFrame.add(panel);                           
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        /* placeComponents(panel);    */ 
-        setLayout(panel);                       
-        jFrame.setVisible(true);                     
+    public CustomerSchedule() {
+        setLayout(panel);                                   
     }
 
 	/**
