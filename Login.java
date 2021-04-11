@@ -8,9 +8,7 @@ import java.io.*;
 /**
  * A Login class which provide Login GUI panel
  */
-public class Login extends JFrame {
-    private static final long serialVersionUID = -5706577170874174842L;
-    private JFrame jFrame;
+public class Login {
     private JPanel panel = new JPanel();
     private JLabel userLabel = new JLabel("Username:", JLabel.CENTER);  
     private JTextField userText = new JTextField();       
@@ -25,19 +23,16 @@ public class Login extends JFrame {
     /**
      * Initialize GUI frame then add the login panel to the frame
      * The method will attach the login and register panel to the frame
-     * @param frame the frame for display the GUI
-     * @return void
-     * @seeUser
      */
-    public Login(JFrame frame) {
-        jFrame = frame;
-        //Set the position and size of GUI window
-        jFrame.setSize(800,500);
-        jFrame.setLocationRelativeTo(null);                    
-        jFrame.add(panel);                                  
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+    public Login() {
+        // jFrame = frame;
+        // //Set the position and size of GUI window
+        // jFrame.setSize(800,500);
+        // jFrame.setLocationRelativeTo(null);                    
+        // jFrame.add(panel);                                  
+        // jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         setLayout(panel);                               
-        jFrame.setVisible(true);                        
+        // jFrame.setVisible(true);                        
     }
     
     /**
@@ -45,10 +40,10 @@ public class Login extends JFrame {
      * @param panel
      * @return void
      */
-    public void setLayout(JPanel panel) {
+    private void setLayout(JPanel panel) {
 
         panel.setLayout(null);
-
+        panel.setBounds(0, 0, 800, 500);
         title.setBounds(200, 0, 400, 200);
         title.setFont(new Font("Arial", Font.BOLD, 48));
         panel.add(title);
@@ -102,8 +97,8 @@ public class Login extends JFrame {
         public void actionPerformed(ActionEvent e) {
             try{
                 LoginController.login(userText.getText(), passText.getText());
-                customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
-                GUIController.switchPage(panel, customerSchedule.getPanel());
+                customerSchedule = new CustomerSchedule(); // Just for test the function of switch between windows, need to be update later
+                GUIController.switchPage(customerSchedule.getPanel());
                 System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){
                 alertLabel.setText(exception.getMessage());
