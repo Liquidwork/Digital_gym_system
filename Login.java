@@ -1,10 +1,13 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import exceptions.*;
 import java.io.*;
-
+/**
+ * A Login class which provide Login GUI panel
+ */
 public class Login extends JFrame {
     private static final long serialVersionUID = -5706577170874174842L;
     private JFrame jFrame;
@@ -19,6 +22,13 @@ public class Login extends JFrame {
     private JLabel title = new JLabel("Digital Gym", JLabel.CENTER);
     private CustomerSchedule customerSchedule;
 
+    /**
+     * Initialize GUI frame then add the login panel to the frame
+     * The method will attach the login and register panel to the frame
+     * @param frame the frame for display the GUI
+     * @return void
+     * @seeUser
+     */
     public Login(JFrame frame) {
         jFrame = frame;
         //Set the position and size of GUI window
@@ -26,15 +36,16 @@ public class Login extends JFrame {
         jFrame.setLocationRelativeTo(null);                    
         jFrame.add(panel);                                  
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        placeComponents(panel);                               
+        setLayout(panel);                               
         jFrame.setVisible(true);                        
     }
     
     /**
-     * Layout for panel
+     * Set the layout for panel
      * @param panel
+     * @return void
      */
-    public void placeComponents(JPanel panel) {
+    public void setLayout(JPanel panel) {
 
         panel.setLayout(null);
 
@@ -66,14 +77,33 @@ public class Login extends JFrame {
         panel.add(registerButton);
     }
 
+    /**
+     * The method is the getter of panel
+     * @return Jpanel the panel of login and register page
+     * @seeUser
+     */
+    public JPanel getPanel() {
+		return panel;
+	}
+    /**
+     * The action listener for login button
+     * The class will response for exceptions thrown by login button
+     */
     class LoginMonitor implements ActionListener {
+        /**
+         * Provide response for different results of login
+         * The method will edit the text of alertLabel according to the message of exception
+         * @param e the action event
+         * @return void
+         * @seeUser
+         */
         @Override
         @SuppressWarnings("Deprecation")
         public void actionPerformed(ActionEvent e) {
             try{
                 LoginController.login(userText.getText(), passText.getText());
                 customerSchedule = new CustomerSchedule(jFrame); // Just for test the function of switch between windows, need to be update later
-                panel.setVisible(false);
+                GUIController.switchPage(panel, customerSchedule.getPanel());
                 System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){
                 alertLabel.setText(exception.getMessage());
@@ -84,9 +114,19 @@ public class Login extends JFrame {
             }
         }
     }
-
+    /**
+     * The action listener for register button
+     * The class will response for exceptions thrown by register button
+     */
     class RegisterMonitor implements ActionListener {
         @Override
+        /**
+         * Provide response for different results of register
+         * The method will edit the text of alertLabel according to the message of exception
+         * @param e the action event
+         * @return void
+         * @seeUser
+         */
         public void actionPerformed(ActionEvent e) {
             System.out.println("Register:msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             try{
