@@ -31,7 +31,7 @@ public class Login {
         // jFrame.setLocationRelativeTo(null);                    
         // jFrame.add(panel);                                  
         // jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        setLayout(panel);                               
+        draw(panel);                               
         // jFrame.setVisible(true);                        
     }
     
@@ -40,7 +40,7 @@ public class Login {
      * @param panel
      * @return void
      */
-    private void setLayout(JPanel panel) {
+    private void draw(JPanel panel) {
 
         panel.setLayout(null);
         panel.setBounds(0, 0, 800, 500);

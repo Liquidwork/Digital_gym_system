@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 /**
  * A CustomerSchedule class which provide Login GUI panel
  */
-public class CustomerSchedule {
+public class CustomerSchedule implements ActionListener{
     private JPanel panel = new JPanel();
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
@@ -23,6 +23,7 @@ public class CustomerSchedule {
 	
 	private JButton button_ok = new JButton("OK");
 	private JButton button_today = new JButton("Today");
+	private JButton button_page1 = new JButton("page1");
 	
 	
 	private Date now_date = new Date();
@@ -34,6 +35,7 @@ public class CustomerSchedule {
 	private JButton[] button_day = new JButton[42];
 	private final String[] week = {"SUN","MON","TUE","WEN","THR","FRI","SAT"};
 	private JButton[] button_week = new JButton[7];
+	private JButton[] button_courses = new JButton[5];
 	private String year_int = null;
 	private int month_int;
 	/**
@@ -44,7 +46,7 @@ public class CustomerSchedule {
      * @seeUser
      */
     public CustomerSchedule() {
-        setLayout(panel);                                   
+        draw(panel);                                   
     }
 
 	/**
@@ -52,12 +54,13 @@ public class CustomerSchedule {
      * @param panel
      * @return void
      */
-	private void setLayout(JPanel panel) {
+	private void draw(JPanel panel) {
 		Font font = new Font("Dialog",Font.BOLD,16);
 		YearLabel.setFont(font);
 		MonthLabel.setFont(font);
 		button_ok.setFont(font);
 		button_today.setFont(font);
+		button_page1.setFont(font);
 		for(int i = now_year - 20;i <= now_year + 100;i++){
 			YearBox.addItem(i+"");
 		}
@@ -75,10 +78,10 @@ public class CustomerSchedule {
 		panel_ym.add(MonthBox);
 		panel_ym.add(button_ok);
 		panel_ym.add(button_today);
-		CalenderMonitor calenderMonitor = new CalenderMonitor();
-		button_ok.addActionListener(calenderMonitor);
-		button_today.addActionListener(calenderMonitor);
-		
+		button_ok.addActionListener(this);
+		button_today.addActionListener(this);
+		JPanel panel_pages = new JPanel();
+		panel_pages.add(button_page1);
 		
 		JPanel panel_day = new JPanel();
 		//7*7
@@ -94,15 +97,29 @@ public class CustomerSchedule {
 		
 		for(int i = 0; i < 42;i++){
 			button_day[i] = new JButton(" ");
+			button_day[i].addActionListener(this);
 			panel_day.add(button_day[i]);
 		}
 		
 		this.paintDay();
+
+		JPanel panel_courses = new JPanel();
+		//5*1
+		panel_courses.setLayout(new GridLayout(5, 1, 3, 3));
+		for(int i = 0; i < 5; i++){
+			button_courses[i] = new JButton(" ");
+			button_courses[i].setText("No More Course");
+			button_courses[i].setForeground(Color.black);
+			panel_courses.add(button_courses[i]);
+		}
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
 		panel_main.add(panel_day,BorderLayout.SOUTH);
 		panel_main.add(panel_ym,BorderLayout.NORTH);
-		panel.add(panel_main);
+		panel.setLayout(new BorderLayout());
+		panel.add(panel_pages,BorderLayout.NORTH);
+		panel.add(panel_courses,BorderLayout.SOUTH);
+		panel.add(panel_main,BorderLayout.CENTER);
 	}
 
 	/**
@@ -184,30 +201,26 @@ public class CustomerSchedule {
 	public JPanel getPanel() {
 		return panel;
 	}
+    @Override
 	/**
-     * The action listener for Calender
-     * The class will response for different actions of calender
+    * Provide response for different actions of calender
+    * The method will response according to different action event source
+     * @param e the action event
+     * @return void
+     * @seeUser
      */
-    class CalenderMonitor implements ActionListener {
-        @Override
-		/**
-         * Provide response for different actions of calender
-         * The method will response according to different action event source
-         * @param e the action event
-         * @return void
-         * @seeUser
-         */
-        public void actionPerformed(ActionEvent e) {
-            if(e.getSource()==button_ok){
-                todayFlag=false;
-				GUIController.back();
-            }else if(e.getSource()==button_today){
-                todayFlag=true;
-                YearBox.setSelectedIndex(20);
-                MonthBox.setSelectedIndex(now_month);
-            }
-            
+    public void actionPerformed(ActionEvent e) {
+		System.out.print(e.getSource().equals(button_day[0]));
+        if(e.getSource()==button_ok){
+            todayFlag=false;
+			this.paintDay();
+        }else if(e.getSource()==button_today){
+            todayFlag=true;
+            YearBox.setSelectedIndex(20);
+            MonthBox.setSelectedIndex(now_month);
+			this.paintDay();
         }
+        
     }
 }
 
