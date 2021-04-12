@@ -24,6 +24,7 @@ public class CustomerSchedule implements ActionListener{
 	private JButton button_ok = new JButton("OK");
 	private JButton button_today = new JButton("Today");
 	private JButton button_page1 = new JButton("page1");
+	private JButton button_back = new JButton("back");
 	
 	
 	private Date now_date = new Date();
@@ -61,6 +62,7 @@ public class CustomerSchedule implements ActionListener{
 		button_ok.setFont(font);
 		button_today.setFont(font);
 		button_page1.setFont(font);
+		button_back.setFont(font);
 		for(int i = now_year - 20;i <= now_year + 100;i++){
 			YearBox.addItem(i+"");
 		}
@@ -82,6 +84,8 @@ public class CustomerSchedule implements ActionListener{
 		button_today.addActionListener(this);
 		JPanel panel_pages = new JPanel();
 		panel_pages.add(button_page1);
+		panel_pages.add(button_back);
+		button_back.addActionListener(this);
 		
 		JPanel panel_day = new JPanel();
 		//7*7
@@ -210,8 +214,7 @@ public class CustomerSchedule implements ActionListener{
      * @seeUser
      */
     public void actionPerformed(ActionEvent e) {
-		System.out.print(e.getSource().equals(button_day[0]));
-        if(e.getSource()==button_ok){
+		if(e.getSource()==button_ok){
             todayFlag=false;
 			this.paintDay();
         }else if(e.getSource()==button_today){
@@ -219,7 +222,15 @@ public class CustomerSchedule implements ActionListener{
             YearBox.setSelectedIndex(20);
             MonthBox.setSelectedIndex(now_month);
 			this.paintDay();
-        }
+        }else if(e.getSource()==button_back){
+			GUIController.back();
+		}else{
+			for(int i = 0; i < button_day.length; i++){
+				if(e.getSource().equals(button_day[i])){
+					button_courses[0].setText(year_int + " " + month_int + " " + button_day[i].getText());
+				}
+			}
+		}
         
     }
 }
