@@ -27,6 +27,9 @@ public class UserDB{
      * @return true if password matches with data stored
      */
     public static synchronized boolean checkPassword(User user, String password){
+        if (usersList == null) {
+            initUsersList();
+        }
         if (passwordMap.get(user).equals(password)) {
             return true;
         } else {
@@ -42,6 +45,9 @@ public class UserDB{
      * @param type {@link User.Type} to be register
      */
     public static synchronized void addUser(String name, String password, User.Type type){
+        if (usersList == null) {
+            initUsersList();
+        }
         int id = ++maxId;
         User user;
         switch (type){
@@ -55,6 +61,7 @@ public class UserDB{
                 user = new Admin(id, name);
                 break;
             default:
+                maxId--;
                 throw new RuntimeException("Not valid user type");
         }
         usersList.add(user);
