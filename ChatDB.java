@@ -7,55 +7,65 @@
  */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ChatDB {
     
-    //private static final String basicPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\chat\\";
-    private static final String basicPath = "./data/chat/";
-    private static ArrayList<String> currentChats;
-    private static int currentSrc;
-    private static int currentDst;
+    //private String chatPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\chat\\";
+    private  String chatPath = "./data/chat/";
+    private  ArrayList<Chat> chats = new ArrayList<>();
 
     /**
-     * @Description This function will only add dat to local file, because for chat record there's no
-     * duplicate problems.
-     * @param srcID the srcID of the customer
-     * @param DstID the dstID of the trainer
-     * @param sentence  the message you want to send followw the general rules 
+     * @description this is the contructor of a chat obj 
+     * @param srcID provide the customer ID
+     * @param dstID provide the tainer  ID
      */
-    public static void addChat(int srcID, int DstID, String sentence) {
-
-        String path = basicPath + srcID + "-" + DstID+".csv";
-        DataHandler.append(sentence, path);
-        if (currentSrc == srcID &&currentDst == DstID){
-            currentChats.add(sentence);
-        }
+    public ChatDB(int srcID, int dstID){
+        chatPath = chatPath +srcID+"-"+dstID+".csv";
+        initChats();
     }
 
     /**
-     * @Description This is the function that will return current chat data to controller,
-     * Because there's only one object in class, if start new chat with other person, it will reload loal data  
-     * @param srcID  the ID of customer
-     * @param dstID  the ID of trainer
-     * @return    all meesages as array list.
+     * @Description this is fnction to initialize a chat database
+     * it should only used when the contructor is called, so private
      */
-    public static ArrayList<String> getChat(int srcID, int dstID) {
-        String path = basicPath + srcID + "-" + dstID +".csv";
-        if(srcID != currentSrc || dstID != currentDst){
-            currentSrc = srcID;
-            currentDst = dstID;
-            currentChats = DataHandler.read(path);
+    private void initChats() {
+        ArrayList<String> data = DataHandler.read(chatPath);
+        String line;
+        String cvsSplitBy = ",";
+        Iterator<String> iterator = data.iterator();
+        while (iterator.hasNext()) {
+            line = (String) (iterator.next());
+            String[] ele = line.split(cvsSplitBy);
+            this.chats.add(new Chat(Integer.parseInt(ele[0]), ele[1]));
         }
-        return currentChats;
+    }
+    /**
+     * @Description this is function for controller to get data
+     * no data for src and dst beacuse controller already has it 
+     * @return list contain  meesage and type, 
+     */
+    public ArrayList<Chat> getChats(){
+        return chats;
+    }
+    /**
+     * @Description this is function for controller to record a new chat
+     * @param message as Chat object store in local file
+     */
+    public void addChat(Chat message) {
+        String sentence = message.getType()+","+message.getMsg();
+        DataHandler.append(sentence, chatPath);
+        chats.add(message);
     }
 
 
      public static void main(String[] args) {
-        ArrayList<String> a = getChat(1, 3);
-        System.out.println(a);  
-        String test = "1,Test functions, also test extra ";
-        addChat(1,3, test);
-        a =getChat(1, 3);
-        System.out.println(a);
+        ChatDB test = new ChatDB(1, 3);
+        System.out.println(test.getChats());
+        Chat message = new Chat(1, "This is a test meesage, for test");
+        test.addChat(message);
+        System.out.println(test.getChats());
+        test = new ChatDB(1, 3);
+        System.out.println(test.getChats());
     }
 }

@@ -70,6 +70,7 @@ public class DataHandler {
             csv.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv,true));
             bw.write(data);
+            bw.newLine();
             bw.close();
             result =true;
         } catch (FileNotFoundException e) {
