@@ -39,7 +39,7 @@ public class ChatDB {
      * @param message as Chat object store in local file
      */
     public synchronized void addChat(Chat message) {
-        String sentence = message.getType()+","+message.getMsg();
+        String sentence = message.getType()+","+message.getMessage();
         DataHandler.append(sentence, chatPath);
         chats.add(message);
     }
@@ -56,7 +56,11 @@ public class ChatDB {
         while (iterator.hasNext()) {
             line = (String) (iterator.next());
             String[] ele = line.split(cvsSplitBy);
-            this.chats.add(new Chat(Integer.parseInt(ele[0]), ele[1]));
+            String sentence = ele[1];
+            for(int i=2; i < ele.length; i++){
+                sentence = sentence+ ","+ ele[i]; 
+            }
+            this.chats.add(new Chat(Integer.parseInt(ele[0]), sentence));
         }
     }
 

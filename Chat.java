@@ -23,7 +23,17 @@ public class Chat {
         return this.type;     
     }
     
-    public String getMsg() {
+    public String getMessage() {
         return this.message;
     }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " type='" + getType() + "'" +
+            ", message='" + getMessage() + "'" +
+            "}";
+    }
+
 }
