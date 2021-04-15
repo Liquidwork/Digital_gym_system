@@ -1,13 +1,31 @@
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.StringTokenizer;
 
+/**
+ * This is video database, storing data as video object list
+ */
 public class VideoDB {
    //private static final String basicPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\video.csv";
    private static final String dataPath = "./data/video.csv";
    private static ArrayList<Video> videoList;
 
-   public static void addVideo(Video video) {
+    /**
+     * THis is function used by controller to get data
+     * @return the list containing data
+     */
+    public static synchronized ArrayList<Video> getVideos(){
+        if (videoList == null){
+            initVideoList();
+        } 
+        return videoList;
+    }
+
+    /**
+     * @description this function can either add new video or change the existing one to local,
+     * just make sure the id of video is matched
+     * @param video the new video obj you want set
+     */
+   public static synchronized void addVideo(Video video) {
         if (videoList == null){
             initVideoList();
         } 
@@ -29,7 +47,12 @@ public class VideoDB {
         }
 
     }
-    private static void initVideoList(){
+
+    /**
+     * @description this, is a function that will store data to memory from local file
+     * private function
+     */
+    private static synchronized void initVideoList(){
         ArrayList<String> videos = DataHandler.read(dataPath);
         String line;
         String cvsSplitBy = ",";
@@ -41,10 +64,11 @@ public class VideoDB {
             for(int i=5; i < ele.length; i++){
                 description = description+ ","+ ele[i]; 
             }
-            Video data = new Video(ele[0],, ele[2],ele[3], description)
+            User author =UserController.getUserById(Integer.parseInt(ele[1]));
+            Video data = new Video(Integer.parseInt(ele[0]), author, ele[2],ele[3], description);
             videoList.add(data);   
         }
     }
-    public VideoDB() {
-    }
+
+
 }
