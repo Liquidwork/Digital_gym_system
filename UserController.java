@@ -8,7 +8,7 @@ public class UserController {
     /**
      * <p>Get the user by its id.
      * <p>Return {@code null} if {@link User} not found
-     * @param id the id tobe find
+     * @param id the id to be find
      * @return {@link User} found
      */
     public static User getUserById(int id){
