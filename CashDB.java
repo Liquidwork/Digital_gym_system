@@ -18,7 +18,7 @@ public class CashDB {
      * @param money  the actual value after updating
      * @return: none
      */
-    public static void setMoney(int id, double money) {
+    public static synchronized void setMoney(int id, double money) {
         if (cashData == null){
             cashData = DataHandler.read(cashPath);
         }
@@ -40,7 +40,7 @@ public class CashDB {
      * @param id  id of the user
      * @return money the value in double. if not exist ,it will return 0
      */
-    public static double getMoney(int id) {
+    public static synchronized double getMoney(int id) {
         if (cashData == null){
             cashData = DataHandler.read(cashPath);
         }

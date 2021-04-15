@@ -16,9 +16,10 @@ public class Video {
      * @param videoPath
      * @param description
      */
-    public Video(int id, User author, String videoPath, String description) {
+    public Video(int id, User author, String title, String videoPath, String description) {
         this.id = id;
         this.author = author;
+        this.title = title;
         this.videoPath = videoPath;
         this.description = description;
     }

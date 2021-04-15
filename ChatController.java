@@ -11,7 +11,6 @@ public class ChatController {
 
     private Customer customer;
     private Trainer trainer;
-    private List<Chat> history; // You can impletement it by any class or usage
 
     /**
      * Initialize a {@link ChatController} between a customer and a trainer.
@@ -43,11 +42,5 @@ public class ChatController {
         // TODO: implement
     }
 
-    /**
-     * Clear all messages in this chat, including the message file.
-     */
-    public void clearMessages(){
-        // TODO: IMPLEMENT
-    }
 
 }

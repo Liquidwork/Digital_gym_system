@@ -21,6 +21,10 @@ public class CashController {
             System.out.println("Successful action");
         }
     }
+    public static double getCash(Customer customer){
+        double money = CashDB.getMoney(customer.getId());
+        return money;
+    }
 
 
 
