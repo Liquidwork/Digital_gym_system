@@ -39,4 +39,16 @@ public abstract class User {
         return this.id;
     }
 
+    /**
+     * Get a String with all field information,
+     */
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", id='" + getId() + "'" +
+            "}";
+    }
+
+
 }
