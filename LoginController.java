@@ -1,5 +1,3 @@
-import java.io.*;
-import java.util.ArrayList;
 import exceptions.*;
 
 /**
@@ -34,10 +32,9 @@ public class LoginController {
      * The new uid will be the (max(id) + 1).
      * @param name username to login
      * @param password password of login account
-     * @param type type to be registered, (admin not advised)
+     * @param type {@link User.Type} type to be registered, (admin not advised)
      * @throws IllegalException Password or Username illegal, see implNote
      * @throws MemberExistedException Username already taken, which is ignore to cases
-     * @see User.Type
      * @implNote Password pattern "[A-Za-z0-9]{6,20}", Username pattern "[A-Za-z0-9]{4,20}"
      */
     public static void register(String name, String password, User.Type type) throws IllegalException, MemberExistedException {

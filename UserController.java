@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * UserController provide method to find a specific {@link User} according to 
+ * its id, username and get a list or sublist of Users by type.
+ */
 public class UserController {
-        /**
+    /**
      * <p>Get the user by its id.
      * <p>Return {@code null} if {@link User} not found
      * @param id the id tobe find
@@ -45,7 +49,7 @@ public class UserController {
         return list;
     }
 
-        /**
+    /**
      * <p<Get a list with all the {@link Customer} in user list.
      * <p>Return a empty list if no element fit the rule.
      * @return {@link ArrayList} of {@link Customer}

@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * <p>Using {@code ArrayList} to hold all user data into memory, with methods to 
+ * get them, search them and some special operations.
+ * <p>It is now attached wih LoginController and UserController
+ */
 public class UserDB{
     private static ArrayList<User> usersList;
     private static HashMap<User, String> passwordMap;
@@ -22,7 +26,7 @@ public class UserDB{
      * @param password password that user entered
      * @return true if password matches with data stored
      */
-    public static boolean checkPassword(User user, String password){
+    public static synchronized boolean checkPassword(User user, String password){
         if (passwordMap.get(user).equals(password)) {
             return true;
         } else {
@@ -33,11 +37,11 @@ public class UserDB{
     /**
      * <p>Add a new user by indicating its attributes, into both list and file.
      * <p>This method will not check whether name is unique! Be sure checked before using this method.
-     * @param name
-     * @param password
-     * @param type
+     * @param name username to be register
+     * @param password password to be register
+     * @param type {@link User.Type} to be register
      */
-    public static void addUser(String name, String password, User.Type type){
+    public static synchronized void addUser(String name, String password, User.Type type){
         int id = ++maxId;
         User user;
         switch (type){
@@ -58,7 +62,7 @@ public class UserDB{
         DataHandler.append(id + "," + name + "," + password + "," + type, userPath);
     }
 
-    private static void initUsersList(){
+    private static synchronized void initUsersList(){
         usersList = new ArrayList<>();
         ArrayList<String> list = DataHandler.read(userPath);
         passwordMap = new HashMap<>();
