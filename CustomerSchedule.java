@@ -23,7 +23,7 @@ public class CustomerSchedule implements ActionListener{
 	
 	private JButton button_ok = new JButton("OK");
 	private JButton button_today = new JButton("Today");
-	private JButton button_page1 = new JButton("page1");
+	private JButton button_pageVideo = new JButton("Video");
 	private JButton button_back = new JButton("back");
 	
 	
@@ -61,7 +61,7 @@ public class CustomerSchedule implements ActionListener{
 		MonthLabel.setFont(font);
 		button_ok.setFont(font);
 		button_today.setFont(font);
-		button_page1.setFont(font);
+		button_pageVideo.setFont(font);
 		button_back.setFont(font);
 		for(int i = now_year - 20;i <= now_year + 100;i++){
 			YearBox.addItem(i+"");
@@ -83,7 +83,8 @@ public class CustomerSchedule implements ActionListener{
 		button_ok.addActionListener(this);
 		button_today.addActionListener(this);
 		JPanel panel_pages = new JPanel();
-		panel_pages.add(button_page1);
+		panel_pages.add(button_pageVideo);
+		button_pageVideo.addActionListener(this);
 		panel_pages.add(button_back);
 		button_back.addActionListener(this);
 		
@@ -224,6 +225,10 @@ public class CustomerSchedule implements ActionListener{
 			this.paintDay();
         }else if(e.getSource()==button_back){
 			GUIController.back();
+		}else if(e.getSource()==button_pageVideo){
+			VideoPlayer videoPlayer = new VideoPlayer(); // Just for test the function of switch between windows, need to be update later
+            GUIController.switchPage(videoPlayer.getPanel());
+
 		}else{
 			for(int i = 0; i < button_day.length; i++){
 				if(e.getSource().equals(button_day[i])){
