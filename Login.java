@@ -104,8 +104,6 @@ public class Login {
                 alertLabel.setText(exception.getMessage());
             }catch(NoMemberException exception){
                 alertLabel.setText(exception.getMessage());
-            }catch(IOException exception){
-                alertLabel.setText(exception.getMessage());
             }
         }
     }
@@ -129,8 +127,6 @@ public class Login {
             }catch(IllegalException exception){
                 alertLabel.setText(exception.getMessage());
             }catch(MemberExistedException exception){
-                alertLabel.setText(exception.getMessage());
-            }catch(IOException exception){
                 alertLabel.setText(exception.getMessage());
             }
         }

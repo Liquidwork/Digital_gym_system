@@ -21,9 +21,10 @@ public class DataHandler {
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            return data;
         }
-        return data;
+     
+        return data;          
     }
 
     /**
@@ -37,6 +38,7 @@ public class DataHandler {
         boolean result = false;
         try{
             File csv = new File(path);
+            csv.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv,false));
             Iterator<String> iterator =list.iterator();
             while (iterator.hasNext()){
@@ -65,8 +67,10 @@ public class DataHandler {
         boolean result = false;
         try{
             File csv = new File(path);
+            csv.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv,true));
             bw.write(data);
+            bw.newLine();
             bw.close();
             result =true;
         } catch (FileNotFoundException e) {
