@@ -5,9 +5,9 @@ import java.util.Iterator;
  * This is video database, storing data as video object list
  */
 public class VideoDB {
-   //private static final String basicPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\video.csv";
+   //private static final String dataPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\video.csv";
    private static final String dataPath = "./data/video.csv";
-   private static ArrayList<Video> videoList;
+   private static ArrayList<Video> videoList = new ArrayList<>();
 
     /**
      * THis is function used by controller to get data
@@ -15,7 +15,7 @@ public class VideoDB {
      */
     public static synchronized ArrayList<Video> getVideos(){
         if (videoList == null){
-            initVideoList();
+            videoList = initVideoList();
         } 
         return videoList;
     }
@@ -26,8 +26,8 @@ public class VideoDB {
      * @param video the new video obj you want set
      */
    public static synchronized void addVideo(Video video) {
-        if (videoList == null){
-            initVideoList();
+        if (videoList == null ){
+            videoList = initVideoList();
         } 
         boolean exsited = videoList.removeIf(e ->e.getId()==video.getId());
         videoList.add(video);
@@ -52,7 +52,8 @@ public class VideoDB {
      * @description this, is a function that will store data to memory from local file
      * private function
      */
-    private static synchronized void initVideoList(){
+    private static synchronized ArrayList<Video> initVideoList(){
+        ArrayList<Video> vdata = new ArrayList<>();
         ArrayList<String> videos = DataHandler.read(dataPath);
         String line;
         String cvsSplitBy = ",";
@@ -66,9 +67,19 @@ public class VideoDB {
             }
             User author =UserController.getUserById(Integer.parseInt(ele[1]));
             Video data = new Video(Integer.parseInt(ele[0]), author, ele[2],ele[3], description);
-            videoList.add(data);   
+            //videoList.add(data);
+            vdata.add(data);   
         }
+        return vdata;
     }
 
-
+    public static void main(String[] args) {
+        User auser = new Trainer(3, "Jerry");
+        Video alpha = new Video(1, auser, "first", "path","description");
+        ArrayList<Video>  test = VideoDB.getVideos();
+        System.out.println(test.size());
+        VideoDB.addVideo(alpha);
+        test = VideoDB.getVideos();
+        System.out.println(test.size());
+    }
 }
