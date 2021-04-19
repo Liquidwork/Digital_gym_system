@@ -68,7 +68,7 @@ public class CustomerSchedule implements ActionListener{
 		}
 		YearBox.setSelectedIndex(20);
 		
-		for(int i = 1;i <= 13;i++){
+		for(int i = 1;i < 13;i++){
 			MonthBox.addItem(i+"");
 		}
 		MonthBox.setSelectedIndex(now_month);
