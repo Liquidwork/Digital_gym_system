@@ -9,7 +9,7 @@ public class GUIController {
     // The stack for store panels, the top of stack is the panel which is currently display
     private static Stack<JPanel> PANELS=new Stack<JPanel>();
     private static JFrame mainFrame;
-
+    
     /**
      * Initialize GUI from the login and register page and push the panel into the stack
      * The method set the frame and attach the panel of login and register to the frame
