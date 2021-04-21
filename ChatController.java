@@ -1,6 +1,5 @@
-import java.util.List;
+import java.util.ArrayList;
 import exceptions.NotActiveUserException;
-
 /**
  * <p>{@code ChatController} between a customer and a trainer. Providing method to 
  * send and recieve messages.
@@ -11,6 +10,8 @@ public class ChatController {
 
     private Customer customer;
     private Trainer trainer;
+    private ChatDB dataList;
+
 
     /**
      * Initialize a {@link ChatController} between a customer and a trainer.
@@ -20,7 +21,10 @@ public class ChatController {
     public ChatController(Customer customer, Trainer trainer) {
         this.customer = customer;
         this.trainer = trainer;
-        // TODO: Initialize the chatting history map here
+        int cusId,traId;
+        cusId = customer.getId();
+        traId = trainer.getId();
+        this.dataList = new ChatDB(cusId,traId);
     }
 
     /**
@@ -28,19 +32,41 @@ public class ChatController {
      * <p>Return an empty list if no message was sent before
      * @return
      */
-    public List<Chat> getMessagesList(){
-        return null;
+    public ArrayList<Chat> getMessagesList(){
+        return this.dataList.getChats();
     }
+
 
     /**
      * <p>Send a message in this chatting
      * @param user {@link User} to send the text
      * @param message The {@link String} to be send
-     * @throws NotActiveUserException {@link RuntimeException} that indicating not an active user in this chat send a message 
+     * @throws NotActiveUserException {@link RuntimeException} that indicating not an active user in this chat send a message
      */
     public void Send(User user, String message){
-        // TODO: implement
+        if (user instanceof Customer) {
+            Chat send = new Chat(1,message);
+            dataList.addChat(send);
+        } else if (user instanceof Trainer){
+            Chat send = new Chat(0,message);
+            dataList.addChat(send);
+        } else{
+            throw new NotActiveUserException();
+        }
+
     }
 
-
+    /**
+     * test function
+     * @param arg
+     */
+    public static void main(String arg[]){
+        Customer customer = new Customer(1,"bot");
+        Trainer trainer = new Trainer(3,"a");
+        Admin admin = new Admin(2,"b");
+        ChatController c = new ChatController(customer,trainer);
+        String message = "bot";
+        c.Send(admin,message);
+        System.out.println(c.getMessagesList());
+    }
 }
