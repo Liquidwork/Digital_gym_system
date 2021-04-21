@@ -1,16 +1,18 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class VideoController {
 
-    private static ArrayList<Video> videosList;
+    private static ArrayList<Video> videosList=new ArrayList<>();
+    private static final String dataPath = "./data/video.csv";
 
     /**
      * Get a {@link ArrayList} containing all videos within it.
      * @return an {@link ArrayList} containing {@link Video}
      */
     public static ArrayList<Video> getVideosList(){
-        
-        return null;
+        videosList=VideoDB.getVideos();
+        return videosList;
     }
 
     /**
@@ -20,6 +22,10 @@ public class VideoController {
      * @return {@link Video}
      */
     public static Video getVideoById(int id){
+        for(Video s:VideoDB.getVideos()){
+            if (s.getId()==id)
+                return s;
+        }
         return null;
     }
 
@@ -30,7 +36,14 @@ public class VideoController {
      * @return an {@link ArrayList} containing {@link Video} made by this author
      */
     public static ArrayList<Video> getVideosByAuthor(User author){
-        return null;
+        if (!videosList.isEmpty())
+            videosList.clear();
+        for (Video s:VideoDB.getVideos()){
+            if ((s.getAuthor().getId()== author.getId())) {
+                videosList.add(s);
+            }
+        }
+        return videosList;
     }
 
     /**
@@ -40,7 +53,14 @@ public class VideoController {
      * @return
      */
     public static ArrayList<Video> searchVideosByTitle(String keyword){
-        return null;
+        //ArrayList<Video> videos=new ArrayList<>();
+        if (!videosList.isEmpty())
+            videosList.clear();
+        for (Video s:VideoDB.getVideos()){
+            if (s.getTitle().contains(keyword))
+                videosList.add(s);
+        }
+        return videosList;
     }
 
     /**
@@ -50,6 +70,29 @@ public class VideoController {
      * @return true if video was deleted
      */
     public static boolean removeVideo(Video video){
+        if (!videosList.isEmpty())
+            videosList.clear();
+        boolean flag=false;
+        ArrayList<String> str=new ArrayList<>();
+        videosList=VideoDB.getVideos();
+        Iterator<Video> iterator=videosList.iterator();
+        while (iterator.hasNext()){
+            Video vi=iterator.next();
+            System.out.println(vi);
+            if (getVideoById(video.getId())==getVideoById(vi.getId())){
+                iterator.remove();
+                flag=true;
+            }
+            else {
+                String data = vi.getId()+","+vi.getAuthor().getId()+","+
+                        vi.getTitle()+","+vi.getVideoPath()+","+vi.getDescription();
+                str.add(data);
+            }
+        }
+        if (flag){
+            DataHandler.write(str,dataPath);
+            return true;
+        }
         return false;
     }
 }
