@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Console;
 import java.util.Date;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -11,16 +12,15 @@ import javax.swing.JPanel;
 /**
  * A VideoPlayer class which provide video GUI panel
  */
-public class VideoPlayer extends RootGUI implements ActionListener{
+public class ChatGUI extends RootGUI implements ActionListener{
 	private int rowsNum = 2;
     private JPanel panel = new JPanel();
 	private JButton button_send = new JButton("send");
 	private JTextField commentInput = new JTextField();
 	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
-	private JLabel videoName = new JLabel("videoName", JLabel.CENTER);
-	private JLabel videoDesc = new JLabel("videoDesc", JLabel.CENTER);
-	private JLabel videoTime = new JLabel("videoTime", JLabel.CENTER);
-	private JLabel videoUrl = new JLabel("videoUrl", JLabel.CENTER);
+	private JButton[] button_friend = new JButton[25];
+	private String friend;
+	private ChatController chatController;
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
      * The method will attach the CustomerSchedule panel to the frame
@@ -28,19 +28,18 @@ public class VideoPlayer extends RootGUI implements ActionListener{
      * @return void
      * @seeUser
      */
-    public VideoPlayer() {
+    public ChatGUI() {
         Font font = new Font("Dialog",Font.BOLD,16);
 		button_send.setFont(font);
-		videoName.setFont(font);
-		videoDesc.setFont(font);
-		videoTime.setFont(font);
-		videoUrl.setFont(font);
 		JPanel panel_main = new JPanel();
-		panel_main.setLayout(new GridLayout(2, 2, 1, 1));
-		panel_main.add(videoName);
-		panel_main.add(videoDesc);
-		panel_main.add(videoTime);
-		panel_main.add(videoUrl);
+		panel_main.setLayout(new GridLayout(5, 5, 3, 3));
+		setFriend("0");
+		for(int i = 0; i < button_friend.length ;i++){
+			button_friend[i] = new JButton(" ");
+			button_friend[i].addActionListener(this);
+			panel_main.add(button_friend[i]);
+		}
+		this.paintFriends();
 		commentArea.setEditable(false);
 		commentArea.setLineWrap(true);
 		JScrollPane jsp=new JScrollPane(commentArea);
@@ -55,11 +54,20 @@ public class VideoPlayer extends RootGUI implements ActionListener{
 		panel_comment.setLayout(new GridLayout(2, 1, 1, 1));
 		panel_comment.add(jsp);
 		panel_comment.add(panel_commentInput);
-		panel.setLayout(new BorderLayout());
-		panel.add(super.getPanel(),BorderLayout.NORTH);
-		panel.add(panel_main,BorderLayout.CENTER);
-		panel.add(panel_comment,BorderLayout.SOUTH);                               
+		panel.setLayout(null);
+		super.getPanel().setBounds(0,0,800,50);
+		panel_main.setBounds(0,50,800,150);
+		panel_comment.setBounds(0,200,800,200);
+		panel.add(super.getPanel());
+		panel.add(panel_main);
+		panel.add(panel_comment);                               
     }
+
+	private void paintFriends(){
+		for(int i = 0; i < button_friend.length; i++){
+			button_friend[i].setText(i + " ");
+		}
+	}
 
 	/**
      * The method is the getter of panel
@@ -76,6 +84,30 @@ public class VideoPlayer extends RootGUI implements ActionListener{
 
 	private void setRowsNum(int num){
 		this.rowsNum = num;
+	}
+
+	private String getFriend(){
+		return friend;
+	}
+
+	private void setFriend(String input){
+		this.friend = input;
+	}
+
+	private void setComment(ArrayList<Chat> chatList){
+		String chatString = "";
+		int counter = 0;
+		for(Chat chat:chatController.getMessagesList()){
+			if(chat.getType() == 1){
+				chatString += "from " + GUIController.getUsername() + " to " + this.getFriend() + " " + chat.getMessage();
+			}else{
+				chatString += "from " + this.getFriend() + " to " + GUIController.getUsername() + " " + chat.getMessage();
+			}
+			chatString += "\n";
+			counter++;
+		}
+		this.setRowsNum(counter);
+		commentArea = new JTextArea(chatString, 1, this.getRowsNum());
 	}
 
 	private String getComment() {
@@ -98,9 +130,18 @@ public class VideoPlayer extends RootGUI implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_send){
+			chatController.Send(UserController.getUserByUsername(GUIController.getUsername()), commentInput.getText());
 			System.out.println(commentInput.getText());
 			this.appendComment(commentInput.getText());
-		} 
+		}else{
+			for(int i = 0; i < button_friend.length; i++){
+				if(e.getSource().equals(button_friend[i])){
+					chatController = new ChatController((Customer) UserController.getUserByUsername(GUIController.getUsername()), new Trainer(0, button_friend[i].getText()));
+					this.setComment(chatController.getMessagesList());
+					setFriend(button_friend[i].getText());
+				}
+			}
+		}
     }
 }
 

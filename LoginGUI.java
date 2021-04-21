@@ -8,7 +8,7 @@ import java.io.*;
 /**
  * A Login class which provide Login GUI panel
  */
-public class Login {
+public class LoginGUI {
     private JPanel panel = new JPanel();
     private JLabel userLabel = new JLabel("Username:", JLabel.CENTER);  
     private JTextField userText = new JTextField();       
@@ -18,13 +18,13 @@ public class Login {
     private JButton loginButton = new JButton("login");       
     private JButton registerButton = new JButton("register"); 
     private JLabel title = new JLabel("Digital Gym", JLabel.CENTER);
-    private CustomerSchedule customerSchedule;
+    private CustomerScheduleGUI customerSchedule;
 
     /**
      * Initialize GUI frame then add the login panel to the frame
      * The method will attach the login and register panel to the frame
      */
-    public Login() {
+    public LoginGUI() {
         panel.setLayout(null);
         panel.setBounds(0, 0, 800, 500);
         title.setBounds(200, 0, 400, 200);
@@ -80,7 +80,8 @@ public class Login {
         public void actionPerformed(ActionEvent e) {
             try{
                 LoginController.login(userText.getText(), passText.getText());
-                customerSchedule = new CustomerSchedule(); // Just for test the function of switch between windows, need to be update later
+                customerSchedule = new CustomerScheduleGUI(); // Just for test the function of switch between windows, need to be update later
+                GUIController.setUsername(userText.getText());
                 GUIController.switchPage(customerSchedule.getPanel());
                 System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){

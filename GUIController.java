@@ -9,6 +9,7 @@ public class GUIController {
     // The stack for store panels, the top of stack is the panel which is currently display
     private static Stack<JPanel> PANELS=new Stack<JPanel>();
     private static JFrame mainFrame;
+    private static String userName;
     
     /**
      * Initialize GUI from the login and register page and push the panel into the stack
@@ -25,7 +26,7 @@ public class GUIController {
         frame.setSize(800,500);
         frame.setLocation(400, 100);
         frame.setVisible(true);
-        switchPage(new Login().getPanel());
+        switchPage(new LoginGUI().getPanel());
     }
 
     /**
@@ -77,5 +78,13 @@ public class GUIController {
         } catch (EmptyStackException e) {
             System.exit(0); // Close the program
         }
+    }
+
+    public static String getUsername(){
+        return userName;
+    }
+
+    public static void setUsername(String input){
+        userName = input;
     }
 }

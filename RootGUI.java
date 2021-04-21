@@ -8,9 +8,11 @@ import javax.swing.JPanel;
  */
 public class RootGUI{
     private JPanel panel_pages = new JPanel();
+	private JButton[] buttons = {new JButton("home"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat")};
+	private JButton button_pageChat = new JButton("Chat");
 	private JButton button_pageSchedule = new JButton("Schedule");
 	private JButton button_pageVideo = new JButton("Video");
-	private JButton button_back = new JButton("home");
+	private JButton button_home = new JButton("home");
 	
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
@@ -21,16 +23,24 @@ public class RootGUI{
      */
     public RootGUI() {
         Font font = new Font("Dialog",Font.BOLD,16);
+		PagesListener pagesListener = new PagesListener();
+		for(int i = 0; i < buttons.length; i++){
+			buttons[i].setFont(font);
+			panel_pages.add(buttons[i]);
+			buttons[i].addActionListener(pagesListener);
+		}
+		/* button_pageChat.setFont(font);
 		button_pageSchedule.setFont(font);
 		button_pageVideo.setFont(font);
-		button_back.setFont(font);   
-		button_pageSchedule.add(button_back);   
+		button_home.setFont(font);   
+		panel_pages.add(button_pageChat); 
+		panel_pages.add(button_pageSchedule);   
 		panel_pages.add(button_pageVideo); 
-		panel_pages.add(button_back); 
-		PagesListener pagesListener = new PagesListener();
+		panel_pages.add(button_home); 
+		button_pageChat.addActionListener(pagesListener);
 		button_pageSchedule.addActionListener(pagesListener);
 		button_pageVideo.addActionListener(pagesListener);
-		button_back.addActionListener(pagesListener);  
+		button_home.addActionListener(pagesListener);   */
 
     }
 
@@ -53,15 +63,19 @@ public class RootGUI{
 		 * @seeUser
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==button_back){
-				GUIController.back();
-			}else if(e.getSource()==button_pageVideo){
-				VideoPlayer videoPlayer = new VideoPlayer(); // Just for test the function of switch between windows, need to be update later
+			if(e.getSource()==buttons[0]){
+				LoginGUI login = new LoginGUI();
+				GUIController.switchPage(login.getPanel());
+			}else if(e.getSource()==buttons[1]){
+				VideoPlayerGUI videoPlayer = new VideoPlayerGUI(); // Just for test the function of switch between windows, need to be update later
 				GUIController.switchPage(videoPlayer.getPanel());
 	
-			}else if(e.getSource()==button_pageSchedule){
-				CustomerSchedule customerSchedule = new CustomerSchedule(); // Just for test the function of switch between windows, need to be update later
+			}else if(e.getSource()==buttons[2]){
+				CustomerScheduleGUI customerSchedule = new CustomerScheduleGUI(); // Just for test the function of switch between windows, need to be update later
 				GUIController.switchPage(customerSchedule.getPanel());
+			}else if(e.getSource()==buttons[3]){
+				ChatGUI chat = new ChatGUI(); // Just for test the function of switch between windows, need to be update later
+				GUIController.switchPage(chat.getPanel());
 			}
 		}
 	}

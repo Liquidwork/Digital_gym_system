@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 /**
  * A CustomerSchedule class which provide Login GUI panel
  */
-public class CustomerSchedule extends RootGUI implements ActionListener{
+public class CustomerScheduleGUI extends RootGUI implements ActionListener{
     private JPanel panel = new JPanel();
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
@@ -44,7 +44,7 @@ public class CustomerSchedule extends RootGUI implements ActionListener{
      * @return void
      * @seeUser
      */
-    public CustomerSchedule() {
+    public CustomerScheduleGUI() {
         Font font = new Font("Dialog",Font.BOLD,16);
 		YearLabel.setFont(font);
 		MonthLabel.setFont(font);

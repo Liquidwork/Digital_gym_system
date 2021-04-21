@@ -11,7 +11,7 @@ public class Chat {
 
     /**
      * @Description This is the conructor of chat
-     * @param type  define if the message is from customer to trainer(True) or  conversely(False)
+     * @param type  define if the message is from customer to trainer(1) or  conversely(0)
      * @param message  The string of one chat
      */
     public Chat(int type, String message) {
