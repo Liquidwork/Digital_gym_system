@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class VideoDB {
    //private static final String dataPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\video.csv";
    private static final String dataPath = "./data/video.csv";
-   private static ArrayList<Video> videoList = new ArrayList<>();
+   private static ArrayList<Video> videoList;
 
     /**
      * THis is function used by controller to get data

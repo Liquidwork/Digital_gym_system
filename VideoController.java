@@ -3,7 +3,6 @@ import java.util.Iterator;
 
 public class VideoController {
 
-    private static ArrayList<Video> videosList=new ArrayList<>();
     private static final String dataPath = "./data/video.csv";
 
     /**
@@ -11,8 +10,8 @@ public class VideoController {
      * @return an {@link ArrayList} containing {@link Video}
      */
     public static ArrayList<Video> getVideosList(){
-        videosList=VideoDB.getVideos();
-        return videosList;
+
+        return VideoDB.getVideos();
     }
 
     /**
@@ -36,8 +35,7 @@ public class VideoController {
      * @return an {@link ArrayList} containing {@link Video} made by this author
      */
     public static ArrayList<Video> getVideosByAuthor(User author){
-        if (!videosList.isEmpty())
-            videosList.clear();
+        ArrayList<Video> videosList=new ArrayList<>();
         for (Video s:VideoDB.getVideos()){
             if ((s.getAuthor().getId()== author.getId())) {
                 videosList.add(s);
@@ -53,9 +51,7 @@ public class VideoController {
      * @return
      */
     public static ArrayList<Video> searchVideosByTitle(String keyword){
-        //ArrayList<Video> videos=new ArrayList<>();
-        if (!videosList.isEmpty())
-            videosList.clear();
+        ArrayList<Video> videosList=new ArrayList<>();
         for (Video s:VideoDB.getVideos()){
             if (s.getTitle().contains(keyword))
                 videosList.add(s);
@@ -70,8 +66,7 @@ public class VideoController {
      * @return true if video was deleted
      */
     public static boolean removeVideo(Video video){
-        if (!videosList.isEmpty())
-            videosList.clear();
+        ArrayList<Video> videosList=new ArrayList<>();
         boolean flag=false;
         ArrayList<String> str=new ArrayList<>();
         videosList=VideoDB.getVideos();
@@ -94,5 +89,13 @@ public class VideoController {
             return true;
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getVideoById(1));
+        System.out.println(getVideoById(2));
+        System.out.println(getVideosList());
+        System.out.println(getVideosByAuthor(UserController.getUserById(3)));
+        System.out.println(searchVideosByTitle("aaa"));
     }
 }
