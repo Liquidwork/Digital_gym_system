@@ -35,11 +35,29 @@ public class GUIController {
      * @return void
      */
     public static void switchPage(JPanel to){
+        JPanel from = new JPanel();
         try {
-            PANELS.peek().setVisible(false);
+            from = PANELS.pop();
         } catch (EmptyStackException e) {
             // do nothing
         }
+        from.setVisible(false);
+        mainFrame.remove(from);
+        mainFrame.add(to);
+        to.setVisible(true);
+        PANELS.push(to);
+        mainFrame.repaint(); // repaint to avoid bugs in rendering
+    }
+
+    public static void navigateTo(JPanel to){
+        JPanel from = new JPanel();
+        try {
+            from = PANELS.peek();
+        } catch (EmptyStackException e) {
+            // do nothing
+        }
+        from.setVisible(false);
+        mainFrame.remove(from);
         mainFrame.add(to);
         to.setVisible(true);
         PANELS.push(to);

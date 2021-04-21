@@ -11,11 +11,9 @@ import javax.swing.JPanel;
 /**
  * A VideoPlayer class which provide video GUI panel
  */
-public class VideoPlayer implements ActionListener{
+public class VideoPlayer extends RootGUI implements ActionListener{
 	private int rowsNum = 2;
     private JPanel panel = new JPanel();
-	private JButton button_pageSchedule = new JButton("Schedule");
-	private JButton button_back = new JButton("back");
 	private JButton button_send = new JButton("send");
 	private JTextField commentInput = new JTextField();
 	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
@@ -31,24 +29,8 @@ public class VideoPlayer implements ActionListener{
      * @seeUser
      */
     public VideoPlayer() {
-        draw(panel);                                   
-    }
-
-	/**
-     * Set the layout for panel
-     * @param panel
-     * @return void
-     */
-	private void draw(JPanel panel) {
-		Font font = new Font("Dialog",Font.BOLD,16);
-		button_pageSchedule.setFont(font);
-		button_back.setFont(font);
+        Font font = new Font("Dialog",Font.BOLD,16);
 		button_send.setFont(font);
-		JPanel panel_pages = new JPanel();
-		panel_pages.add(button_pageSchedule);
-		button_pageSchedule.addActionListener(this);
-		panel_pages.add(button_back);
-		button_back.addActionListener(this);
 		videoName.setFont(font);
 		videoDesc.setFont(font);
 		videoTime.setFont(font);
@@ -74,10 +56,10 @@ public class VideoPlayer implements ActionListener{
 		panel_comment.add(jsp);
 		panel_comment.add(panel_commentInput);
 		panel.setLayout(new BorderLayout());
-		panel.add(panel_pages,BorderLayout.NORTH);
+		panel.add(super.getPanel(),BorderLayout.NORTH);
 		panel.add(panel_main,BorderLayout.CENTER);
-		panel.add(panel_comment,BorderLayout.SOUTH);
-	}
+		panel.add(panel_comment,BorderLayout.SOUTH);                               
+    }
 
 	/**
      * The method is the getter of panel
@@ -115,12 +97,7 @@ public class VideoPlayer implements ActionListener{
      * @seeUser
      */
     public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==button_back){
-			GUIController.back();
-		}else if(e.getSource()==button_pageSchedule){
-			CustomerSchedule customerSchedule = new CustomerSchedule(); // Just for test the function of switch between windows, need to be update later
-            GUIController.switchPage(customerSchedule.getPanel());
-		}else if(e.getSource()==button_send){
+		if(e.getSource()==button_send){
 			System.out.println(commentInput.getText());
 			this.appendComment(commentInput.getText());
 		} 

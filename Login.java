@@ -25,23 +25,6 @@ public class Login {
      * The method will attach the login and register panel to the frame
      */
     public Login() {
-        // jFrame = frame;
-        // //Set the position and size of GUI window
-        // jFrame.setSize(800,500);
-        // jFrame.setLocationRelativeTo(null);                    
-        // jFrame.add(panel);                                  
-        // jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        draw(panel);                               
-        // jFrame.setVisible(true);                        
-    }
-    
-    /**
-     * Set the layout for panel
-     * @param panel
-     * @return void
-     */
-    private void draw(JPanel panel) {
-
         panel.setLayout(null);
         panel.setBounds(0, 0, 800, 500);
         title.setBounds(200, 0, 400, 200);
@@ -69,7 +52,7 @@ public class Login {
         registerButton.setBounds(430, 300, 80, 25);
         RegisterMonitor registerMonitor = new RegisterMonitor();
         registerButton.addActionListener(registerMonitor);
-        panel.add(registerButton);
+        panel.add(registerButton);                      
     }
 
     /**
