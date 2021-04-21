@@ -1,16 +1,17 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class VideoController {
 
-    private static ArrayList<Video> videosList;
+    private static final String dataPath = "./data/video.csv";
 
     /**
      * Get a {@link ArrayList} containing all videos within it.
      * @return an {@link ArrayList} containing {@link Video}
      */
     public static ArrayList<Video> getVideosList(){
-        
-        return null;
+
+        return VideoDB.getVideos();
     }
 
     /**
@@ -20,6 +21,10 @@ public class VideoController {
      * @return {@link Video}
      */
     public static Video getVideoById(int id){
+        for(Video s:VideoDB.getVideos()){
+            if (s.getId()==id)
+                return s;
+        }
         return null;
     }
 
@@ -30,7 +35,13 @@ public class VideoController {
      * @return an {@link ArrayList} containing {@link Video} made by this author
      */
     public static ArrayList<Video> getVideosByAuthor(User author){
-        return null;
+        ArrayList<Video> videosList=new ArrayList<>();
+        for (Video s:VideoDB.getVideos()){
+            if ((s.getAuthor().getId()== author.getId())) {
+                videosList.add(s);
+            }
+        }
+        return videosList;
     }
 
     /**
@@ -40,7 +51,12 @@ public class VideoController {
      * @return
      */
     public static ArrayList<Video> searchVideosByTitle(String keyword){
-        return null;
+        ArrayList<Video> videosList=new ArrayList<>();
+        for (Video s:VideoDB.getVideos()){
+            if (s.getTitle().contains(keyword))
+                videosList.add(s);
+        }
+        return videosList;
     }
 
     /**
@@ -50,6 +66,36 @@ public class VideoController {
      * @return true if video was deleted
      */
     public static boolean removeVideo(Video video){
+        ArrayList<Video> videosList=new ArrayList<>();
+        boolean flag=false;
+        ArrayList<String> str=new ArrayList<>();
+        videosList=VideoDB.getVideos();
+        Iterator<Video> iterator=videosList.iterator();
+        while (iterator.hasNext()){
+            Video vi=iterator.next();
+            System.out.println(vi);
+            if (getVideoById(video.getId())==getVideoById(vi.getId())){
+                iterator.remove();
+                flag=true;
+            }
+            else {
+                String data = vi.getId()+","+vi.getAuthor().getId()+","+
+                        vi.getTitle()+","+vi.getVideoPath()+","+vi.getDescription();
+                str.add(data);
+            }
+        }
+        if (flag){
+            DataHandler.write(str,dataPath);
+            return true;
+        }
         return false;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getVideoById(1));
+        System.out.println(getVideoById(2));
+        System.out.println(getVideosList());
+        System.out.println(getVideosByAuthor(UserController.getUserById(3)));
+        System.out.println(searchVideosByTitle("aaa"));
     }
 }
