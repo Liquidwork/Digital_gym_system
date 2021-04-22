@@ -137,7 +137,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 					paintVideos(0);
 				}
 			}catch(Exception exception){
-				videosList.clear();
+				videosList = new ArrayList<>();
 				paintVideos(0);
 			}
 		}else if(e.getSource()==button_reset){
