@@ -97,7 +97,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 				button_video[i].setText(videosList.get(i + page * volume).getTitle() + " by " 
 				+ videosList.get(i + page * volume).getAuthor().getName());
 			}else{
-				button_video[i].setText("No Result");
+				button_video[i].setText("");
 			}
 		}
 	}
