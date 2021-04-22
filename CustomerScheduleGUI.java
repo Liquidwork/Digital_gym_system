@@ -8,14 +8,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-public class CustomerSchedule extends JFrame {
-	private static final long serialVersionUID = 4360298097575552707L;
-	private JFrame jFrame;
-    private JPanel panel = new JPanel();
+/**
+ * A CustomerSchedule class which provide Login GUI panel
+ */
+public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
 	
@@ -35,23 +33,18 @@ public class CustomerSchedule extends JFrame {
 	private JButton[] button_day = new JButton[42];
 	private final String[] week = {"SUN","MON","TUE","WEN","THR","FRI","SAT"};
 	private JButton[] button_week = new JButton[7];
+	private JButton[] button_courses = new JButton[5];
 	private String year_int = null;
 	private int month_int;
-
-    public CustomerSchedule(JFrame frame) {
-        //Set the position and size of GUI window
-        jFrame = frame;
-        jFrame.setSize(800,500);
-        jFrame.setLocationRelativeTo(null);                    
-        jFrame.add(panel);                           
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        /* placeComponents(panel);    */ 
-        placeCalender(panel);                       
-        jFrame.setVisible(true);                     
-    }
-
-	private void placeCalender(JPanel panel) {
-		Font font = new Font("Dialog",Font.BOLD,16);
+	/**
+     * Initialize GUI frame then add the CustomerSchedule panel to the frame
+     * The method will attach the CustomerSchedule panel to the frame
+     * @param frame the frame for display the GUI
+     * @return void
+     * @seeUser
+     */
+    public CustomerScheduleGUI() {
+        Font font = new Font("Dialog",Font.BOLD,16);
 		YearLabel.setFont(font);
 		MonthLabel.setFont(font);
 		button_ok.setFont(font);
@@ -61,7 +54,7 @@ public class CustomerSchedule extends JFrame {
 		}
 		YearBox.setSelectedIndex(20);
 		
-		for(int i = 1;i <= 13;i++){
+		for(int i = 1;i < 13;i++){
 			MonthBox.addItem(i+"");
 		}
 		MonthBox.setSelectedIndex(now_month);
@@ -73,10 +66,8 @@ public class CustomerSchedule extends JFrame {
 		panel_ym.add(MonthBox);
 		panel_ym.add(button_ok);
 		panel_ym.add(button_today);
-		CalenderMonitor calenderMonitor = new CalenderMonitor();
-		button_ok.addActionListener(calenderMonitor);
-		button_today.addActionListener(calenderMonitor);
-		
+		button_ok.addActionListener(this);
+		button_today.addActionListener(this);
 		
 		JPanel panel_day = new JPanel();
 		//7*7
@@ -92,17 +83,36 @@ public class CustomerSchedule extends JFrame {
 		
 		for(int i = 0; i < 42;i++){
 			button_day[i] = new JButton(" ");
+			button_day[i].addActionListener(this);
 			panel_day.add(button_day[i]);
 		}
 		
 		this.paintDay();
+
+		JPanel panel_courses = new JPanel();
+		//5*1
+		panel_courses.setLayout(new GridLayout(5, 1, 3, 3));
+		for(int i = 0; i < 5; i++){
+			button_courses[i] = new JButton(" ");
+			button_courses[i].setText("No More Course");
+			button_courses[i].setForeground(Color.black);
+			panel_courses.add(button_courses[i]);
+		}
+		button_courses[0].setText("Please click the date to get information of training at that day.");
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
 		panel_main.add(panel_day,BorderLayout.SOUTH);
 		panel_main.add(panel_ym,BorderLayout.NORTH);
-		panel.add(panel_main);
-	}
+		this.setLayout(new BorderLayout());
+		this.add(getPanel(),BorderLayout.NORTH);
+		this.add(panel_courses,BorderLayout.SOUTH);
+		this.add(panel_main,BorderLayout.CENTER);                               
+    }
 
+	/**
+     * Set the paint date on the calender
+     * @return void
+     */
     private void paintDay() {
 		if(todayFlag){
 			year_int = now_year +"";
@@ -170,18 +180,31 @@ public class CustomerSchedule extends JFrame {
 		
 	}
 
-    class CalenderMonitor implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(e.getSource()==button_ok){
-                todayFlag=false;
-            }else if(e.getSource()==button_today){
-                todayFlag=true;
-                YearBox.setSelectedIndex(20);
-                MonthBox.setSelectedIndex(now_month);
-            }
-            
-        }
+    @Override
+	/**
+    * Provide response for different actions of calender
+    * The method will response according to different action event source
+     * @param e the action event
+     * @return void
+     * @seeUser
+     */
+    public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==button_ok){
+            todayFlag=false;
+			this.paintDay();
+        }else if(e.getSource()==button_today){
+            todayFlag=true;
+            YearBox.setSelectedIndex(20);
+            MonthBox.setSelectedIndex(now_month);
+			this.paintDay();
+        }else{
+			for(int i = 0; i < button_day.length; i++){
+				if(e.getSource().equals(button_day[i])){
+					button_courses[0].setText(year_int + " " + month_int + " " + button_day[i].getText());
+				}
+			}
+		}
+        
     }
 }
 
