@@ -140,7 +140,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
      * @seeUser
      */
 	private void setComment(ArrayList<Chat> chatList){
-		System.out.println("set: " + chatList.toString());
+		//System.out.println("set: " + chatList.toString());
 		String chatString = "The Chat With " + this.getTrainer().getName() + " :\n";
 		int counter = 0;
 		for(Chat chat:chatList){
@@ -172,7 +172,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
      * @seeUser
      */
 	private void appendComment(String input) {
-		System.out.println("append : " + input);
+		//System.out.println("append : " + input);
 		this.setRowsNum(this.getRowsNum() + 1);
 		commentArea.setRows(this.getRowsNum());
 		commentArea.append("from " + GUIController.getUser().getName() + " to " + this.getTrainer().getName()+ ":  " + input + "\n");
@@ -187,11 +187,11 @@ public class ChatGUI extends RootGUI implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_send){
-			System.out.println(haveTrainer);
+			//System.out.println(haveTrainer);
 			if(haveTrainer > 1){
 				ChatController chatController = new ChatController((Customer) UserController.getUserByUsername(GUIController.getUser().getName()), trainer);
 				chatController.Send(UserController.getUserByUsername(GUIController.getUser().getName()), commentInput.getText());
-				System.out.println(commentInput.getText());
+				//System.out.println(commentInput.getText());
 				this.appendComment(commentInput.getText());
 			}
 		}else if(e.getSource()==button_next){

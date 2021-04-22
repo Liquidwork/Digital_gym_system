@@ -91,7 +91,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 	private void paintVideos(int page){
 		pageNum = page;
 		current_page.setText("" + (pageNum + 1));
-		System.out.println(videosList.toString());
+		//System.out.println(videosList.toString());
 		for(int i = 0; i < button_video.length; i++){
 			if((i + page * volume) < videosList.size()){
 				button_video[i].setText(videosList.get(i + page * volume).getTitle() + " by " 
@@ -112,7 +112,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_next){
-			System.out.println(pageNum * volume + " " + videosList.size() + " " + (pageNum * volume > videosList.size()));
+			//System.out.println(pageNum * volume + " " + videosList.size() + " " + (pageNum * volume > videosList.size()));
 			if((pageNum + 1) * volume < videosList.size()){
 				pageNum++;
 				paintVideos(pageNum);
@@ -123,7 +123,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 				paintVideos(pageNum);
 			}
 		}else if(e.getSource()==button_search){
-			System.out.println("SEARCH: " + search_field.getText() + " " + search_comboBox.getSelectedItem());
+			//System.out.println("SEARCH: " + search_field.getText() + " " + search_comboBox.getSelectedItem());
 			try{
 				if(search_comboBox.getSelectedItem() == "Search Type: Title"){
 					videosList = VideoController.searchVideosByTitle(search_field.getText());

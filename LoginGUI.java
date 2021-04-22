@@ -73,7 +73,8 @@ public class LoginGUI extends JPanel{
                 customerSchedule = new CustomerScheduleGUI(); // Just for test the function of switch between windows, need to be update later
                 GUIController.setUser(LoginController.login(userText.getText(), passText.getText()));
                 GUIController.switchPage(customerSchedule);
-                System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
+                alertLabel.setText("");
+                //System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){
                 alertLabel.setText(exception.getMessage());
             }catch(NoMemberException exception){
@@ -95,9 +96,10 @@ public class LoginGUI extends JPanel{
          * @seeUser
          */
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Register:msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
+            //System.out.println("Register:msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             try{
                 LoginController.register(userText.getText(),  passText.getText(), User.Type.Customer);
+                alertLabel.setText("Register success!");
             }catch(IllegalException exception){
                 alertLabel.setText(exception.getMessage());
             }catch(MemberExistedException exception){
