@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 /**
  * A LeafGUI class which provide template for non-first layer GUI
  */
-public class LeafGUI{
+public class LeafGUI extends JPanel{
     private JPanel panel_pages = new JPanel();
 	private JButton[] buttons = {new JButton("Exit"),new JButton("Back")};
 	

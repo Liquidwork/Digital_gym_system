@@ -8,8 +8,7 @@ import java.io.*;
 /**
  * A Login class which provide Login GUI panel
  */
-public class LoginGUI {
-    private JPanel panel = new JPanel();
+public class LoginGUI extends JPanel{
     private JLabel userLabel = new JLabel("Username:", JLabel.CENTER);  
     private JTextField userText = new JTextField();       
     private JLabel passLabel = new JLabel("Password:", JLabel.CENTER);       
@@ -25,44 +24,36 @@ public class LoginGUI {
      * The method will attach the login and register panel to the frame
      */
     public LoginGUI() {
-        panel.setLayout(null);
-        panel.setBounds(0, 0, 800, 500);
+        this.setLayout(null);
+        this.setBounds(0, 0, 800, 500);
         title.setBounds(200, 0, 400, 200);
         title.setFont(new Font("Arial", Font.BOLD, 48));
-        panel.add(title);
+        this.add(title);
         userLabel.setBounds(250, 100, 200, 200);
         userLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        panel.add(userLabel);
+        this.add(userLabel);
         userText.setBounds(420, 190, 100, 25);
-        panel.add(userText);
+        this.add(userText);
         passLabel.setBounds(250, 150, 200, 200);
         passLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        panel.add(passLabel);
+        this.add(passLabel);
         alertLabel.setBounds(300, 300, 200, 200);
         alertLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         alertLabel.setForeground(Color.RED);
-        panel.add(alertLabel);
+        this.add(alertLabel);
         passText.setBounds(420, 240, 100, 25);
-        panel.add(passText);
+        this.add(passText);
 
         loginButton.setBounds(300, 300, 80, 25);
         LoginMonitor loginMonitor = new LoginMonitor();
         loginButton.addActionListener(loginMonitor);
-        panel.add(loginButton);
+        this.add(loginButton);
         registerButton.setBounds(430, 300, 80, 25);
         RegisterMonitor registerMonitor = new RegisterMonitor();
         registerButton.addActionListener(registerMonitor);
-        panel.add(registerButton);                      
+        this.add(registerButton);                      
     }
 
-    /**
-     * The method is the getter of panel
-     * @return Jpanel the panel of login and register page
-     * @seeUser
-     */
-    public JPanel getPanel() {
-		return panel;
-	}
     /**
      * The action listener for login button
      * The class will response for exceptions thrown by login button
@@ -79,10 +70,9 @@ public class LoginGUI {
         @SuppressWarnings("Deprecation")
         public void actionPerformed(ActionEvent e) {
             try{
-                LoginController.login(userText.getText(), passText.getText());
                 customerSchedule = new CustomerScheduleGUI(); // Just for test the function of switch between windows, need to be update later
-                GUIController.setUsername(userText.getText());
-                GUIController.switchPage(customerSchedule.getPanel());
+                GUIController.setUser(LoginController.login(userText.getText(), passText.getText()));
+                GUIController.switchPage(customerSchedule);
                 System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){
                 alertLabel.setText(exception.getMessage());

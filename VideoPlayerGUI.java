@@ -10,7 +10,6 @@ import javax.swing.JPanel;
  */
 public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 	private int rowsNum = 2;
-    private JPanel panel = new JPanel();
 	private JButton button_send = new JButton("send");
 	private JTextField commentInput = new JTextField();
 	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
@@ -57,20 +56,11 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		panel_comment.setLayout(new GridLayout(2, 1, 1, 1));
 		panel_comment.add(jsp);
 		panel_comment.add(panel_commentInput);
-		panel.setLayout(new BorderLayout());
-		panel.add(super.getPanel(),BorderLayout.NORTH);
-		panel.add(panel_main,BorderLayout.CENTER);
-		panel.add(panel_comment,BorderLayout.SOUTH);                               
+		this.setLayout(new BorderLayout());
+		this.add(getPanel(),BorderLayout.NORTH);
+		this.add(panel_main,BorderLayout.CENTER);
+		this.add(panel_comment,BorderLayout.SOUTH);                               
     }
-
-	/**
-     * The method is the getter of panel
-     * @return Jpanel the panel of login and register page
-     * @seeUser
-     */
-	public JPanel getPanel() {
-		return panel;
-	}
 
 	private int getRowsNum(){
 		return rowsNum;

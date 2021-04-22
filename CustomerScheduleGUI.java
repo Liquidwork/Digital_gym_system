@@ -14,7 +14,6 @@ import javax.swing.JPanel;
  * A CustomerSchedule class which provide Login GUI panel
  */
 public class CustomerScheduleGUI extends RootGUI implements ActionListener{
-    private JPanel panel = new JPanel();
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
 	
@@ -104,10 +103,10 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 		panel_main.setLayout(new BorderLayout());
 		panel_main.add(panel_day,BorderLayout.SOUTH);
 		panel_main.add(panel_ym,BorderLayout.NORTH);
-		panel.setLayout(new BorderLayout());
-		panel.add(super.getPanel(),BorderLayout.NORTH);
-		panel.add(panel_courses,BorderLayout.SOUTH);
-		panel.add(panel_main,BorderLayout.CENTER);                               
+		this.setLayout(new BorderLayout());
+		this.add(getPanel(),BorderLayout.NORTH);
+		this.add(panel_courses,BorderLayout.SOUTH);
+		this.add(panel_main,BorderLayout.CENTER);                               
     }
 
 	/**
@@ -181,14 +180,6 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 		
 	}
 
-	/**
-     * The method is the getter of panel
-     * @return Jpanel the panel of login and register page
-     * @seeUser
-     */
-	public JPanel getPanel() {
-		return panel;
-	}
     @Override
 	/**
     * Provide response for different actions of calender

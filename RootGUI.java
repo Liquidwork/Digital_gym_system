@@ -6,8 +6,10 @@ import javax.swing.JPanel;
 /**
  * A RootGUI class which provide template for first layer GUI
  */
-public class RootGUI{
+public class RootGUI extends JPanel{
     private JPanel panel_pages = new JPanel();
+	private JPanel panel_main = new JPanel();
+	private JPanel panel_footer = new JPanel();
 	private JButton[] buttons = {new JButton("Exit"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat")};
 	
 	/**
@@ -25,7 +27,6 @@ public class RootGUI{
 			panel_pages.add(buttons[i]);
 			buttons[i].addActionListener(pagesListener);
 		}
-
     }
 
 	/**
@@ -51,14 +52,14 @@ public class RootGUI{
 				GUIController.exit();
 			}else if(e.getSource()==buttons[1]){
 				VideoListGUI videoListGUI = new VideoListGUI();
-				GUIController.switchPage(videoListGUI.getPanel());
+				GUIController.switchPage(videoListGUI);
 	
 			}else if(e.getSource()==buttons[2]){
 				CustomerScheduleGUI customerSchedule = new CustomerScheduleGUI(); 
-				GUIController.switchPage(customerSchedule.getPanel());
+				GUIController.switchPage(customerSchedule);
 			}else if(e.getSource()==buttons[3]){
 				ChatGUI chat = new ChatGUI();
-				GUIController.switchPage(chat.getPanel());
+				GUIController.switchPage(chat);
 			}
 		}
 	}

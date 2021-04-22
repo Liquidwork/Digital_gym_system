@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 public class VideoListGUI extends RootGUI implements ActionListener{
 	private int pageNum = 0;
 	private final int volume = 25;
-    private JPanel panel = new JPanel();
 	private JTextField search_field = new JTextField();
 	private JComboBox search_comboBox = new JComboBox<>();
 	private JButton button_prev = new JButton("prev page");
@@ -51,7 +50,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 			panel_main.add(button_video[i]);
 		}
 		this.paintVideos(0);
-		panel.setLayout(null);
+		this.setLayout(null);
 		JPanel panel_navigator = new JPanel();
 		panel_navigator.setLayout(new GridLayout(1, 3, 1, 1));
 		panel_navigator.add(button_prev);
@@ -75,13 +74,13 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 		button_search.addActionListener(this);
 		JPanel panel_header = new JPanel();
 		panel_header.setLayout(new GridLayout(3, 1, 1, 1));
-		panel_header.add(super.getPanel());
+		panel_header.add(getPanel());
 		panel_header.add(panel_navigator);
 		panel_header.add(panel_search);
 		panel_header.setBounds(0,0,750,150);
 		panel_main.setBounds(0,150,800,300);
-		panel.add(panel_header);
-		panel.add(panel_main);                            
+		this.add(panel_header);
+		this.add(panel_main);                            
     }
 
 	
@@ -101,15 +100,6 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 				button_video[i].setText("");
 			}
 		}
-	}
-
-	/**
-     * The method is the getter of panel
-     * @return Jpanel the panel of login and register page
-     * @seeUser
-     */
-	public JPanel getPanel() {
-		return panel;
 	}
 
     @Override
@@ -155,7 +145,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 				if(e.getSource().equals(button_video[i])){
 					if(i < videosList.size()){
 						VideoPlayerGUI videoPlayerGUI = new VideoPlayerGUI(videosList.get(i));
-						GUIController.navigateTo(videoPlayerGUI.getPanel());
+						GUIController.navigateTo(videoPlayerGUI);
 					}
 				}
 			}
