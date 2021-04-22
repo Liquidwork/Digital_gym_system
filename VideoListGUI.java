@@ -131,7 +131,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 				videosList = VideoController.getVideosByAuthor(UserController.getUserByUsername(search_field.getText()));
 				paintVideos(0);
 			}else if(search_comboBox.getSelectedItem() == "Search Type: ID"){
-				videosList.clear();
+				videosList = new ArrayList<>();
 				videosList.add(VideoController.getVideoById(Integer.parseInt(search_field.getText())));
 				paintVideos(0);
 			}
