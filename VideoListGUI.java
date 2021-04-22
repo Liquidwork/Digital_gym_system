@@ -113,7 +113,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_next){
 			System.out.println(pageNum * volume + " " + videosList.size() + " " + (pageNum * volume > videosList.size()));
-			if(pageNum * volume < videosList.size()){
+			if((pageNum + 1) * volume < videosList.size()){
 				pageNum++;
 				paintVideos(pageNum);
 			}
