@@ -30,10 +30,10 @@ public class ChatController {
     /**
      * <p>Get a full chat history between these users.
      * <p>Return an empty list if no message was sent before
-     * @return
+     * @return An {@link ArrayList} of chat
      */
     public ArrayList<Chat> getMessagesList(){
-        return this.dataList.getChats();
+        return new ArrayList<Chat>(this.dataList.getChats());
     }
 
 
