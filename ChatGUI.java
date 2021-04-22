@@ -14,13 +14,19 @@ import javax.swing.JPanel;
  */
 public class ChatGUI extends RootGUI implements ActionListener{
 	private int rowsNum = 2;
+	private int pageNum = 0;
+	private final int volume = 25;
+	private int haveTrainer = 0;
     private JPanel panel = new JPanel();
 	private JButton button_send = new JButton("send");
+	private JButton button_prev = new JButton("prev page");
+	private JButton button_next = new JButton("next page");
+	private JLabel current_page = new JLabel("1", JLabel.CENTER);
 	private JTextField commentInput = new JTextField();
-	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
-	private JButton[] button_friend = new JButton[25];
-	private String friend;
-	private ChatController chatController;
+	private JTextArea commentArea = new JTextArea();
+	private JButton[] button_trainer = new JButton[25];
+	private Trainer trainer;
+	private ArrayList<Trainer> trainersList;
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
      * The method will attach the CustomerSchedule panel to the frame
@@ -31,15 +37,18 @@ public class ChatGUI extends RootGUI implements ActionListener{
     public ChatGUI() {
         Font font = new Font("Dialog",Font.BOLD,16);
 		button_send.setFont(font);
+		button_prev.setFont(font);
+		button_next.setFont(font);
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new GridLayout(5, 5, 3, 3));
-		setFriend("0");
-		for(int i = 0; i < button_friend.length ;i++){
-			button_friend[i] = new JButton(" ");
-			button_friend[i].addActionListener(this);
-			panel_main.add(button_friend[i]);
+		trainersList = UserController.getTrainersList();
+		setTrainer(trainersList.get(0));
+		for(int i = 0; i < button_trainer.length ;i++){
+			button_trainer[i] = new JButton(" ");
+			button_trainer[i].addActionListener(this);
+			panel_main.add(button_trainer[i]);
 		}
-		this.paintFriends();
+		this.paintTrainers(0);
 		commentArea.setEditable(false);
 		commentArea.setLineWrap(true);
 		JScrollPane jsp=new JScrollPane(commentArea);
@@ -51,21 +60,39 @@ public class ChatGUI extends RootGUI implements ActionListener{
 		panel_commentInput.add(button_send);
 		button_send.addActionListener(this);
 		JPanel panel_comment = new JPanel();
-		panel_comment.setLayout(new GridLayout(2, 1, 1, 1));
-		panel_comment.add(jsp);
-		panel_comment.add(panel_commentInput);
+		panel_comment.setLayout(new BorderLayout());
+		panel_comment.add(jsp, BorderLayout.CENTER);
+		panel_comment.add(panel_commentInput, BorderLayout.SOUTH);
 		panel.setLayout(null);
-		super.getPanel().setBounds(0,0,800,50);
-		panel_main.setBounds(0,50,800,150);
-		panel_comment.setBounds(0,200,800,200);
-		panel.add(super.getPanel());
+		JPanel panel_navigator = new JPanel();
+		panel_navigator.setLayout(new GridLayout(1, 3, 1, 1));
+		panel_navigator.add(button_prev);
+		panel_navigator.add(current_page);
+		panel_navigator.add(button_next);
+		button_prev.addActionListener(this);
+		button_next.addActionListener(this);
+		JPanel panel_header = new JPanel();
+		panel_header.setLayout(new GridLayout(2, 1, 1, 1));
+		panel_header.add(super.getPanel());
+		panel_header.add(panel_navigator);
+		panel_header.setBounds(0,0,800,80);
+		panel_main.setBounds(0,80,800,120);
+		panel_comment.setBounds(0,200,800,250);
+		panel.add(panel_header);
 		panel.add(panel_main);
 		panel.add(panel_comment);                               
     }
 
-	private void paintFriends(){
-		for(int i = 0; i < button_friend.length; i++){
-			button_friend[i].setText(i + " ");
+	
+	/**
+     * Set the paint trainers on the panel
+     * @return void
+     */
+	private void paintTrainers(int page){
+		for(int i = 0; i < button_trainer.length; i++){
+			if((i + page * volume) < trainersList.size()){
+				button_trainer[i].setText(trainersList.get(i + page * volume).getName());
+			}
 		}
 	}
 
@@ -78,47 +105,86 @@ public class ChatGUI extends RootGUI implements ActionListener{
 		return panel;
 	}
 
+	/**
+     * The method is the getter of rowsnum
+     * @return int the rowsnum of commentarea
+     * @seeUser
+     */
 	private int getRowsNum(){
 		return rowsNum;
 	}
 
+	/**
+     * The method is the setter of rowsnum
+     * @return void
+     * @seeUser
+     */
 	private void setRowsNum(int num){
 		this.rowsNum = num;
 	}
 
-	private String getFriend(){
-		return friend;
+	/**
+     * The method is the getter of trainer
+     * @return Trainer the trainer currently select
+     * @seeUser
+     */
+	private Trainer getTrainer(){
+		return trainer;
 	}
 
-	private void setFriend(String input){
-		this.friend = input;
+	/**
+     * The method is the setter of trainer
+     * @return void
+     * @seeUser
+     */
+	private void setTrainer(Trainer input){
+		this.trainer = input;
+		System.out.println(input.getName());
+		haveTrainer++;
 	}
 
+	/**
+     * The method is the setter of comment area
+     * @return void
+     * @seeUser
+     */
 	private void setComment(ArrayList<Chat> chatList){
+		System.out.println("set: " + chatList.toString());
 		String chatString = "";
 		int counter = 0;
-		for(Chat chat:chatController.getMessagesList()){
+		for(Chat chat:chatList){
 			if(chat.getType() == 1){
-				chatString += "from " + GUIController.getUsername() + " to " + this.getFriend() + " " + chat.getMessage();
+				chatString += "from " + GUIController.getUsername() + " to " + this.getTrainer().getName()+ ": " + chat.getMessage();
 			}else{
-				chatString += "from " + this.getFriend() + " to " + GUIController.getUsername() + " " + chat.getMessage();
+				chatString += "from " + this.getTrainer() + " to " + GUIController.getUsername() + ": " + chat.getMessage();
 			}
 			chatString += "\n";
 			counter++;
 		}
 		this.setRowsNum(counter);
-		commentArea = new JTextArea(chatString, 1, this.getRowsNum());
+		commentArea.setText(chatString);
+		commentArea.setLineWrap(true);
+		commentArea.setRows(this.getRowsNum());
 	}
-
+	/**
+     * The method is the Getter of comment area text
+     * @return String Text of the comment area
+     * @seeUser
+     */
 	private String getComment() {
-		this.setRowsNum(6);
-		return "from luca: test test test\nfrom winter: 123456\nfrom luca: test test test\nfrom winter: 123456\nfrom luca: test test test\nfrom winter: 123456\n";
+		return commentArea.getText();
 	}
 
+	/**
+     * The method will append new comment to comment area text
+     * @return void
+     * @seeUser
+     */
 	private void appendComment(String input) {
+		System.out.println("append : " + input);
 		this.setRowsNum(this.getRowsNum() + 1);
 		commentArea.setRows(this.getRowsNum());
-		commentArea.append(input + "\n");
+		commentArea.append("from " + GUIController.getUsername() + " to " + this.getTrainer().getName()+ ":  " + input + "\n");
 	}
     @Override
 	/**
@@ -130,15 +196,33 @@ public class ChatGUI extends RootGUI implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_send){
-			chatController.Send(UserController.getUserByUsername(GUIController.getUsername()), commentInput.getText());
-			System.out.println(commentInput.getText());
-			this.appendComment(commentInput.getText());
+			System.out.println(haveTrainer);
+			if(haveTrainer > 1){
+				ChatController chatController = new ChatController((Customer) UserController.getUserByUsername(GUIController.getUsername()), trainer);
+				chatController.Send(UserController.getUserByUsername(GUIController.getUsername()), commentInput.getText());
+				System.out.println(commentInput.getText());
+				this.appendComment(commentInput.getText());
+			}
+		}else if(e.getSource()==button_next){
+			if(pageNum * volume > trainersList.size()){
+				pageNum++;
+				current_page.setText("" + (pageNum + 1));
+				paintTrainers(pageNum);
+			}
+		}else if(e.getSource()==button_prev){
+			if(pageNum > 0){
+				pageNum--;
+				current_page.setText("" + (pageNum + 1));
+				paintTrainers(pageNum);
+			}
 		}else{
-			for(int i = 0; i < button_friend.length; i++){
-				if(e.getSource().equals(button_friend[i])){
-					chatController = new ChatController((Customer) UserController.getUserByUsername(GUIController.getUsername()), new Trainer(0, button_friend[i].getText()));
-					this.setComment(chatController.getMessagesList());
-					setFriend(button_friend[i].getText());
+			for(int i = 0; i < button_trainer.length; i++){
+				if(e.getSource().equals(button_trainer[i])){
+					if(i < trainersList.size()){
+						setTrainer(trainersList.get(i));
+						ChatController chatController = new ChatController((Customer) UserController.getUserByUsername(GUIController.getUsername()), trainer);
+						this.setComment(chatController.getMessagesList());
+					}
 				}
 			}
 		}
