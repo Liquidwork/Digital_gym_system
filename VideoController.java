@@ -11,7 +11,7 @@ public class VideoController {
      */
     public static ArrayList<Video> getVideosList(){
 
-        return VideoDB.getVideos();
+        return new ArrayList<Video>(VideoDB.getVideos()); // Use this clone constructor
     }
 
     /**
