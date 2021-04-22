@@ -2,25 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Console;
-import java.util.Date;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
 /**
  * A VideoPlayer class which provide video GUI panel
  */
-public class VideoPlayerGUI extends RootGUI implements ActionListener{
+public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 	private int rowsNum = 2;
     private JPanel panel = new JPanel();
 	private JButton button_send = new JButton("send");
 	private JTextField commentInput = new JTextField();
 	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
-	private JLabel videoName = new JLabel("videoName", JLabel.CENTER);
-	private JLabel videoDesc = new JLabel("videoDesc", JLabel.CENTER);
-	private JLabel videoTime = new JLabel("videoTime", JLabel.CENTER);
-	private JLabel videoUrl = new JLabel("videoUrl", JLabel.CENTER);
+	private JLabel videoName = new JLabel("Video Title", JLabel.CENTER);
+	private JLabel videoDesc = new JLabel("Video Description", JLabel.CENTER);
+	private JLabel videoAuthor = new JLabel("Video Author", JLabel.CENTER);
+	private JLabel videoPath = new JLabel("Video Path", JLabel.CENTER);
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
      * The method will attach the CustomerSchedule panel to the frame
@@ -28,19 +25,24 @@ public class VideoPlayerGUI extends RootGUI implements ActionListener{
      * @return void
      * @seeUser
      */
-    public VideoPlayerGUI() {
+    public VideoPlayerGUI(Video video) {
         Font font = new Font("Dialog",Font.BOLD,16);
 		button_send.setFont(font);
 		videoName.setFont(font);
 		videoDesc.setFont(font);
-		videoTime.setFont(font);
-		videoUrl.setFont(font);
+		videoAuthor.setFont(font);
+		videoPath.setFont(font);
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new GridLayout(2, 2, 1, 1));
 		panel_main.add(videoName);
 		panel_main.add(videoDesc);
-		panel_main.add(videoTime);
-		panel_main.add(videoUrl);
+		panel_main.add(videoAuthor);
+		panel_main.add(videoPath);
+		videoName.setText("Video Title: " + video.getTitle());
+		videoDesc.setText("Video Description: " + video.getDescription());
+		videoAuthor.setText("Video Author: " + video.getAuthor().getName());
+		videoPath.setText("Video Path: " + video.getVideoPath());
+
 		commentArea.setEditable(false);
 		commentArea.setLineWrap(true);
 		JScrollPane jsp=new JScrollPane(commentArea);

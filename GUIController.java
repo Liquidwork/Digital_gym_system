@@ -71,9 +71,25 @@ public class GUIController {
      * <p>If there is no previous page, the program will exit.
      */
     public static void back(){
+        JPanel from = new JPanel();
         try {
-            mainFrame.remove(PANELS.pop()); // It will not be found again, so it will be removed
-            PANELS.peek().setVisible(true);
+            from = PANELS.pop();
+        } catch (EmptyStackException e) {
+            // do nothing
+        }
+        from.setVisible(false);
+        mainFrame.remove(from);
+        mainFrame.add(PANELS.peek());
+        PANELS.peek().setVisible(true);
+        mainFrame.repaint(); // repaint to avoid bugs in rendering
+    }
+
+    public static void exit(){
+        try {
+            LoginGUI loginGUI = new LoginGUI();
+            switchPage(loginGUI.getPanel());
+            PANELS.clear();
+            PANELS.add(loginGUI.getPanel());
             mainFrame.repaint(); // repaint to avoid bugs in rendering
         } catch (EmptyStackException e) {
             System.exit(0); // Close the program

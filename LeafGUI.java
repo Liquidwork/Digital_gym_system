@@ -4,11 +4,11 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 /**
- * A RootGUI class which provide template for first layer GUI
+ * A LeafGUI class which provide template for non-first layer GUI
  */
-public class RootGUI{
+public class LeafGUI{
     private JPanel panel_pages = new JPanel();
-	private JButton[] buttons = {new JButton("Exit"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat")};
+	private JButton[] buttons = {new JButton("Exit"),new JButton("Back")};
 	
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
@@ -17,7 +17,7 @@ public class RootGUI{
      * @return void
      * @seeUser
      */
-    public RootGUI() {
+    public LeafGUI() {
         Font font = new Font("Dialog",Font.BOLD,16);
 		PagesListener pagesListener = new PagesListener();
 		for(int i = 0; i < buttons.length; i++){
@@ -50,15 +50,7 @@ public class RootGUI{
 			if(e.getSource()==buttons[0]){
 				GUIController.exit();
 			}else if(e.getSource()==buttons[1]){
-				VideoListGUI videoListGUI = new VideoListGUI();
-				GUIController.switchPage(videoListGUI.getPanel());
-	
-			}else if(e.getSource()==buttons[2]){
-				CustomerScheduleGUI customerSchedule = new CustomerScheduleGUI(); 
-				GUIController.switchPage(customerSchedule.getPanel());
-			}else if(e.getSource()==buttons[3]){
-				ChatGUI chat = new ChatGUI();
-				GUIController.switchPage(chat.getPanel());
+				GUIController.back();
 			}
 		}
 	}

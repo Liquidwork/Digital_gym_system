@@ -205,7 +205,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 				this.appendComment(commentInput.getText());
 			}
 		}else if(e.getSource()==button_next){
-			if(pageNum * volume > trainersList.size()){
+			if(pageNum * volume < trainersList.size()){
 				pageNum++;
 				current_page.setText("" + (pageNum + 1));
 				paintTrainers(pageNum);
