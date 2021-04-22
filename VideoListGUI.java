@@ -97,7 +97,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 				button_video[i].setText(videosList.get(i + page * volume).getTitle() + " by " 
 				+ videosList.get(i + page * volume).getAuthor().getName());
 			}else{
-				button_video[i].setText("");
+				button_video[i].setText("No Result");
 			}
 		}
 	}
@@ -124,15 +124,20 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 			}
 		}else if(e.getSource()==button_search){
 			System.out.println("SEARCH: " + search_field.getText() + " " + search_comboBox.getSelectedItem());
-			if(search_comboBox.getSelectedItem() == "Search Type: Title"){
-				videosList = VideoController.searchVideosByTitle(search_field.getText());
-				paintVideos(0);
-			}else if(search_comboBox.getSelectedItem() == "Search Type: Author"){
-				videosList = VideoController.getVideosByAuthor(UserController.getUserByUsername(search_field.getText()));
-				paintVideos(0);
-			}else if(search_comboBox.getSelectedItem() == "Search Type: ID"){
+			try{
+				if(search_comboBox.getSelectedItem() == "Search Type: Title"){
+					videosList = VideoController.searchVideosByTitle(search_field.getText());
+					paintVideos(0);
+				}else if(search_comboBox.getSelectedItem() == "Search Type: Author"){
+					videosList = VideoController.getVideosByAuthor(UserController.getUserByUsername(search_field.getText()));
+					paintVideos(0);
+				}else if(search_comboBox.getSelectedItem() == "Search Type: ID"){
+					videosList.clear();
+					videosList.add(VideoController.getVideoById(Integer.parseInt(search_field.getText())));
+					paintVideos(0);
+				}
+			}catch(Exception exception){
 				videosList.clear();
-				videosList.add(VideoController.getVideoById(Integer.parseInt(search_field.getText())));
 				paintVideos(0);
 			}
 		}else if(e.getSource()==button_reset){
