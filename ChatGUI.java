@@ -51,6 +51,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 		this.paintTrainers(0);
 		commentArea.setEditable(false);
 		commentArea.setLineWrap(true);
+		commentArea.setText("Please select the person you want to chat with\n");
 		JScrollPane jsp=new JScrollPane(commentArea);
         Dimension size=commentArea.getPreferredSize();
         jsp.setBounds(110,90,size.width,size.height);
@@ -150,7 +151,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
      */
 	private void setComment(ArrayList<Chat> chatList){
 		System.out.println("set: " + chatList.toString());
-		String chatString = "";
+		String chatString = "The Chat With " + this.getTrainer().getName() + " :\n";
 		int counter = 0;
 		for(Chat chat:chatList){
 			if(chat.getType() == 1){

@@ -99,6 +99,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 			button_courses[i].setForeground(Color.black);
 			panel_courses.add(button_courses[i]);
 		}
+		button_courses[0].setText("Please click the date to get information of training at that day.");
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
 		panel_main.add(panel_day,BorderLayout.SOUTH);
