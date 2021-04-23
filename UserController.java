@@ -36,7 +36,7 @@ public class UserController {
 
     /**
      * <p>Get a list with all the {@link Trainer} in user list.
-     * <p>Return a empty list if no element fit the rule.
+     * <p>Return a empty list if no element fits the rule.
      * @return {@link ArrayList} of {@link Trainer}
      */
     public static ArrayList<Trainer> getTrainersList(){

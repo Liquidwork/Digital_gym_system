@@ -59,6 +59,11 @@ public class VideoController {
         return videosList;
     }
 
+    public static void addVideo(User author, String title, String path, String description){
+        VideoDB.addVideo(new Video(VideoDB.getMaxId() + 1, author, title, path, description));
+    }
+
+
     /**
      * <p>Remove a video.
      * <p>This method will not delete a file, just remove it from the 'videos.csv' and the list.
@@ -92,10 +97,6 @@ public class VideoController {
     }
 
     public static void main(String[] args) {
-        System.out.println(getVideoById(1));
-        System.out.println(getVideoById(2));
-        System.out.println(getVideosList());
-        System.out.println(getVideosByAuthor(UserController.getUserById(3)));
-        System.out.println(searchVideosByTitle("aaa"));
+        addVideo(UserController.getUserById(6), "new", "meow", "aaaaaasssssdddd");
     }
 }

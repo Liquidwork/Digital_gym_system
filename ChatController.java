@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import exceptions.NotActiveUserException;
 /**
@@ -58,17 +59,36 @@ public class ChatController {
     }
 
     /**
+     * <p>Look for chat partners of this User, who had chat with this user before.
+     * <p>Return an empty list if no entity found
+     * @param user to be checked for
+     * @return An {@link ArrayList} of {@link User} who chat with this user before
+     */
+    public static ArrayList<User> getChatPartners(User user){
+        ArrayList<User> usersList = new ArrayList<>();
+        int userId = user.getId();
+        File chatFolder = new File("./data/chat/"); // Directory to be checked
+        String[] fileList = chatFolder.list((dir, name) -> name.contains(".csv")); // get a file list contains ".csv"
+        for (String s : fileList) {
+            int[] ids = new int[2];
+            int[] index = {s.indexOf("-"), s.indexOf(".")};
+            ids[0] = Integer.parseInt(s.substring(0, index[0])); // Find int before '-'
+            ids[1] = Integer.parseInt(s.substring(index[0] + 1, index[1])); // Find int between '-' and '.'
+            if (ids[0] == userId) {
+                usersList.add(UserController.getUserById(ids[1]));
+            } else if (ids[1] == userId) {
+                usersList.add(UserController.getUserById(ids[0]));
+            }
+        }
+        return usersList;
+    }
+
+    /**
      * test function
      * @param arg
      */
     public static void main(String arg[]){
-        Customer customer = new Customer(1,"bot");
-        Trainer trainer = new Trainer(3,"a");
-        Customer cus = new Customer(4,"c");
-        Admin admin = new Admin(2,"b");
-        ChatController c = new ChatController(customer,trainer);
-        String message = "bot";
-        c.Send(cus,message);
-        System.out.println(c.getMessagesList());
+        
+        System.out.println(getChatPartners(UserController.getUserById(1)));
     }
 }
