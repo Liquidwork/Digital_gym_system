@@ -12,7 +12,7 @@ public class VideoUploaderGUI extends LeafGUI implements ActionListener{
 	private JButton button_upload = new JButton("upload");
 	private JTextField videoName = new JTextField("Video Title", JLabel.CENTER);
 	private JTextField videoDesc = new JTextField("Video Description", JLabel.CENTER);
-	private JTextField videoAuthor = new JTextField("Video Author", JLabel.CENTER);
+	private JTextField videoAuthor = new JTextField(GUIController.getUser().getName(), JLabel.CENTER);
 	private JTextField videoPath = new JTextField("Video Path", JLabel.CENTER);
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
@@ -28,6 +28,7 @@ public class VideoUploaderGUI extends LeafGUI implements ActionListener{
 		videoName.setFont(font);
 		videoDesc.setFont(font);
 		videoAuthor.setFont(font);
+		videoAuthor.setEditable(false);
 		videoPath.setFont(font);
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new GridLayout(2, 2, 1, 1));
@@ -52,6 +53,8 @@ public class VideoUploaderGUI extends LeafGUI implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_upload){
 			System.out.println(videoAuthor.getText());
+			VideoController.addVideo(GUIController.getUser(),videoName.getText(), videoPath.getText(), videoDesc.getText());
+			GUIController.switchPage(new VideoListGUI());
 		} 
     }
 }
