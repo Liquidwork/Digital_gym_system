@@ -59,7 +59,8 @@ public class ChatController {
     }
 
     /**
-     * Look for chat partners of this User, who had chat with this user before.
+     * <p>Look for chat partners of this User, who had chat with this user before.
+     * <p>Return an empty list if no entity found
      * @param user to be checked for
      * @return An {@link ArrayList} of {@link User} who chat with this user before
      */
@@ -88,6 +89,6 @@ public class ChatController {
      */
     public static void main(String arg[]){
         
-        System.out.println(getChatPartners(UserController.getUserById(2)));
+        System.out.println(getChatPartners(UserController.getUserById(1)));
     }
 }
