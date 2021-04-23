@@ -8,6 +8,7 @@ public class VideoDB {
    //private static final String dataPath = "D:\\Work Zone\\GitHub\\Digital_gym_system\\data\\video.csv";
    private static final String dataPath = "./data/video.csv";
    private static ArrayList<Video> videoList;
+   private static int maxId = 0;
 
     /**
      * THis is function used by controller to get data
@@ -44,8 +45,18 @@ public class VideoDB {
             String data = video.getId()+","+video.getAuthor().getId()+","+
             video.getTitle()+","+video.getVideoPath()+","+video.getDescription();
             DataHandler.append(data, dataPath);
+            if (video.getId() > maxId){
+                maxId = video.getId();
+            }
         }
 
+    }
+
+    public static int getMaxId(){
+        if (videoList == null ){
+            videoList = initVideoList();
+        } 
+        return maxId;
     }
 
     /**
@@ -69,6 +80,7 @@ public class VideoDB {
             Video data = new Video(Integer.parseInt(ele[0]), author, ele[2],ele[3], description);
             //videoList.add(data);
             vdata.add(data);   
+            maxId++;
         }
         return vdata;
     }
