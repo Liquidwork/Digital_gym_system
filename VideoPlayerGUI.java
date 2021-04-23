@@ -11,12 +11,14 @@ import javax.swing.JPanel;
 public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 	private int rowsNum = 2;
 	private JButton button_send = new JButton("send");
+	private JButton button_remove = new JButton("remove");
 	private JTextField commentInput = new JTextField();
 	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
 	private JLabel videoName = new JLabel("Video Title", JLabel.CENTER);
 	private JLabel videoDesc = new JLabel("Video Description", JLabel.CENTER);
 	private JLabel videoAuthor = new JLabel("Video Author", JLabel.CENTER);
 	private JLabel videoPath = new JLabel("Video Path", JLabel.CENTER);
+	private Video video;
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
      * The method will attach the CustomerSchedule panel to the frame
@@ -25,6 +27,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
      * @seeUser
      */
     public VideoPlayerGUI(Video video) {
+		this.video = video;
         Font font = new Font("Dialog",Font.BOLD,16);
 		button_send.setFont(font);
 		videoName.setFont(font);
@@ -56,8 +59,17 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		panel_comment.setLayout(new GridLayout(2, 1, 1, 1));
 		panel_comment.add(jsp);
 		panel_comment.add(panel_commentInput);
+		JPanel panel_remove = new JPanel();
+		panel_remove.setLayout(new GridLayout(2,1,1,1));
+		panel_remove.add(getPanel());
+		if(GUIController.getUser().getClass() == Trainer.class){
+			System.out.println("YES");
+			button_remove.setFont(font);
+			panel_remove.add(button_remove);
+			button_remove.addActionListener(this);
+		}
 		this.setLayout(new BorderLayout());
-		this.add(getPanel(),BorderLayout.NORTH);
+		this.add(panel_remove,BorderLayout.NORTH);
 		this.add(panel_main,BorderLayout.CENTER);
 		this.add(panel_comment,BorderLayout.SOUTH);                               
     }
@@ -92,7 +104,15 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		if(e.getSource()==button_send){
 			System.out.println(commentInput.getText());
 			this.appendComment(commentInput.getText());
-		} 
+		}else if(e.getSource() == button_remove){
+			System.out.println(this.video.getTitle());
+			if(video.getAuthor() == GUIController.getUser()){
+				VideoController.removeVideo(this.video);
+				GUIController.switchPage(new VideoListGUI());
+			}else{
+				button_remove.setText("You can only remove video uploaded by you");
+			}
+		}
     }
 }
 

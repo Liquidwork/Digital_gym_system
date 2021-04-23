@@ -62,9 +62,13 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 		panel_combo.setLayout(new GridLayout(1, 3, 1, 1));	
 		panel_combo.add(button_reset);
 		panel_combo.add(search_comboBox);
-		panel_combo.add(button_upload);
+
+		//Upload Button only for trainer
+		if(GUIController.getUser().getClass() == Trainer.class){
+			panel_combo.add(button_upload);
+			button_upload.addActionListener(this);
+		}
 		button_reset.addActionListener(this);
-		button_upload.addActionListener(this);
 		JPanel panel_search = new JPanel();
 		panel_search.setLayout(new BorderLayout());
 		panel_search.add(search_label, BorderLayout.WEST);
@@ -144,7 +148,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 			videosList = VideoController.getVideosList();
 			paintVideos(0);
 		}else if(e.getSource()==button_upload){
-			System.out.println("UPLOAD");
+			GUIController.navigateTo(new VideoUploaderGUI());
 		}else{
 			for(int i = 0; i < button_video.length; i++){
 				if(e.getSource().equals(button_video[i])){
