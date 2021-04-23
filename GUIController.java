@@ -30,10 +30,10 @@ public class GUIController {
     }
 
     /**
-     * Switch pages for GUI and push the new page into stack
-     * The method set the old panel invisible and the new panel visible
+     * <p>Switch pages GUI and push the new page into stack
+     * The method remove the old panel and the new panel visible
+     * <p>Using this method can not go back to previous page by using {@link GUIController#back()}
      * @param to the new panel which will be set visible
-     * @return void
      */
     public static void switchPage(JPanel to){
         JPanel from = new JPanel();
@@ -50,6 +50,13 @@ public class GUIController {
         mainFrame.repaint(); // repaint to avoid bugs in rendering
     }
 
+    /**
+     * Navigate to a new page and put it into stack
+     * The method set the old panel invisible and the new panel over it
+     * <p>Using this method can go back to previous page by using {@link GUIController#back()}
+     * @param to the new panel which will be set visible
+     * @return void
+     */
     public static void navigateTo(JPanel to){
         JPanel from = new JPanel();
         try {
