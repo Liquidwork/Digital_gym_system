@@ -36,7 +36,7 @@ public class UserController {
 
     /**
      * <p>Get a list with all the {@link Trainer} in user list.
-     * <p>Return a empty list if no element fit the rule.
+     * <p>Return a empty list if no element fits the rule.
      * @return {@link ArrayList} of {@link Trainer}
      */
     public static ArrayList<Trainer> getTrainersList(){
@@ -54,11 +54,11 @@ public class UserController {
      * <p>Return a empty list if no element fit the rule.
      * @return {@link ArrayList} of {@link Customer}
      */
-    public static ArrayList<Trainer> getCustomersList(){
-        ArrayList<Trainer> list = new ArrayList<>();
+    public static ArrayList<Customer> getCustomersList(){
+        ArrayList<Customer> list = new ArrayList<>();
         for (User u : UserDB.getUsersList()) {
             if (u instanceof Customer){
-                list.add((Trainer) u); // Convert from parent to child
+                list.add((Customer) u); // Convert from parent to child
             }
         }
         return list;
