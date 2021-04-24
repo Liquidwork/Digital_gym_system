@@ -14,7 +14,7 @@ public class LoginController {
      * @throws PasswordException Password was wrong
      * @throws NoMemberException No such member found
      */
-    public static User login(String name, String password) throws PasswordException, NoMemberException {
+    public static synchronized User login(String name, String password) throws PasswordException, NoMemberException {
         User user = UserController.getUserByUsername(name);
         if (user == null) {
             throw new NoMemberException("You are not a member yet!");
@@ -37,7 +37,7 @@ public class LoginController {
      * @throws MemberExistedException Username already taken, which is ignore to cases
      * @implNote Password pattern "[A-Za-z0-9]{6,20}", Username pattern "[A-Za-z0-9]{4,20}"
      */
-    public static void register(String name, String password, User.Type type) throws IllegalException, MemberExistedException {
+    public static synchronized void register(String name, String password, User.Type type) throws IllegalException, MemberExistedException {
         if (type == null){
             throw new NullPointerException("type is illegal");
         }
