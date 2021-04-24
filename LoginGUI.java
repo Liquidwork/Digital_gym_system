@@ -3,8 +3,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import exceptions.*;
-import java.io.*;
+
 /**
  * A Login class which provide Login GUI panel
  */
@@ -51,7 +54,30 @@ public class LoginGUI extends JPanel{
         registerButton.setBounds(430, 300, 80, 25);
         RegisterMonitor registerMonitor = new RegisterMonitor();
         registerButton.addActionListener(registerMonitor);
-        this.add(registerButton);                      
+        this.add(registerButton);
+
+        // Bind enter in textbox with pressing the login button
+        KeyListener keyListener = new KeyListener(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    LoginGUI.this.loginButton.doClick();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Do nothing
+                
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Do nothing
+            }
+        };
+        passText.addKeyListener(keyListener);
+        userText.addKeyListener(keyListener);
     }
 
     /**

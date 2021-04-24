@@ -9,5 +9,6 @@ public class Main extends JFrame{
     //Method to run the program
     public static void main(String[] args) {
         Main view = new Main(); //Initialize a new Main view
+        view.requestFocus();
     }
 }
