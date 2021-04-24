@@ -12,7 +12,6 @@ public class ChatController {
     private Customer customer;
     private Trainer trainer;
     private ChatDB dataList;
-    private int cusId,traId;
 
 
     /**
@@ -23,9 +22,7 @@ public class ChatController {
     public ChatController(Customer customer, Trainer trainer) {
         this.customer = customer;
         this.trainer = trainer;
-        cusId = customer.getId();
-        traId = trainer.getId();
-        this.dataList = new ChatDB(cusId,traId);
+        this.dataList = new ChatDB(customer.getId(), trainer.getId());
     }
 
     /**
@@ -46,10 +43,10 @@ public class ChatController {
      */
     public void Send(User user, String message){
         int userId = user.getId();
-        if (user instanceof Customer && userId == cusId) {
+        if (user instanceof Customer && userId == this.customer.getId()) {
             Chat send = new Chat(1,message);
             dataList.addChat(send);
-        } else if (user instanceof Trainer && userId == traId){
+        } else if (user instanceof Trainer && userId == this.trainer.getId()){
             Chat send = new Chat(0,message);
             dataList.addChat(send);
         } else{

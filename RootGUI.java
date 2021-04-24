@@ -8,8 +8,6 @@ import javax.swing.JPanel;
  */
 public class RootGUI extends JPanel{
     private JPanel panel_pages = new JPanel();
-	private JPanel panel_main = new JPanel();
-	private JPanel panel_footer = new JPanel();
 	private JButton[] buttons = {new JButton("Exit"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat")};
 	
 	/**

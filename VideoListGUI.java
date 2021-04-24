@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Console;
-import java.util.Date;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,7 +14,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 	private int pageNum = 0;
 	private final int volume = 25;
 	private JTextField search_field = new JTextField();
-	private JComboBox search_comboBox = new JComboBox<>();
+	private JComboBox<String> search_comboBox = new JComboBox<>();
 	private JButton button_prev = new JButton("prev page");
 	private JButton button_next = new JButton("next page");
 	private JButton button_search = new JButton("search");
