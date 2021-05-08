@@ -36,7 +36,7 @@ public class CommentController {
     public static void main(String arg[]){
         User a = UserController.getUserById(1);
         User bot = UserController.getUserById(2);
-        Video video = new Video(1,a,"1","path","bot");
+        Video video = VideoController.getVideoById(3);
         CommentController commentController = new CommentController(video);
         System.out.println(commentController.getComments());
         System.out.println("-----------------------------");
