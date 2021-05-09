@@ -20,7 +20,7 @@ public class LoginGUI extends JPanel{
     private JButton loginButton = new JButton("login");       
     private JButton registerButton = new JButton("register"); 
     private JLabel title = new JLabel("Digital Gym", JLabel.CENTER);
-    private CustomerScheduleGUI customerSchedule;
+    private ProfileGUI profileGUI;
 
     /**
      * Initialize GUI frame then add the login panel to the frame
@@ -96,9 +96,9 @@ public class LoginGUI extends JPanel{
         @SuppressWarnings("Deprecation")
         public void actionPerformed(ActionEvent e) {
             try{
-                customerSchedule = new CustomerScheduleGUI(); // Just for test the function of switch between windows, need to be update later
                 GUIController.setUser(LoginController.login(userText.getText(), passText.getText()));
-                GUIController.switchPage(customerSchedule);
+                profileGUI = new ProfileGUI();
+                GUIController.switchPage(profileGUI);
                 alertLabel.setText("");
                 //System.out.println("Login: msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());
             }catch(PasswordException exception){

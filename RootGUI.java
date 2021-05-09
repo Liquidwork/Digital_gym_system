@@ -8,7 +8,7 @@ import javax.swing.JPanel;
  */
 public class RootGUI extends JPanel{
     private JPanel panel_pages = new JPanel();
-	private JButton[] buttons = {new JButton("Exit"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat")};
+	private JButton[] buttons = {new JButton("Exit"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat"),new JButton("Profile")};
 	
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
@@ -58,6 +58,9 @@ public class RootGUI extends JPanel{
 			}else if(e.getSource()==buttons[3]){
 				ChatGUI chat = new ChatGUI();
 				GUIController.switchPage(chat);
+			}else if(e.getSource()==buttons[4]){
+				ProfileGUI profile = new ProfileGUI();
+				GUIController.switchPage(profile);
 			}
 		}
 	}
