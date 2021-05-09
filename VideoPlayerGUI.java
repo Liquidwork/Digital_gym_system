@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
@@ -9,11 +11,14 @@ import javax.swing.JPanel;
  * A VideoPlayer class which provide video GUI panel
  */
 public class VideoPlayerGUI extends LeafGUI implements ActionListener{
+	private CommentController commentController;
+	private ArrayList<Comment> commentList;
 	private int rowsNum = 2;
 	private JButton button_send = new JButton("send");
 	private JButton button_remove = new JButton("remove");
 	private JTextField commentInput = new JTextField();
-	private JTextArea commentArea = new JTextArea(this.getComment(),1,this.getRowsNum());
+	private JTextArea commentArea = new JTextArea();
+	private JLabel videoLabel = new JLabel("Video", JLabel.CENTER);
 	private JLabel videoName = new JLabel("Video Title", JLabel.CENTER);
 	private JLabel videoDesc = new JLabel("Video Description", JLabel.CENTER);
 	private JLabel videoAuthor = new JLabel("Video Author", JLabel.CENTER);
@@ -28,6 +33,8 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
      */
     public VideoPlayerGUI(Video video) {
 		this.video = video;
+		commentController = new CommentController(this.video);
+		commentArea.setText(this.getComment());
         Font font = new Font("Dialog",Font.BOLD,16);
 		button_send.setFont(font);
 		videoName.setFont(font);
@@ -35,11 +42,19 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		videoAuthor.setFont(font);
 		videoPath.setFont(font);
 		JPanel panel_main = new JPanel();
-		panel_main.setLayout(new GridLayout(2, 2, 1, 1));
-		panel_main.add(videoName);
-		panel_main.add(videoDesc);
-		panel_main.add(videoAuthor);
-		panel_main.add(videoPath);
+		panel_main.setLayout(new GridLayout(2, 1, 1, 1));
+		JPanel panel_player = new JPanel();
+		panel_player.setBorder(BorderFactory.createLineBorder(new Color(34, 98, 95), 3));
+		panel_player.setBackground(new Color(34, 98, 95));
+		panel_player.add(videoLabel);
+		JPanel panel_info = new JPanel();
+		panel_info.setLayout(new GridLayout(2, 2, 1, 1));
+		panel_info.add(videoName);
+		panel_info.add(videoDesc);
+		panel_info.add(videoAuthor);
+		panel_info.add(videoPath);
+		panel_main.add(panel_player);
+		panel_main.add(panel_info);
 		videoName.setText("Video Title: " + video.getTitle());
 		videoDesc.setText("Video Description: " + video.getDescription());
 		videoAuthor.setText("Video Author: " + video.getAuthor().getName());
@@ -83,14 +98,22 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 	}
 
 	private String getComment() {
-		this.setRowsNum(6);
-		return "from luca: test test test\nfrom winter: 123456\nfrom luca: test test test\nfrom winter: 123456\nfrom luca: test test test\nfrom winter: 123456\n";
+		commentList = commentController.getComments();
+		this.setRowsNum(commentList.size());
+		String commentString = "";
+		for(Comment comment:commentList){
+			commentString += "from " + comment.getAuthor().getName() + ": " + comment.getComment() + "\n";
+		}
+		commentArea.setLineWrap(true);
+		commentArea.setRows(this.getRowsNum());
+		return commentString;
 	}
 
 	private void appendComment(String input) {
 		this.setRowsNum(this.getRowsNum() + 1);
 		commentArea.setRows(this.getRowsNum());
-		commentArea.append(input + "\n");
+		commentArea.append("from " + GUIController.getUser().getName() + ": " + input + "\n");
+		commentController.sendComments(GUIController.getUser(), input);
 	}
     @Override
 	/**
