@@ -83,10 +83,10 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 			panel_remove.add(button_remove);
 			button_remove.addActionListener(this);
 		}
-		this.setLayout(new BorderLayout());
-		this.add(panel_remove,BorderLayout.NORTH);
-		this.add(panel_main,BorderLayout.CENTER);
-		this.add(panel_comment,BorderLayout.SOUTH);                               
+		this.setLayout(new GridLayout(3, 1, 1, 1));
+		this.add(panel_remove);
+		this.add(panel_main);
+		this.add(panel_comment);                               
     }
 
 	private int getRowsNum(){
@@ -109,11 +109,14 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		return commentString;
 	}
 
-	private void appendComment(String input) {
-		this.setRowsNum(this.getRowsNum() + 1);
-		commentArea.setRows(this.getRowsNum());
-		commentArea.append("from " + GUIController.getUser().getName() + ": " + input + "\n");
-		commentController.sendComments(GUIController.getUser(), input);
+	private void appendComment(JTextField commentInput) {
+		if(commentInput.getText().length() > 0){
+			this.setRowsNum(this.getRowsNum() + 1);
+			commentArea.setRows(this.getRowsNum());
+			commentArea.append("from " + GUIController.getUser().getName() + ": " + commentInput.getText() + "\n");
+			commentController.sendComments(GUIController.getUser(), commentInput.getText());
+			commentInput.setText("");
+		}
 	}
     @Override
 	/**
@@ -126,7 +129,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_send){
 			System.out.println(commentInput.getText());
-			this.appendComment(commentInput.getText());
+			this.appendComment(commentInput);
 		}else if(e.getSource() == button_remove){
 			System.out.println(this.video.getTitle());
 			if(video.getAuthor() == GUIController.getUser()){

@@ -223,14 +223,16 @@ public class ChatGUI extends RootGUI implements ActionListener{
      * @return void
      * @seeUser
      */
-	private void appendComment(String input) {
-		//System.out.println("append : " + input);
-		this.setRowsNum(this.getRowsNum() + 1);
-		commentArea.setRows(this.getRowsNum());
-		if(GUIController.getUser().getClass() == Customer.class){
-			commentArea.append("from " + GUIController.getUser().getName() + " to " + this.getTrainer().getName()+ ":  " + input + "\n");
-		}else if(GUIController.getUser().getClass() == Trainer.class){
-			commentArea.append("from " + GUIController.getUser().getName() + " to " + this.getCustomer().getName()+ ":  " + input + "\n");
+	private void appendComment(JTextField commentInput) {
+		if(commentInput.getText().length() > 0){
+			this.setRowsNum(this.getRowsNum() + 1);
+			commentArea.setRows(this.getRowsNum());
+			if(GUIController.getUser().getClass() == Customer.class){
+				commentArea.append("from " + GUIController.getUser().getName() + " to " + this.getTrainer().getName()+ ":  " + commentInput.getText() + "\n");
+			}else if(GUIController.getUser().getClass() == Trainer.class){
+				commentArea.append("from " + GUIController.getUser().getName() + " to " + this.getCustomer().getName()+ ":  " + commentInput.getText() + "\n");
+			}
+			commentInput.setText("");
 		}
 	}
     @Override
@@ -252,7 +254,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 					chatController = new ChatController(this.getCustomer(), (Trainer) UserController.getUserByUsername(GUIController.getUser().getName()));
 				}
 				chatController.Send(UserController.getUserByUsername(GUIController.getUser().getName()), commentInput.getText());
-				this.appendComment(commentInput.getText());
+				this.appendComment(commentInput);
 			}
 		}else if(e.getSource()==button_next){
 			if((pageNum + 1) * volume < trainersList.size()){
