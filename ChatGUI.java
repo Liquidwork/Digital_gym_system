@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
@@ -87,7 +89,28 @@ public class ChatGUI extends RootGUI implements ActionListener{
 		panel_comment.setBounds(0,200,800,250);
 		this.add(panel_header);
 		this.add(panel_main);
-		this.add(panel_comment);                               
+		this.add(panel_comment);      
+
+		KeyListener keyListener = new KeyListener(){ // Initialize a keyListener that listen for 'enter' and work as send
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    ChatGUI.this.button_send.doClick();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Do nothing
+                
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Do nothing
+            }
+        };
+		this.commentInput.addKeyListener(keyListener); // Enter will do as send now                   
     }
 
 	
