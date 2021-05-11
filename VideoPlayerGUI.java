@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -86,7 +88,28 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		this.setLayout(new GridLayout(3, 1, 1, 1));
 		this.add(panel_remove);
 		this.add(panel_main);
-		this.add(panel_comment);                               
+		this.add(panel_comment);
+		
+		KeyListener keyListener = new KeyListener(){ // Initialize a keyListener that listen for 'enter' and work as send
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    VideoPlayerGUI.this.button_send.doClick();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Do nothing
+                
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Do nothing
+            }
+        };
+		this.commentInput.addKeyListener(keyListener); // Pressing enter will send the message immediately
     }
 
 	private int getRowsNum(){
