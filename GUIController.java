@@ -16,7 +16,7 @@ public class GUIController {
      * The method set the frame and attach the panel of login and register to the frame
      * @param frame the frame for display the GUI
      * @return void
-     * @seeUser
+     *
      */
     public static void Initialize(JFrame frame){
         mainFrame = frame;

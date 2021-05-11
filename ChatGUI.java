@@ -33,7 +33,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
      * The method will attach the CustomerSchedule panel to the frame
      * @param frame the frame for display the GUI
      * @return void
-     * @seeUser
+     *
      */
     public ChatGUI() {
 		System.out.println((GUIController.getUser().getClass() == Customer.class) + " " + (GUIController.getUser().getClass() == Trainer.class));
@@ -141,7 +141,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the getter of rowsnum
      * @return int the rowsnum of commentarea
-     * @seeUser
+     *
      */
 	private int getRowsNum(){
 		return rowsNum;
@@ -150,7 +150,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the setter of rowsnum
      * @return void
-     * @seeUser
+     *
      */
 	private void setRowsNum(int num){
 		this.rowsNum = num;
@@ -159,7 +159,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the getter of trainer
      * @return Trainer the trainer currently select
-     * @seeUser
+     *
      */
 	private Trainer getTrainer(){
 		return trainer;
@@ -168,7 +168,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the setter of trainer
      * @return void
-     * @seeUser
+     *
      */
 	private void setTrainer(Trainer input){
 		this.trainer = input;
@@ -179,7 +179,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the getter of Customer
      * @return Customer the trainer currently select
-     * @seeUser
+     *
      */
 	private Customer getCustomer(){
 		return customer;
@@ -188,7 +188,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the setter of Customer
      * @return void
-     * @seeUser
+     *
      */
 	private void setCustomer(Customer input){
 		this.customer = input;
@@ -199,7 +199,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the setter of comment area
      * @return void
-     * @seeUser
+     *
      */
 	private void setComment(ArrayList<Chat> chatList){
 		String chatString = "";
@@ -235,7 +235,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method is the Getter of comment area text
      * @return String Text of the comment area
-     * @seeUser
+     *
      */
 	private String getComment() {
 		return commentArea.getText();
@@ -244,7 +244,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	/**
      * The method will append new comment to comment area text
      * @return void
-     * @seeUser
+     *
      */
 	private void appendComment(JTextField commentInput) {
 		if(commentInput.getText().length() > 0){
@@ -264,7 +264,7 @@ public class ChatGUI extends RootGUI implements ActionListener{
     * The method will response according to different action event source
      * @param e the action event
      * @return void
-     * @seeUser
+     *
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_send){

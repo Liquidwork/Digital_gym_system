@@ -31,7 +31,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
      * The method will attach the CustomerSchedule panel to the frame
      * @param frame the frame for display the GUI
      * @return void
-     * @seeUser
+     *
      */
     public VideoPlayerGUI(Video video) {
 		this.video = video;
@@ -147,7 +147,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
     * The method will response according to different action event source
      * @param e the action event
      * @return void
-     * @seeUser
+     *
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_send){

@@ -90,7 +90,7 @@ public class LoginGUI extends JPanel{
          * The method will edit the text of alertLabel according to the message of exception
          * @param e the action event
          * @return void
-         * @seeUser
+         *
          */
         @Override
         @SuppressWarnings("Deprecation")
@@ -119,7 +119,7 @@ public class LoginGUI extends JPanel{
          * The method will edit the text of alertLabel according to the message of exception
          * @param e the action event
          * @return void
-         * @seeUser
+         *
          */
         public void actionPerformed(ActionEvent e) {
             //System.out.println("Register:msg"+e.getActionCommand()+" user: " + userText.getText() + " pass: " + passText.getText());

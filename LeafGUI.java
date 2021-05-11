@@ -15,7 +15,6 @@ public class LeafGUI extends JPanel{
      * The method will attach the CustomerSchedule panel to the frame
      * @param frame the frame for display the GUI
      * @return void
-     * @seeUser
      */
     public LeafGUI() {
         Font font = new Font("Dialog",Font.BOLD,16);
@@ -31,7 +30,6 @@ public class LeafGUI extends JPanel{
 	/**
      * The method is the getter of panel
      * @return Jpanel the panel of login and register page
-     * @seeUser
      */
 	public JPanel getPanel() {
 		return panel_pages;
@@ -44,7 +42,6 @@ public class LeafGUI extends JPanel{
 		* The method will response according to different action event source
 		 * @param e the action event
 		 * @return void
-		 * @seeUser
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==buttons[0]){
