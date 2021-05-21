@@ -55,7 +55,7 @@ public class LiveTrainingController {
     public boolean addLiveTraining(Trainer trainer, Customer customer, int time){
         boolean a;
         LiveTraining liveTraining = new LiveTraining(date, time, trainer, customer);
-        ArrayList<LiveTraining> data = dataList.getLive();
+        ArrayList<LiveTraining> data = new ArrayList<>(this.dataList.getLive());
         boolean state1 = data.removeIf(e->  e.getTime()==liveTraining.getTime()&&
         e.getCustomer().equals(liveTraining.getCustomer()));
         boolean state2 = data.removeIf(e->  e.getTime()==liveTraining.getTime()&&
