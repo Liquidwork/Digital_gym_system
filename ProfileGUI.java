@@ -53,7 +53,7 @@ public class ProfileGUI extends RootGUI implements ActionListener{
 		this.setLayout(new BorderLayout());
 		this.add(getPanel(),BorderLayout.NORTH);
 		this.add(panel_main,BorderLayout.CENTER);
-        this.add(panel_footer,BorderLayout.SOUTH);                                  
+        this.add(panel_footer,BorderLayout.SOUTH);                 
     }
 
     private void setNameLabel(String input){
@@ -62,8 +62,14 @@ public class ProfileGUI extends RootGUI implements ActionListener{
 
     //Set the course which are going to be displayed
     private void setCourses(JPanel panel){
+        Date date = new Date();
+        LiveTrainingController liveTrainingController = new LiveTrainingController(date);
         for(int i = 0; i < coursesButton.length; i++){
-            coursesButton[i].setText("Course" + i);
+            if(i < liveTrainingController.getListByUser(GUIController.getUser()).size()){
+                coursesButton[i].setText(liveTrainingController.getListByUser(GUIController.getUser()).get(i).getDate().toString());
+            }else{
+                coursesButton[i].setText("No more courses");
+            }
             panel.add(coursesButton[i]);
         }
     }
