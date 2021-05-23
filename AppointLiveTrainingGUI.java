@@ -45,7 +45,6 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 	/**
      * Initialize GUI frame then add the AppointLiveTrainingGUI panel to the frame
      * The method will attach the AppointLiveTrainingGUI panel to the frame
-     * @return void
      *
      */
     public AppointLiveTrainingGUI() {

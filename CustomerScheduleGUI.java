@@ -176,7 +176,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 				Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 				LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 				if(liveTrainingController.getListByUser(GUIController.getUser()).size() > 0){
-					button_day[i].setForeground(Color.GREEN);
+					button_day[i].setForeground(Color.ORANGE);
 					button_day[i].setText(count+"");
 				}
 			}
@@ -242,7 +242,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 						if(j < liveTrainingController.getListByUser(GUIController.getUser()).size()){
 							button_courses[j].setText(Courses.get(j).getCustomer().getName() +  " with " + Courses.get(j).getTrainer().getName() + " at time block " + Courses.get(j).getTime());
 						}else{
-							button_courses[j].setText("No more courses");
+							button_courses[j].setText("No course");
 						}
 					}
 				}
