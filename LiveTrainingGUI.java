@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,7 +10,6 @@ import javax.swing.JPanel;
  * A LiveTrainingGUI class which provide live GUI panel
  */
 public class LiveTrainingGUI extends LeafGUI implements ActionListener{
-	private int rowsNum = 2;
 	private JButton button_remove = new JButton("remove");
 	private JLabel videoLabel = new JLabel("Live", JLabel.CENTER);
 	private JLabel videoName = new JLabel("Live Title", JLabel.CENTER);
@@ -61,8 +57,8 @@ public class LiveTrainingGUI extends LeafGUI implements ActionListener{
 		panel_remove.add(button_remove);
 		button_remove.addActionListener(this);
 		this.setLayout(new BorderLayout());
-		this.add(panel_remove,new BorderLayout().NORTH);
-		this.add(panel_main, new BorderLayout().CENTER);
+		this.add(panel_remove, BorderLayout.NORTH);
+		this.add(panel_main, BorderLayout.CENTER);
 	}
 
 	
@@ -76,7 +72,7 @@ public class LiveTrainingGUI extends LeafGUI implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button_remove){
-			System.out.println(this.liveTraining.getTime());
+			// System.out.println(this.liveTraining.getTime());
 			if(liveTraining.getCustomer() == GUIController.getUser() || liveTraining.getTrainer() == GUIController.getUser()){
 				LiveTrainingController liveTrainingController = new LiveTrainingController();
 				liveTrainingController.removeTraining(this.liveTraining);

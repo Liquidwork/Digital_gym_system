@@ -49,11 +49,10 @@ public class LiveTrainingController {
      * @param trainer trainer to teach this course
      * @param customer customer to attend this course
      * @param time the time of the course, from 1 to 6 (inclusive)
-     * @return true if a item added
+     * @return true if an item added
      * @exception OutOfTimeException thrown if try to book a course to the days before today
      */
-    public boolean addLiveTraining(Trainer trainer, Customer customer, int time){
-        boolean a;
+    public void addLiveTraining(Trainer trainer, Customer customer, int time){
         LiveTraining liveTraining = new LiveTraining(date, time, trainer, customer);
         ArrayList<LiveTraining> data = new ArrayList<>(this.dataList.getLive());
         boolean state1 = data.removeIf(e->  e.getTime()==liveTraining.getTime()&&
@@ -61,16 +60,14 @@ public class LiveTrainingController {
         boolean state2 = data.removeIf(e->  e.getTime()==liveTraining.getTime()&&
         e.getTrainer().equals(liveTraining.getTrainer()));
         if (this.date.before(new Date())){ // If the time has passed for operating
-            throw new OutOfTimeException("The time of booking a course has passed.");
+            throw new OutOfTimeException("The time of booking this course has passed.");
         }else if(state1){
-            throw new OutOfTimeException("You have booked at this time");
+            throw new RuntimeException("You have booked at this time");
         }else if(state2){
-            throw new OutOfTimeException("This trainer has been booked at this time");
+            throw new RuntimeException("This trainer has been booked at this time");
         }else{
             dataList.addLive(liveTraining);
-            a = true;
         }
-        return a;
     }
 
     /**

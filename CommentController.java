@@ -34,7 +34,6 @@ public class CommentController {
     }
 
     public static void main(String arg[]){
-        User a = UserController.getUserById(1);
         User bot = UserController.getUserById(2);
         Video video = VideoController.getVideoById(3);
         CommentController commentController = new CommentController(video);

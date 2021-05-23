@@ -210,10 +210,10 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
         }else if(e.getSource()==button_add){
 			GUIController.navigateTo(new AppointLiveTrainingGUI());
         }else{
-			System.out.println("1");
+			// System.out.println("1");
 			for(int i = 0; i < button_courses.length; i++){
 				if(e.getSource().equals(button_courses[i])){
-					System.out.println("2");
+					// System.out.println("2");
 					if(i < Courses.size()){
 						GUIController.navigateTo(new LiveTrainingGUI(Courses.get(i)));
 					}
@@ -221,7 +221,8 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 			}
 			for(int i = 0; i < button_day.length; i++){
 				if(e.getSource().equals(button_day[i])){
-					System.out.println("3");
+					// System.out.println("3");
+					if (button_day[i].getText().equals("")) break;
 					Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 					LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 					Courses = liveTrainingController.getListByUser(GUIController.getUser());

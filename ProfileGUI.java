@@ -1,20 +1,16 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 /**
  * A CustomerSchedule class which provide Login GUI panel
  */
 public class ProfileGUI extends RootGUI implements ActionListener{
-    private JLabel emptyLabel = new JLabel("", JLabel.CENTER);
     private JLabel heightLabel = new JLabel("Your Height: ", JLabel.CENTER);
     private JLabel weightLabel = new JLabel("Your Weight: ", JLabel.CENTER);
     private JLabel nameLabel = new JLabel("Hello! ", JLabel.CENTER);

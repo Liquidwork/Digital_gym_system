@@ -218,11 +218,9 @@ public class AppointLiveTrainingGUI extends RootGUI implements ActionListener{
 					try{
 						Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, daySelected);
 						LiveTrainingController liveTrainingController = new LiveTrainingController(date);
-						if(liveTrainingController.addLiveTraining((Trainer) UserController.getUserByUsername(TrainerBox.getSelectedItem().toString()),(Customer) GUIController.getUser(), 1)){
-							GUIController.back();
-						}else{
-							button_courses[i].setText("That Time Block have already been appointed, plese try others");
-						}
+						liveTrainingController.addLiveTraining((Trainer) UserController.getUserByUsername(TrainerBox.getSelectedItem().toString()),
+								(Customer) GUIController.getUser(), i+1);
+						GUIController.back();
 					}catch(Exception ex){
 						button_courses[i].setText(ex.getMessage());
 					}
@@ -230,6 +228,7 @@ public class AppointLiveTrainingGUI extends RootGUI implements ActionListener{
 			}
 			for(int i = 0; i < button_day.length; i++){
 				if(e.getSource().equals(button_day[i])){
+					if (button_day[i].getText().equals("")) break;
 					daySelected = Integer.parseInt(button_day[i].getText());
 					for(int j = 0; j < button_courses.length; j++){
 						button_courses[j].setText("Appoint Live Training for Time Block " + j);

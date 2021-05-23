@@ -15,7 +15,7 @@ public class LiveTrainingDB {
         this.date =date;
         SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
         path = path +ft.format(this.date)+".csv";
-        System.out.println(path);
+        // System.out.println(path);
         initLives();     
     }
 

@@ -237,9 +237,9 @@ public class ChatGUI extends RootGUI implements ActionListener{
      * @return String Text of the comment area
      *
      */
-	private String getComment() {
-		return commentArea.getText();
-	}
+	// private String getComment() {
+	// 	return commentArea.getText();
+	// }
 
 	/**
      * The method will append new comment to comment area text
