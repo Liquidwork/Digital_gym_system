@@ -92,7 +92,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 			panel_day.add(button_day[i]);
 		}
 		
-		this.paintDay();
+		this.paintDay(-1);
 
 		JPanel panel_courses = new JPanel();
 		//5*1
@@ -123,7 +123,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
      * Set the paint date on the calender
      * @return void
      */
-    private void paintDay() {
+    private void paintDay(int selected) {
 		if(todayFlag){
 			year_int = now_year +"";
 			month_int = now_month;
@@ -153,7 +153,6 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 		
 		day_week = firstDay.getDay();
 		int count = 1;
-		
 		for(int i = day_week;i<day_week+days;count++,i++){
 			if(i%7 == 0||(i+1)%7 == 0){
 				if((i == day_week+now_date.getDate()-1)&& month_int==now_month && (year_sel == now_year-1900)){
@@ -172,7 +171,20 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 					button_day[i].setText(count+"");
 				}
 			}
+			if (button_day[i].getText().equals("") || year_int.length() < 2){
+				break;
+			}else{
+				Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
+				LiveTrainingController liveTrainingController = new LiveTrainingController(date);
+				if(liveTrainingController.getListByUser(GUIController.getUser()).size() > 0){
+					button_day[i].setForeground(Color.GREEN);
+					button_day[i].setText(count+"");
+				}
+			}
 			
+		}
+		if(selected > 0){
+			button_day[selected].setForeground(Color.PINK);
 		}
 		if(day_week == 0){
 			for(int i = days;i<42;i++){
@@ -201,12 +213,12 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==button_ok){
             todayFlag=false;
-			this.paintDay();
+			this.paintDay(-1);
         }else if(e.getSource()==button_today){
             todayFlag=true;
             YearBox.setSelectedIndex(20);
             MonthBox.setSelectedIndex(now_month);
-			this.paintDay();
+			this.paintDay(-1);
         }else if(e.getSource()==button_add){
 			GUIController.navigateTo(new AppointLiveTrainingGUI());
         }else{
@@ -223,6 +235,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 				if(e.getSource().equals(button_day[i])){
 					// System.out.println("3");
 					if (button_day[i].getText().equals("")) break;
+					paintDay(i);
 					Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 					LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 					Courses = liveTrainingController.getListByUser(GUIController.getUser());

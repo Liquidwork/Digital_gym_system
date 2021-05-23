@@ -74,9 +74,13 @@ public class LiveTrainingGUI extends LeafGUI implements ActionListener{
 		if(e.getSource() == button_remove){
 			// System.out.println(this.liveTraining.getTime());
 			if(liveTraining.getCustomer() == GUIController.getUser() || liveTraining.getTrainer() == GUIController.getUser()){
-				LiveTrainingController liveTrainingController = new LiveTrainingController();
-				liveTrainingController.removeTraining(this.liveTraining);
-				GUIController.switchPage(new CustomerScheduleGUI());
+				try{
+					LiveTrainingController liveTrainingController = new LiveTrainingController(liveTraining.getDate());
+					liveTrainingController.removeTraining(liveTraining);
+					GUIController.switchPage(new CustomerScheduleGUI());
+				}catch(Exception ex){
+					button_remove.setText(ex.getMessage());
+				}
 			}else{
 				button_remove.setText("You can only remove live training for yourself");
 			}
