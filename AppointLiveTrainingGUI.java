@@ -10,13 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
  * A CustomerSchedule class which provide Login GUI panel
  */
-public class AppointLiveTrainingGUI extends RootGUI implements ActionListener{
+public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 	private JComboBox<String> MonthBox = new JComboBox<>();
 	private JComboBox<String> YearBox = new JComboBox<>();
 	private JComboBox<String> TrainerBox = new JComboBox<>();
