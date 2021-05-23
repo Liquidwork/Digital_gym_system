@@ -43,9 +43,8 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 	private int month_int;
 	private int daySelected;
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
+     * Initialize GUI frame then add the AppointLiveTrainingGUI panel to the frame
+     * The method will attach the AppointLiveTrainingGUI panel to the frame
      * @return void
      *
      */

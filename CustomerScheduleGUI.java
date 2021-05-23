@@ -44,7 +44,6 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
      * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
      * @return void
      *
      */
