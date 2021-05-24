@@ -76,6 +76,7 @@ public class VideoController {
         ArrayList<String> str=new ArrayList<>();
         videosList=VideoDB.getVideos();
         Iterator<Video> iterator=videosList.iterator();
+        new CommentController(video).removeAll();
         while (iterator.hasNext()){
             Video vi=iterator.next();
             System.out.println(vi);

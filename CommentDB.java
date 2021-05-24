@@ -53,6 +53,14 @@ public class CommentDB {
                 this.comments.add(tmp);
             }
         }
+
+        /**
+         * Remove all comments of this video
+         */
+        public synchronized void removeAll(){
+            DataHandler.write(new ArrayList<String>(), this.commentPath);
+        }
+
     public static void main(String[] args) {
         User auser = UserController.getUserById(3);
         User b =  UserController.getUserById(5);

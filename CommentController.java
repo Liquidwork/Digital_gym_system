@@ -33,6 +33,13 @@ public class CommentController {
         dataList.addComment(comment);
     }
 
+    /**
+     * Remove all comments under this video.
+     */
+    public void removeAll(){
+        this.dataList.removeAll();
+    }
+
     public static void main(String arg[]){
         User bot = UserController.getUserById(2);
         Video video = VideoController.getVideoById(3);
