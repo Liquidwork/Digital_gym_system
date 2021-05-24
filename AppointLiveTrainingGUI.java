@@ -41,13 +41,16 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 	private ArrayList<LiveTraining> Courses = new ArrayList<>();
 	private String year_int = now_date.getYear() + 1900 + "";
 	private int month_int;
-	private int daySelected;
+	private int daySelected = 0;
 	/**
      * Initialize GUI frame then add the AppointLiveTrainingGUI panel to the frame
      * The method will attach the AppointLiveTrainingGUI panel to the frame
      *
      */
-    public AppointLiveTrainingGUI() {
+    public AppointLiveTrainingGUI(Date date) {
+		this.now_date = date;
+		now_year = now_date.getYear() + 1900;
+		now_month = now_date.getMonth();
         Font font = new Font("Dialog",Font.BOLD,16);
 		YearLabel.setFont(font);
 		MonthLabel.setFont(font);
@@ -154,6 +157,7 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 		
 		day_week = firstDay.getDay();
 		int count = 1;
+		System.out.println(now_date);
 		for(int i = day_week;i<day_week+days;count++,i++){
 			if(i%7 == 0||(i+1)%7 == 0){
 				if((i == day_week+now_date.getDate()-1)&& month_int==now_month && (year_sel == now_year-1900)){
@@ -178,7 +182,7 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 				Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 				LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 				if(liveTrainingController.getListByUser(GUIController.getUser()).size() > 0){
-					button_day[i].setForeground(Color.GREEN);
+					button_day[i].setForeground(Color.ORANGE);
 					button_day[i].setText(count+"");
 				}
 			}
@@ -223,14 +227,16 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
         }else{
 			for(int i = 0; i < button_courses.length; i++){
 				if(e.getSource().equals(button_courses[i])){
-					try{
-						Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, daySelected);
-						LiveTrainingController liveTrainingController = new LiveTrainingController(date);
-						liveTrainingController.addLiveTraining((Trainer) UserController.getUserByUsername(TrainerBox.getSelectedItem().toString()),
-								(Customer) GUIController.getUser(), i+1);
-						GUIController.back();
-					}catch(Exception ex){
-						button_courses[i].setText(ex.getMessage());
+					if(daySelected > 0){
+						try{
+							Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, daySelected);
+							LiveTrainingController liveTrainingController = new LiveTrainingController(date);
+							liveTrainingController.addLiveTraining((Trainer) UserController.getUserByUsername(TrainerBox.getSelectedItem().toString()),
+									(Customer) GUIController.getUser(), i+1);
+							GUIController.switchPage(new CustomerScheduleGUI());
+						}catch(Exception ex){
+							button_courses[i].setText(ex.getMessage());
+						}
 					}
 				}
 			}

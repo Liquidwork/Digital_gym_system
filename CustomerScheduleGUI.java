@@ -41,6 +41,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 	private ArrayList<LiveTraining> Courses = new ArrayList<>();
 	private String year_int = null;
 	private int month_int;
+	private Date date = new Date();
 	/**
      * Initialize GUI frame then add the CustomerSchedule panel to the frame
      * The method will attach the CustomerSchedule panel to the frame
@@ -173,7 +174,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 			if (button_day[i].getText().equals("") || year_int.length() < 2){
 				break;
 			}else{
-				Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
+				date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 				LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 				if(liveTrainingController.getListByUser(GUIController.getUser()).size() > 0){
 					button_day[i].setForeground(Color.ORANGE);
@@ -219,7 +220,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
             MonthBox.setSelectedIndex(now_month);
 			this.paintDay(-1);
         }else if(e.getSource()==button_add){
-			GUIController.navigateTo(new AppointLiveTrainingGUI());
+			GUIController.navigateTo(new AppointLiveTrainingGUI(date));
         }else{
 			// System.out.println("1");
 			for(int i = 0; i < button_courses.length; i++){
@@ -235,7 +236,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 					// System.out.println("3");
 					if (button_day[i].getText().equals("")) break;
 					paintDay(i);
-					Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
+					date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 					LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 					Courses = liveTrainingController.getListByUser(GUIController.getUser());
 					for(int j = 0; j < button_courses.length; j++){
