@@ -10,7 +10,6 @@ import javax.swing.JPanel;
  * A LiveTrainingGUI class which provide live GUI panel
  */
 public class LiveTrainingGUI extends LeafGUI implements ActionListener{
-	private CustomerScheduleGUI parent;
 	private JButton button_remove = new JButton("remove");
 	private JLabel videoLabel = new JLabel("Live", JLabel.CENTER);
 	private JLabel videoName = new JLabel("Live Title", JLabel.CENTER);
