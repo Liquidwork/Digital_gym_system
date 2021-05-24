@@ -54,6 +54,7 @@ public class VideoUploaderGUI extends LeafGUI implements ActionListener{
 		if(e.getSource()==button_upload){
 			System.out.println(videoAuthor.getText());
 			VideoController.addVideo(GUIController.getUser(),videoName.getText(), videoPath.getText(), videoDesc.getText());
+			GUIController.back(); // First get back to last page to avoid dead stack
 			GUIController.switchPage(new VideoListGUI());
 		} 
     }
