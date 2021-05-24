@@ -48,7 +48,7 @@ public class LiveTrainingController {
      * Add a new live-training to this date
      * @param trainer trainer to teach this course
      * @param customer customer to attend this course
-     * @param time the time of the course, from 1 to 6 (inclusive)
+     * @param time the time of the course, from 1 to 5 (inclusive)
      * @return true if an item added
      * @exception OutOfTimeException thrown if try to book a course to the days before today
      */
