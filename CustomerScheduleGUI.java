@@ -103,7 +103,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 		}
 		for(int i = 0; i < 5; i++){
 			button_courses[i] = new JButton(" ");
-			button_courses[i].setText("No More Course");
+			button_courses[i].setText("No Course");
 			button_courses[i].setForeground(Color.black);
 			panel_courses.add(button_courses[i]);
 			button_courses[i].addActionListener(this);
@@ -177,8 +177,10 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 				date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 				LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 				if(liveTrainingController.getListByUser(GUIController.getUser()).size() > 0){
-					button_day[i].setForeground(Color.ORANGE);
-					button_day[i].setText(count+"");
+					if(button_day[i].getForeground() != Color.BLUE){
+						button_day[i].setForeground(Color.ORANGE);
+						button_day[i].setText(count+"");
+					}
 				}
 			}
 			
@@ -222,12 +224,12 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
         }else if(e.getSource()==button_add){
 			GUIController.navigateTo(new AppointLiveTrainingGUI(date));
         }else{
-			// System.out.println("1");
 			for(int i = 0; i < button_courses.length; i++){
 				if(e.getSource().equals(button_courses[i])){
-					// System.out.println("2");
-					if(i < Courses.size()){
-						GUIController.navigateTo(new LiveTrainingGUI(Courses.get(i)));
+					for(int k = 0; k < Courses.size(); k++){
+						if(i == Courses.get(k).getTime() - 1){
+							GUIController.navigateTo(new LiveTrainingGUI(Courses.get(k)));
+						}
 					}
 				}
 			}
@@ -240,11 +242,10 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 					LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 					Courses = liveTrainingController.getListByUser(GUIController.getUser());
 					for(int j = 0; j < button_courses.length; j++){
-						if(j < liveTrainingController.getListByUser(GUIController.getUser()).size()){
-							button_courses[j].setText(Courses.get(j).getCustomer().getName() +  " with " + Courses.get(j).getTrainer().getName() + " at time block " + Courses.get(j).getTime());
-						}else{
-							button_courses[j].setText("No course");
-						}
+						button_courses[j].setText("No course");
+					}
+					for(int k = 0; k < Courses.size(); k++){
+						button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getCustomer().getName() +  " with " + Courses.get(k).getTrainer().getName() + " at time block " + Courses.get(k).getTime());
 					}
 				}
 			}

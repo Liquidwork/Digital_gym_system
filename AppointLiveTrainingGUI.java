@@ -182,8 +182,10 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 				Date date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 				LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 				if(liveTrainingController.getListByUser(GUIController.getUser()).size() > 0){
-					button_day[i].setForeground(Color.ORANGE);
-					button_day[i].setText(count+"");
+					if(button_day[i].getForeground() != Color.BLUE){
+						button_day[i].setForeground(Color.ORANGE);
+						button_day[i].setText(count+"");
+					}
 				}
 			}
 			
@@ -252,11 +254,10 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 					LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 					Courses = liveTrainingController.getListByUser(GUIController.getUser());
 					for(int j = 0; j < button_courses.length; j++){
-						if(j < liveTrainingController.getListByUser(GUIController.getUser()).size()){
-							button_courses[j].setText(Courses.get(j).getCustomer().getName() +  " with " + Courses.get(j).getTrainer().getName() + " at time block " + Courses.get(j).getTime());
-						}else{
-							button_courses[j].setText("Appoint Live Training for Time Block " + j);
-						}
+						button_courses[j].setText("Appoint Live Training for Time Block " + (j + 1));
+					}
+					for(int k = 0; k < Courses.size(); k++){
+						button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getCustomer().getName() +  " with " + Courses.get(k).getTrainer().getName() + " at time block " + Courses.get(k).getTime());
 					}
 				}
 			}
