@@ -35,6 +35,15 @@ public class UserController {
     }
 
     /**
+     * <p>Get a list with all the {@link User} in user list no matter what type it is.
+     * <p>Return a empty list if no element fits the rule.
+     * @return {@link ArrayList} of {@link User}
+     */
+    public static ArrayList<User> getUsersList(){
+        return new ArrayList<>(UserDB.getUsersList());
+    }
+
+    /**
      * <p>Get a list with all the {@link Trainer} in user list.
      * <p>Return a empty list if no element fits the rule.
      * @return {@link ArrayList} of {@link Trainer}
