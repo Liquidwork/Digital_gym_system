@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class UserDB{
     private static ArrayList<User> usersList;
     private static HashMap<User, String> passwordMap;
+    private static HashMap<User, Integer> loginCountMap; // Hash map to record login count
     private static int maxId = 0;
     private static final String userPath = "./data/login.csv";
     
@@ -66,13 +67,14 @@ public class UserDB{
         }
         usersList.add(user);
         passwordMap.put(user, password);
-        DataHandler.append(id + "," + name + "," + password + "," + type, userPath);
+        DataHandler.append(id + "," + name + "," + password + "," + type + ",0", userPath); // Login count is 0 initially
     }
 
     private static synchronized void initUsersList(){
         usersList = new ArrayList<>();
         ArrayList<String> list = DataHandler.read(userPath);
         passwordMap = new HashMap<>();
+        loginCountMap = new HashMap<>();
         for(String s : list){
             String[] pieces = s.split(",");
             User user;
@@ -92,10 +94,47 @@ public class UserDB{
                     continue;
             }
             usersList.add(user);
+            loginCountMap.put(user, Integer.parseInt(pieces[4]));
             passwordMap.put(user, pieces[2]);
             if (maxId < id){
                 maxId = id;
             }
         }
     }
+
+    /**
+     * Get login count of a user
+     * @param user to be checked
+     * @return the count
+     * @since 0.6
+     */
+    public static int getLoginCount(User user){
+        return loginCountMap.get(user);
+    }
+
+    /**
+     * Add login count to a user.
+     * @param user to be add login count
+     * @param increment number of count to be added
+     * @since 0.6
+     */
+    public static void addLoginCount(User user, int increment){
+        int count = loginCountMap.get(user);
+        loginCountMap.put(user, count + increment);
+        ArrayList<String> list = new ArrayList<>();
+        for (User u : usersList){
+            String type;
+            if (u instanceof Customer){
+                type = "Customer";
+            } else if (u instanceof Trainer){
+                type = "Trainer";
+            } else {
+                type = "Admin";
+            }
+            String s = u.getId()+ "," + u.getName() + "," + passwordMap.get(u) + "," + type + "," + loginCountMap.get(user);
+            list.add(s);
+        }
+        DataHandler.write(list, userPath);
+    }
+
 }
