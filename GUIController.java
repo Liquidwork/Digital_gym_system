@@ -26,6 +26,7 @@ public class GUIController {
         frame.setSize(800,500);
         frame.setLocation(400, 100);
         frame.setVisible(true);
+        frame.setResizable(false); // Lock the size to avoid bug
         switchPage(new LoginGUI());
     }
 
