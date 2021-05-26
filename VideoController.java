@@ -100,6 +100,7 @@ public class VideoController {
     /**
      * Add view count by one to a video.
      * @param video the video to view.
+     * @since 0.6
      */
     public static void addView(Video video){
         VideoDB.addView(video, 1);
