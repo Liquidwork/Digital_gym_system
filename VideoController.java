@@ -97,6 +97,24 @@ public class VideoController {
         return false;
     }
 
+    /**
+     * Add view count by one to a video.
+     * @param video the video to view.
+     */
+    public static void addView(Video video){
+        VideoDB.addView(video, 1);
+    }
+
+    /**
+     * Get the view count of a video.
+     * @param video video to get the count
+     * @return the count of view
+     * @since 0.6
+     */
+    public static int getView(Video video){
+        return VideoDB.getView(video);
+    }
+
     public static void main(String[] args) {
         addVideo(UserController.getUserById(6), "new", "meow", "aaaaaasssssdddd");
     }

@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 public class DataHandler {
     /**
-     * @Descrption This is a function that can read from local file by its path.
+     * This is a function that can read from local file by its path.
      * @param path The file path you want to access
      * @return ArrayList The text in file will be separated into list by line
      */
@@ -28,7 +28,7 @@ public class DataHandler {
     }
 
     /**
-     * @Descrption This is a function that can over-write the data in local file
+     * This is a function that can over-write the data in local file
      * @param list the data you want store in file, of course a csv style.
      * @param path  the path of the local file
      * @return boolean to tell you if the local file changed successfully
@@ -56,7 +56,7 @@ public class DataHandler {
         return result;
     }
     /**
-     * @descrption This is a function that allow you to append the data in local file
+     * This is a function that allow you to append the data in local file
      * You do not need re-write the old data, which can improve the File-IO speed
      * But you can only add one line string into file.
      * @param data the data you want to append in local file

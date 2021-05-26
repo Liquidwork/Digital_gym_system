@@ -1,5 +1,6 @@
-1,6,Surfing:),a/b/c,surfing teaching
-2,4,second,path,description
-3,3,third,path,description
-6,6,22,3,555
-5,6,aa,aa,aa
+1,6,Surfing:),a/b/c,6,surfing teaching
+2,4,second,path,1,description
+3,3,third,path,0,description
+6,6,22,3,0,555
+5,6,aa,aa,0,aa
+7,3,A,BOY/a.mp4,0,A sport, a new sport
