@@ -53,6 +53,17 @@ public class ProfileGUI extends RootGUI implements ActionListener{
         weightLabel.setFont(smallFont);
         BMILabel.setFont(smallFont);
         BalanceLabel.setFont(smallFont);
+        if(BMIController.getBmiByUser((GUIController.getUser())) != null){
+            java.text.DecimalFormat df = new java.text.DecimalFormat("#.00"); 
+            BMILabel.setText("Your BMI: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getBMI()));
+            heightLabel.setText("Your Height: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getHeight()));
+            weightLabel.setText("Your Weight: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getWeight()));
+        }else{
+            BMILabel.setText("Please set your BMI.");
+            heightLabel.setText("Please set your height.");
+            weightLabel.setText("Please set your weight.");
+        }
+
         button_BMI.addActionListener(this);
         button_balance.addActionListener(this);
         setNameLabel(GUIController.getUser().getName());
@@ -99,7 +110,7 @@ public class ProfileGUI extends RootGUI implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(button_BMI)){
-            System.out.println(BMIController.getBmiByUser(GUIController.getUser()).toString());
+            GUIController.navigateTo(new BMIGUI());
         }else if(e.getSource().equals(button_balance)){
             CashController.addCash((Customer) GUIController.getUser(), 100.0);
             BalanceLabel.setText("Your Balance: " + CashController.getCash((Customer) GUIController.getUser()));

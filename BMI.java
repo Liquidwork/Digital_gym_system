@@ -49,7 +49,7 @@ public class BMI {
      * @return index of the BMI
      */
     public double getBMI(){
-        return (this.weight / (this.height * this.height));
+        return (this.weight / ((this.height / 100) * (this.height / 100)));
     }
 
     /**
@@ -60,7 +60,8 @@ public class BMI {
         return "{" +
         " user='" + getUser() + "'" +
         ", height='" + getHeight() + "'" +
-        ", wieght='" + getWeight() + "'" +
+        ", weight='" + getWeight() + "'" +
+        ", BMI='" + getBMI() + "'" +
         "}";
     }
 
