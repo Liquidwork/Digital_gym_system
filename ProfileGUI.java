@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,8 +16,10 @@ public class ProfileGUI extends RootGUI implements ActionListener{
     private JLabel weightLabel = new JLabel("Your Weight: ", JLabel.CENTER);
     private JLabel nameLabel = new JLabel("Hello! ", JLabel.CENTER);
     private JLabel courseLabel = new JLabel("Below is the courses you are going to take ", JLabel.CENTER);
-    private JButton[] coursesButton = {new JButton("Course"),new JButton("Course"),new JButton("Course"),new JButton("Course"),new JButton("Course")};
-
+    private JButton[] button_courses = {new JButton("Course"),new JButton("Course"),new JButton("Course"),new JButton("Course"),new JButton("Course")};
+    private ArrayList<LiveTraining> Courses = new ArrayList<>();
+    Date date = new Date();
+    LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 	/**
      * Initialize GUI frame then add the ProfileGUI panel to the frame
      * The method will attach the ProfileGUI panel to the frame
@@ -57,15 +60,16 @@ public class ProfileGUI extends RootGUI implements ActionListener{
 
     //Set the course which are going to be displayed
     private void setCourses(JPanel panel){
-        Date date = new Date();
-        LiveTrainingController liveTrainingController = new LiveTrainingController(date);
-        for(int i = 0; i < coursesButton.length; i++){
-            if(i < liveTrainingController.getListByUser(GUIController.getUser()).size()){
-                coursesButton[i].setText(liveTrainingController.getListByUser(GUIController.getUser()).get(i).getDate().toString());
-            }else{
-                coursesButton[i].setText("No more courses");
+        Courses = liveTrainingController.getListByUser(GUIController.getUser());
+        for(int i = 0; i < button_courses.length; i++){
+            for(int j = 0; j < button_courses.length; j++){
+                button_courses[j].setText("No course");
             }
-            panel.add(coursesButton[i]);
+            for(int k = 0; k < Courses.size(); k++){
+                button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getCustomer().getName() +  " with " + Courses.get(k).getTrainer().getName() + " at time block " + Courses.get(k).getTime());
+            }
+            panel.add(button_courses[i]);
+            button_courses[i].addActionListener(this);
         }
     }
 
@@ -78,7 +82,15 @@ public class ProfileGUI extends RootGUI implements ActionListener{
      *
      */
     public void actionPerformed(ActionEvent e) {
-        
+        for(int i = 0; i < button_courses.length; i++){
+            if(e.getSource().equals(button_courses[i])){
+                for(int j = 0; j < Courses.size(); j++){
+                    if(i == Courses.get(j).getTime() - 1){
+                        GUIController.navigateTo(new LiveTrainingGUI(Courses.get(j)));
+                    }
+                }
+            }
+        }
     }
 }
 
