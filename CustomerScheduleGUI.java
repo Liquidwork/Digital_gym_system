@@ -222,7 +222,11 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
             MonthBox.setSelectedIndex(now_month);
 			this.paintDay(-1);
         }else if(e.getSource()==button_add){
-			GUIController.navigateTo(new AppointLiveTrainingGUI(date));
+			if(CashController.getCash((Customer) GUIController.getUser()) > 100){
+				GUIController.navigateTo(new AppointLiveTrainingGUI(date));
+			}else{
+				button_add.setText("Appoint a live course need 100$, you only have " + CashController.getCash((Customer) GUIController.getUser()) + "$");
+			}
         }else{
 			for(int i = 0; i < button_courses.length; i++){
 				if(e.getSource().equals(button_courses[i])){

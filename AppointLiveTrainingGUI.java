@@ -235,6 +235,7 @@ public class AppointLiveTrainingGUI extends LeafGUI implements ActionListener{
 							LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 							liveTrainingController.addLiveTraining((Trainer) UserController.getUserByUsername(TrainerBox.getSelectedItem().toString()),
 									(Customer) GUIController.getUser(), i+1);
+							CashController.addCash((Customer) GUIController.getUser(), -100);
 							GUIController.back(); // Remove this page first.
 							GUIController.switchPage(new CustomerScheduleGUI());
 						}catch(Exception ex){
