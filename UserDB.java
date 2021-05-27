@@ -131,7 +131,7 @@ public class UserDB{
             } else {
                 type = "Admin";
             }
-            String s = u.getId()+ "," + u.getName() + "," + passwordMap.get(u) + "," + type + "," + loginCountMap.get(user);
+            String s = u.getId()+ "," + u.getName() + "," + passwordMap.get(u) + "," + type + "," + loginCountMap.get(u);
             list.add(s);
         }
         DataHandler.write(list, userPath);
