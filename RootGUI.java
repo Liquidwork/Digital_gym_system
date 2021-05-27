@@ -20,6 +20,9 @@ public class RootGUI extends JPanel{
         Font font = new Font("Dialog",Font.BOLD,16);
 		PagesListener pagesListener = new PagesListener();
 		for(int i = 0; i < buttons.length; i++){
+			if(buttons[i].getText() == "Chat" && GUIController.getUser().getClass() == Admin.class){
+				continue;
+			}
 			buttons[i].setFont(font);
 			panel_pages.add(buttons[i]);
 			buttons[i].addActionListener(pagesListener);

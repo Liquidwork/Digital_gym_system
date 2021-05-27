@@ -36,10 +36,26 @@ public class ProfileGUI extends RootGUI implements ActionListener{
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
         JPanel panel_user = new JPanel();
-        panel_user.setLayout(new GridLayout(1, 2, 1, 1));
+        panel_user.setLayout(new GridLayout(2, 1, 1, 1));
         panel_main.add(panel_user, BorderLayout.CENTER);
         nameLabel.setFont(font);
         panel_user.add(nameLabel);
+        if(GUIController.getUser().getClass() == Admin.class){
+            StatisticController statisticController = new StatisticController();
+            JPanel panel_statistic = new JPanel();
+            panel_statistic.setLayout(new GridLayout(5, 2, 1, 1));
+            panel_statistic.add(new JLabel("As a Admin, you can see following statistics!", JLabel.CENTER));
+            panel_statistic.add(new JLabel("userCount: " + statisticController.getUserCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("loginCount: " + statisticController.getLoginCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("chatCount: " + statisticController.getChatCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("chatMessageCount: " + statisticController.getChatMessageCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("totalCourseCount: " + statisticController.getTotalCourseCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("upComingCourseCount: " + statisticController.getUpcomingCourseCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("videoCount: " + statisticController.getVideoCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("videoCommentCount: " + statisticController.getVideoCommentCount(), JLabel.CENTER));
+            panel_statistic.add(new JLabel("videoViewCount: " + statisticController.getVideoViewCount(), JLabel.CENTER));
+            panel_user.add(panel_statistic);
+        }
         setNameLabel(GUIController.getUser().getName());
         if(GUIController.getUser().getClass() == Customer.class){
             JPanel panel_info = new JPanel();
@@ -70,18 +86,20 @@ public class ProfileGUI extends RootGUI implements ActionListener{
             button_balance.addActionListener(this);
             panel_main.add(panel_info, BorderLayout.SOUTH);
         }
-        JPanel panel_footer = new JPanel();
-        panel_footer.setLayout(new BorderLayout());
-        JPanel panel_courses = new JPanel();
-		panel_courses.setLayout(new GridLayout(1, 4, 1, 1));
-        panel_footer.add(courseLabel, BorderLayout.NORTH);
-        panel_footer.add(panel_courses, BorderLayout.CENTER);
-        setCourses(panel_courses);
         setNameLabel(GUIController.getUser().getName());
 		this.setLayout(new BorderLayout());
 		this.add(getPanel(),BorderLayout.NORTH);
 		this.add(panel_main,BorderLayout.CENTER);
-        this.add(panel_footer,BorderLayout.SOUTH);                 
+        if(GUIController.getUser().getClass() == Trainer.class || GUIController.getUser().getClass() == Customer.class){
+            JPanel panel_footer = new JPanel();
+            panel_footer.setLayout(new BorderLayout());
+            JPanel panel_courses = new JPanel();
+            panel_courses.setLayout(new GridLayout(1, 4, 1, 1));
+            panel_footer.add(courseLabel, BorderLayout.NORTH);
+            panel_footer.add(panel_courses, BorderLayout.CENTER);
+            setCourses(panel_courses);
+            this.add(panel_footer,BorderLayout.SOUTH);      
+        }           
     }
 
     private void setNameLabel(String input){

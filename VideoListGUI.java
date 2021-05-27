@@ -61,7 +61,7 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 		panel_combo.add(search_comboBox);
 
 		//Upload Button only for trainer
-		if(GUIController.getUser().getClass() == Trainer.class){
+		if(GUIController.getUser().getClass() == Trainer.class || GUIController.getUser().getClass() == Admin.class){
 			panel_combo.add(button_upload);
 			button_upload.addActionListener(this);
 		}

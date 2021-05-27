@@ -78,8 +78,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		JPanel panel_remove = new JPanel();
 		panel_remove.setLayout(new GridLayout(2,1,1,1));
 		panel_remove.add(getPanel());
-		if(GUIController.getUser().getClass() == Trainer.class){
-			System.out.println("YES");
+		if(GUIController.getUser().getClass() == Trainer.class || GUIController.getUser().getClass() == Admin.class){
 			button_remove.setFont(font);
 			panel_remove.add(button_remove);
 			button_remove.addActionListener(this);
@@ -171,7 +170,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 			this.appendComment(commentInput);
 		}else if(e.getSource() == button_remove){
 			System.out.println(this.video.getTitle());
-			if(video.getAuthor() == GUIController.getUser()){
+			if(video.getAuthor() == GUIController.getUser() || GUIController.getUser().getClass() == Admin.class){
 				VideoController.removeVideo(this.video);
 				GUIController.switchPage(new VideoListGUI());
 			}else{
