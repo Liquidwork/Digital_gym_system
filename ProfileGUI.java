@@ -14,8 +14,12 @@ import javax.swing.JPanel;
 public class ProfileGUI extends RootGUI implements ActionListener{
     private JLabel heightLabel = new JLabel("Your Height: ", JLabel.CENTER);
     private JLabel weightLabel = new JLabel("Your Weight: ", JLabel.CENTER);
+    private JLabel BMILabel = new JLabel("Your BMI: ", JLabel.CENTER);
+    private JLabel BalanceLabel = new JLabel("Your Balance: " + CashController.getCash((Customer) GUIController.getUser()), JLabel.CENTER);
     private JLabel nameLabel = new JLabel("Hello! ", JLabel.CENTER);
     private JLabel courseLabel = new JLabel("Below is the courses you are going to take ", JLabel.CENTER);
+    private JButton button_BMI = new JButton("Set Your BMI");
+    private JButton button_balance = new JButton("Deposit 100$ to balance");
     private JButton[] button_courses = {new JButton("Course"),new JButton("Course"),new JButton("Course"),new JButton("Course"),new JButton("Course")};
     private ArrayList<LiveTraining> Courses = new ArrayList<>();
     Date date = new Date();
@@ -28,17 +32,29 @@ public class ProfileGUI extends RootGUI implements ActionListener{
      */
     public ProfileGUI() {
         Font font = new Font("Dialog",Font.BOLD,36);
+        Font smallFont = new Font("Dialog",Font.BOLD,18);
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
+        JPanel panel_user = new JPanel();
+        panel_user.setLayout(new GridLayout(1, 2, 1, 1));
         JPanel panel_info = new JPanel();
-        panel_info.setLayout(new GridLayout(1, 2, 1, 1));
-        panel_main.add(nameLabel, BorderLayout.CENTER);
+        panel_info.setLayout(new GridLayout(2, 3, 1, 1));
+        panel_main.add(panel_user, BorderLayout.CENTER);
         panel_main.add(panel_info, BorderLayout.SOUTH);
+        panel_user.add(nameLabel);
         panel_info.add(heightLabel);
         panel_info.add(weightLabel);
+        panel_info.add(BMILabel);
+        panel_info.add(button_BMI);
+        panel_info.add(BalanceLabel);
+        panel_info.add(button_balance);
         nameLabel.setFont(font);
-        heightLabel.setFont(font);
-        weightLabel.setFont(font);
+        heightLabel.setFont(smallFont);
+        weightLabel.setFont(smallFont);
+        BMILabel.setFont(smallFont);
+        BalanceLabel.setFont(smallFont);
+        button_BMI.addActionListener(this);
+        button_balance.addActionListener(this);
         setNameLabel(GUIController.getUser().getName());
         JPanel panel_footer = new JPanel();
         panel_footer.setLayout(new BorderLayout());
@@ -66,7 +82,7 @@ public class ProfileGUI extends RootGUI implements ActionListener{
                 button_courses[j].setText("No course");
             }
             for(int k = 0; k < Courses.size(); k++){
-                button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getCustomer().getName() +  " with " + Courses.get(k).getTrainer().getName() + " at time block " + Courses.get(k).getTime());
+                button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getTrainer().getName() + " in " + Courses.get(k).getTime());
             }
             panel.add(button_courses[i]);
             button_courses[i].addActionListener(this);
@@ -82,11 +98,18 @@ public class ProfileGUI extends RootGUI implements ActionListener{
      *
      */
     public void actionPerformed(ActionEvent e) {
-        for(int i = 0; i < button_courses.length; i++){
-            if(e.getSource().equals(button_courses[i])){
-                for(int j = 0; j < Courses.size(); j++){
-                    if(i == Courses.get(j).getTime() - 1){
-                        GUIController.navigateTo(new LiveTrainingGUI(Courses.get(j)));
+        if(e.getSource().equals(button_BMI)){
+            System.out.println(BMIController.getBmiByUser(GUIController.getUser()).toString());
+        }else if(e.getSource().equals(button_balance)){
+            CashController.addCash((Customer) GUIController.getUser(), 100.0);
+            BalanceLabel.setText("Your Balance: " + CashController.getCash((Customer) GUIController.getUser()));
+        }else{
+            for(int i = 0; i < button_courses.length; i++){
+                if(e.getSource().equals(button_courses[i])){
+                    for(int j = 0; j < Courses.size(); j++){
+                        if(i == Courses.get(j).getTime() - 1){
+                            GUIController.navigateTo(new LiveTrainingGUI(Courses.get(j)));
+                        }
                     }
                 }
             }

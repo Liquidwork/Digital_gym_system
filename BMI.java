@@ -45,6 +45,14 @@ public class BMI {
     }
 
     /**
+     * Get the index of the BMI
+     * @return index of the BMI
+     */
+    public double getBMI(){
+        return (this.weight / (this.height * this.height));
+    }
+
+    /**
      * Get a String with all field information 
      */
     @Override
