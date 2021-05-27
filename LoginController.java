@@ -6,8 +6,10 @@ import exceptions.*;
 public class LoginController {
 
     /**
-     * Login to an account, initiate and return the customer if success, return null if login failed.
-     * The method read a file of login data to check for the user's account
+     * <p>Login to an account, initiate and return the customer if success, return null if login failed.
+     * The method read a file of login data to check for the user's account</p>
+     * <p>Will add 1 to user login count.</p>
+     * @see LoginController#getLoginCount(User)
      * @param name username to login, name is ignore to case
      * @param password password of login account
      * @return the user if login success, otherwise exceptions will be thrown.
@@ -22,6 +24,7 @@ public class LoginController {
         if (!UserDB.checkPassword(user, password)){
             throw new PasswordException("Wrong password");
         }
+        addLoginCount(user);
         return user;
     }
 
@@ -54,6 +57,26 @@ public class LoginController {
         }
         UserDB.addUser(name, password, type);
     }
+
+    /**
+     * Add one count to login count
+     * @param user to add count to
+     * @since 0.6
+     */
+    public static void addLoginCount(User user){
+        UserDB.addLoginCount(user, 1);
+    }
+
+    /**
+     * get the login count of the user
+     * @param user to be check
+     * @return the login count
+     * @since 0.6
+     */
+    public static int getLoginCount(User user){
+        return  UserDB.getLoginCount(user);
+    }
+
 
     /**
      * Some test methods.
