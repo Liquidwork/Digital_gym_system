@@ -1,9 +1,14 @@
 /**
- * A  static money controller which provide methods to access finance data
+ * A static money controller which provide methods to access finance data
  */
 public class CashController {
+
+    private CashController(){ // Set the Controller invisible
+
+    }
+
     /**
-     * @Descrption: This is a function that will control the customers money,
+     * This is a method that will control the customers money,
      * negative means spending, positive means adding money.
      * It will return judging by the result(success or failure) of action
      * You can' spend more thant you have now
@@ -21,6 +26,12 @@ public class CashController {
             System.out.println("Successful action");
         }
     }
+    
+    /**
+     * Get cash balance of a customer.
+     * @param customer to be checked
+     * @return the cash balance
+     */
     public static double getCash(Customer customer){
         double money = CashDB.getMoney(customer.getId());
         return money;

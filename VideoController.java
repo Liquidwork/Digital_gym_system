@@ -5,6 +5,10 @@ public class VideoController {
 
     private static final String dataPath = "./data/video.csv";
 
+    private VideoController(){ // Set the Controller invisible
+
+    }
+
     /**
      * Get a {@link ArrayList} containing all videos within it.
      * @return an {@link ArrayList} containing {@link Video}

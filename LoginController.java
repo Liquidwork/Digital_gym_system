@@ -5,6 +5,10 @@ import exceptions.*;
  */
 public class LoginController {
 
+    private LoginController(){ // Set the Controller invisible
+
+    }
+
     /**
      * <p>Login to an account, initiate and return the customer if success, return null if login failed.
      * The method read a file of login data to check for the user's account</p>

@@ -10,6 +10,9 @@ public class ScoreController {
     private static final String scorePath = "./data/score.csv";
     private static ArrayList<String> score_data;
 
+    private ScoreController(){ // Set the Controller invisible
+
+    }
 
     /**
      * This method will add a new scoring record for the trainer.

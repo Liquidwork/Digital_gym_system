@@ -11,6 +11,10 @@ public class GUIController {
     private static JFrame mainFrame;
     private static User user;
     
+    private GUIController(){ // Set the Controller invisible
+
+    }
+
     /**
      * Initialize GUI from the login and register page and push the panel into the stack
      * The method set the frame and attach the panel of login and register to the frame

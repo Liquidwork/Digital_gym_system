@@ -5,6 +5,11 @@ import java.util.ArrayList;
  * its id, username and get a list or sublist of Users by type.
  */
 public class UserController {
+
+    private UserController(){ // Set the Controller invisible
+
+    }
+
     /**
      * <p>Get the user by its id.
      * <p>Return {@code null} if {@link User} not found

@@ -1,8 +1,11 @@
-import java.util.ArrayList;
 
 public class BMIController {
     
-    private static final String dataPath= "./data/BMI.csv";
+    //private static final String dataPath= "./data/BMI.csv";
+
+    private BMIController(){ // Set the Controller invisible
+
+    }
 
     /**
      * @description this function get a BMI by user
@@ -43,7 +46,7 @@ public class BMIController {
         System.out.println(bmi);
         User user1 = new Customer(3, "Umihara");
         addBMI(user1, 140, 40);
-        User user2 = new Customer(1, "werty");
+        //User user2 = new Customer(1, "werty");
         //deleBMI(user1);
     }
 }
