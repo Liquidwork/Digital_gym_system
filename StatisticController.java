@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,11 +17,13 @@ import java.util.Date;
 public class StatisticController {
     
     private int[] userCount = new int[3]; // Customer, Trainer, Admin count respectively
+    private int loginCount;
     private int chatCount;
     private int chatMessageCount;
     private int totalCourseCount;
     private int courseCount; // Upcoming courses
     private int videoCount;
+    private int videoViewCount;
     private int videoCommentCount;
 
     /**
@@ -65,6 +68,15 @@ public class StatisticController {
     public int getAdminCount(){
         return this.userCount[2];
     }
+
+    /**
+     * Get count of user logins no matter what type of user it is.
+     * @return count of total login
+     */
+    public int getLoginCount() {
+        return this.loginCount;
+    }
+
 
     /**
      * <p>Get count of <b>chats</b> between users.
@@ -116,17 +128,27 @@ public class StatisticController {
         return this.videoCommentCount;
     }
 
+        /**
+     * Get count of views of all videos.
+     * @return all views
+     */
+    public int getVideoViewCount() {
+        return this.videoViewCount;
+    }
+
 
     @Override
     public String toString() {
         return "{" +
             " userCount='" + getUserCount() + "'" +
+            ", loginCount='" + getLoginCount() + "'" +
             ", chatCount='" + getChatCount() + "'" +
             ", chatMessageCount='" + getChatMessageCount() + "'" +
             ", totalCourseCount='" + getTotalCourseCount() + "'" +
             ", courseCount='" + getUpcomingCourseCount() + "'" +
             ", videoCount='" + getVideoCount() + "'" +
             ", videoCommentCount='" + getVideoCommentCount() + "'" +
+            ", videoViewCount='" + getVideoViewCount() + "'" +
             "}";
     }
 
@@ -138,6 +160,7 @@ public class StatisticController {
         this.userCount[0] = 0;
         this.userCount[1] = 0;
         this.userCount[2] = 0;
+        this.loginCount = 0;
 
         // Count one by one. 
         for (User u : UserController.getUsersList()) {
@@ -148,6 +171,7 @@ public class StatisticController {
             }else{
                 this.userCount[2]++;
             }
+            this.loginCount += LoginController.getLoginCount(u);
         }
     }
 
@@ -205,10 +229,11 @@ public class StatisticController {
      * Refresh video count and video comments count.
      */
     private void refreshVideoCounts(){
+        ArrayList<Video> list = VideoController.getVideosList();
         // Video count
-        this.videoCount = VideoController.getVideosList().size();
+        this.videoCount = list.size();
         // Video comment count
-        this.videoCommentCount = 0; // Reset values.
+        this.videoCommentCount = 0; // Reset value.
         File chatFolder = new File("./data/comment/"); // Directory to be checked
         File[] filesList = chatFolder.listFiles((dir, name) -> name.contains(".csv")); // get a file list contains ".csv"
         // Count comments file by file
@@ -221,6 +246,11 @@ public class StatisticController {
             } catch(IOException e){
                 e.printStackTrace();
             }
+        }
+        // Count total views
+        this.videoViewCount = 0; // Reset value.
+        for (Video v : list){
+            this.videoViewCount += VideoController.getView(v);
         }
     }
 
