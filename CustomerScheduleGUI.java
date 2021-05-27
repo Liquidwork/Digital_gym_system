@@ -14,7 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
- * A CustomerSchedule class which provide Login GUI panel
+ * A CustomerSchedule class which provide CustomerSchedule GUI panel
  */
 public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 	private JComboBox<String> MonthBox = new JComboBox<>();

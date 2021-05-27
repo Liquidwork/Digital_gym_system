@@ -25,9 +25,8 @@ public class VideoListGUI extends RootGUI implements ActionListener{
 	private JButton[] button_video = new JButton[25];
 	private ArrayList<Video> videosList;
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
+     * Initialize GUI frame then add the VideoListGUI panel to the frame
+     * The method will attach the VideoListGUI panel to the frame
      * @return void
      *
      */

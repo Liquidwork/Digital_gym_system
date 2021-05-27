@@ -27,9 +27,8 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 	private JLabel videoPath = new JLabel("Video Path", JLabel.CENTER);
 	private Video video;
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
+     * Initialize GUI frame then add the VideoPlayerGUI panel to the frame
+     * The method will attach the VideoPlayerGUI panel to the frame
      * @return void
      *
      */
@@ -112,14 +111,26 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		this.commentInput.addKeyListener(keyListener); // Pressing enter will send the message immediately
     }
 
+	/**
+	 * The getter function for RowsNum
+	 * @return int rowsNum current rows of comment area
+	 */
 	private int getRowsNum(){
 		return rowsNum;
 	}
 
+	/**
+	 * The setter function for RowsNum
+	 * @param int num the number of rows will be in the comment area
+	 */
 	private void setRowsNum(int num){
 		this.rowsNum = num;
 	}
 
+	/**
+	 * The getter function for comment
+	 * @return String commentString current comment string of comment area
+	 */
 	private String getComment() {
 		commentList = commentController.getComments();
 		this.setRowsNum(commentList.size());
@@ -132,6 +143,11 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		return commentString;
 	}
 
+	/**
+     * The method will append new comment to comment area text
+     * @return void
+     * @param JTextField commentInput the input of comment
+     */
 	private void appendComment(JTextField commentInput) {
 		if(commentInput.getText().length() > 0){
 			this.setRowsNum(this.getRowsNum() + 1);

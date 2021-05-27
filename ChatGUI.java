@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
 /**
- * A VideoPlayer class which provide video GUI panel
+ * A ChatGUI class which provide Chat GUI panel
  */
 public class ChatGUI extends RootGUI implements ActionListener{
 	private int rowsNum = 2;
@@ -29,8 +29,8 @@ public class ChatGUI extends RootGUI implements ActionListener{
 	private Customer customer;
 	private ArrayList<Customer> customersList;
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
+     * Initialize GUI frame then add the ChatGUI panel to the frame
+     * The method will attach the ChatGUI panel to the frame
      * @param frame the frame for display the GUI
      * @return void
      *
@@ -232,19 +232,11 @@ public class ChatGUI extends RootGUI implements ActionListener{
 		commentArea.setLineWrap(true);
 		commentArea.setRows(this.getRowsNum());
 	}
-	/**
-     * The method is the Getter of comment area text
-     * @return String Text of the comment area
-     *
-     */
-	// private String getComment() {
-	// 	return commentArea.getText();
-	// }
-
+	
 	/**
      * The method will append new comment to comment area text
      * @return void
-     *
+     * @param JTextField commentInput the input of comment
      */
 	private void appendComment(JTextField commentInput) {
 		if(commentInput.getText().length() > 0){
