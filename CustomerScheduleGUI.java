@@ -131,7 +131,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 		this.setLayout(null);
 		getPanel().setBounds(0,0,800,80);
 		panel_main.setBounds(0,80,800,250);
-		panel_courses.setBounds(0,200,800,120);
+		panel_courses.setBounds(0,330,800,120);
 		this.add(getPanel());
 		this.add(panel_main);
 		this.add(panel_courses);                                
