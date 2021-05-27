@@ -15,7 +15,7 @@ public class ProfileGUI extends RootGUI implements ActionListener{
     private JLabel heightLabel = new JLabel("Your Height: ", JLabel.CENTER);
     private JLabel weightLabel = new JLabel("Your Weight: ", JLabel.CENTER);
     private JLabel BMILabel = new JLabel("Your BMI: ", JLabel.CENTER);
-    private JLabel BalanceLabel = new JLabel("Your Balance: " + CashController.getCash((Customer) GUIController.getUser()), JLabel.CENTER);
+    private JLabel BalanceLabel = new JLabel("Your Balance: ", JLabel.CENTER);
     private JLabel nameLabel = new JLabel("Hello! ", JLabel.CENTER);
     private JLabel courseLabel = new JLabel("Below is the courses you are going to take ", JLabel.CENTER);
     private JButton button_BMI = new JButton("Set Your BMI");
@@ -37,36 +37,39 @@ public class ProfileGUI extends RootGUI implements ActionListener{
 		panel_main.setLayout(new BorderLayout());
         JPanel panel_user = new JPanel();
         panel_user.setLayout(new GridLayout(1, 2, 1, 1));
-        JPanel panel_info = new JPanel();
-        panel_info.setLayout(new GridLayout(2, 3, 1, 1));
         panel_main.add(panel_user, BorderLayout.CENTER);
-        panel_main.add(panel_info, BorderLayout.SOUTH);
-        panel_user.add(nameLabel);
-        panel_info.add(heightLabel);
-        panel_info.add(weightLabel);
-        panel_info.add(BMILabel);
-        panel_info.add(button_BMI);
-        panel_info.add(BalanceLabel);
-        panel_info.add(button_balance);
         nameLabel.setFont(font);
-        heightLabel.setFont(smallFont);
-        weightLabel.setFont(smallFont);
-        BMILabel.setFont(smallFont);
-        BalanceLabel.setFont(smallFont);
-        if(BMIController.getBmiByUser((GUIController.getUser())) != null){
-            java.text.DecimalFormat df = new java.text.DecimalFormat("#.00"); 
-            BMILabel.setText("Your BMI: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getBMI()));
-            heightLabel.setText("Your Height: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getHeight()));
-            weightLabel.setText("Your Weight: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getWeight()));
-        }else{
-            BMILabel.setText("Please set your BMI.");
-            heightLabel.setText("Please set your height.");
-            weightLabel.setText("Please set your weight.");
-        }
-
-        button_BMI.addActionListener(this);
-        button_balance.addActionListener(this);
+        panel_user.add(nameLabel);
         setNameLabel(GUIController.getUser().getName());
+        if(GUIController.getUser().getClass() == Customer.class){
+            JPanel panel_info = new JPanel();
+            panel_info.setLayout(new GridLayout(2, 3, 1, 1));
+            panel_info.add(heightLabel);
+            panel_info.add(weightLabel);
+            panel_info.add(BMILabel);
+            panel_info.add(button_BMI);
+            panel_info.add(BalanceLabel);
+            panel_info.add(button_balance);
+            heightLabel.setFont(smallFont);
+            weightLabel.setFont(smallFont);
+            BMILabel.setFont(smallFont);
+            BalanceLabel.setFont(smallFont);
+            BalanceLabel.setText("Your Balance: " + CashController.getCash((Customer) GUIController.getUser()));
+            if(BMIController.getBmiByUser((GUIController.getUser())) != null){
+                java.text.DecimalFormat df = new java.text.DecimalFormat("#.00"); 
+                BMILabel.setText("Your BMI: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getBMI()));
+                heightLabel.setText("Your Height: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getHeight()));
+                weightLabel.setText("Your Weight: " + df.format(BMIController.getBmiByUser((GUIController.getUser())).getWeight()));
+            }else{
+                BMILabel.setText("Please set your BMI.");
+                heightLabel.setText("Please set your height.");
+                weightLabel.setText("Please set your weight.");
+            }
+    
+            button_BMI.addActionListener(this);
+            button_balance.addActionListener(this);
+            panel_main.add(panel_info, BorderLayout.SOUTH);
+        }
         JPanel panel_footer = new JPanel();
         panel_footer.setLayout(new BorderLayout());
         JPanel panel_courses = new JPanel();
