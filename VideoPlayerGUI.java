@@ -34,6 +34,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
      */
     public VideoPlayerGUI(Video video) {
 		this.video = video;
+		VideoController.addView(video); // Add view count
 		commentController = new CommentController(this.video);
 		commentArea.setText(this.getComment());
         Font font = new Font("Dialog",Font.BOLD,16);
