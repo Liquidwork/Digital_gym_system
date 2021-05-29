@@ -49,15 +49,17 @@ public class VideoController {
     }
 
     /**
-     * <p>Search for the keyword in title among all the videos. Rankings are in no particular order.
-     * <p>If no video was found, return an empty list.
+     * <p>Search for the keyword in title among all the videos. Rankings are in no particular order.</p>
+     * <p>If no video was found, return an empty list.</p>
+     * <p><b>This method is now case insensitive from v0.6</b></p>
      * @param keyword to be search in title
-     * @return
+     * @since 0.6
+     * @return the list of video containing keyword
      */
     public static ArrayList<Video> searchVideosByTitle(String keyword){
         ArrayList<Video> videosList=new ArrayList<>();
         for (Video s:VideoDB.getVideos()){
-            if (s.getTitle().contains(keyword))
+            if (s.getTitle().toLowerCase().contains(keyword.toLowerCase()))
                 videosList.add(s);
         }
         return videosList;
