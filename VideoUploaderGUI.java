@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
 /**
- * A VideoPlayer class which provide video GUI panel
+ * A VideoUploaderGUI class which provide VideoUploaderGUI panel
  */
 public class VideoUploaderGUI extends LeafGUI implements ActionListener{
 	private JButton button_upload = new JButton("upload");
@@ -15,9 +15,8 @@ public class VideoUploaderGUI extends LeafGUI implements ActionListener{
 	private JTextField videoAuthor = new JTextField(GUIController.getUser().getName(), JLabel.CENTER);
 	private JTextField videoPath = new JTextField("Video Path", JLabel.CENTER);
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
+     * Initialize GUI frame then add the VideoUploaderGUI panel to the frame
+     * The method will attach the VideoUploaderGUI panel to the frame
      * @return void
      *
      */

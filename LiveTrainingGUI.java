@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -48,7 +51,11 @@ public class LiveTrainingGUI extends LeafGUI implements ActionListener{
 		videoDesc.setText("Live Customer: " + liveTraining.getCustomer().getName());
 		videoAuthor.setText("Live Time Block: " + liveTraining.getTime());
 		videoPath.setText("Live Path: " + liveTraining.getPath());
-
+		GregorianCalendar calNow = new GregorianCalendar();
+		calNow.add(GregorianCalendar.DAY_OF_MONTH, -1);
+		if(liveTraining.getDate().before(calNow.getTime())){ // Live-training is expired
+			videoLabel.setText("Live-training Recording");
+		}
 		JPanel panel_remove = new JPanel();
 		panel_remove.setLayout(new GridLayout(2,1,1,1));
 		panel_remove.add(getPanel());

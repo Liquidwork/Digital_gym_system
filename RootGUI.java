@@ -11,9 +11,8 @@ public class RootGUI extends JPanel{
 	private JButton[] buttons = {new JButton("Exit"),new JButton("Video"),new JButton("Schedule"),new JButton("Chat"),new JButton("Profile")};
 	
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
+     * Initialize GUI frame then add the RootGUI panel to the frame
+     * The method will attach the RootGUI panel to the frame
      * @return void
      *
      */
@@ -21,6 +20,9 @@ public class RootGUI extends JPanel{
         Font font = new Font("Dialog",Font.BOLD,16);
 		PagesListener pagesListener = new PagesListener();
 		for(int i = 0; i < buttons.length; i++){
+			if(buttons[i].getText() == "Chat" && GUIController.getUser().getClass() == Admin.class){
+				continue;
+			}
 			buttons[i].setFont(font);
 			panel_pages.add(buttons[i]);
 			buttons[i].addActionListener(pagesListener);
@@ -35,7 +37,13 @@ public class RootGUI extends JPanel{
 	public JPanel getPanel() {
 		return panel_pages;
 	}
-
+	 /**
+     * Provide response for different actions of calender
+     * The method will response according to different action event source
+     * @param e the action event
+     * @return void
+     *
+     */
 	private class PagesListener implements ActionListener{
 		@Override
 		/**

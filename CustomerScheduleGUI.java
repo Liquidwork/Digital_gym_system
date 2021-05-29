@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Date;
@@ -10,11 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
- * A CustomerSchedule class which provide Login GUI panel
+ * A CustomerSchedule class which provide CustomerSchedule GUI panel
  */
 public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 	private JComboBox<String> MonthBox = new JComboBox<>();
@@ -37,6 +41,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 	private final String[] week = {"SUN","MON","TUE","WEN","THR","FRI","SAT"};
 	private JButton[] button_week = new JButton[7];
 	private JButton[] button_courses = new JButton[5];
+	private JTextArea coursesArea = new JTextArea("Please click the date to get information of training at that day.");
 	private JButton button_add = new JButton("Appoint new Live Training");
 	private ArrayList<LiveTraining> Courses = new ArrayList<>();
 	private String year_int = null;
@@ -96,27 +101,40 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 
 		JPanel panel_courses = new JPanel();
 		//5*1
-		panel_courses.setLayout(new GridLayout(6, 1, 3, 3));
-		if(GUIController.getUser().getClass() == Customer.class){
-			panel_courses.add(button_add);
-			button_add.addActionListener(this);
+		if(GUIController.getUser().getClass() == Admin.class){
+			panel_courses.setLayout(new GridLayout(1, 1, 3, 3));
+			coursesArea.setEditable(false);
+			coursesArea.setLineWrap(true);
+			JScrollPane jsp=new JScrollPane(coursesArea);
+			Dimension size=coursesArea.getPreferredSize();
+			jsp.setBounds(110,90,size.width,size.height);
+			panel_courses.add(jsp);
+		}else{
+			panel_courses.setLayout(new GridLayout(6, 1, 3, 3));
+			if(GUIController.getUser().getClass() == Customer.class){
+				panel_courses.add(button_add);
+				button_add.addActionListener(this);
+			}
+			for(int i = 0; i < 5; i++){
+				button_courses[i] = new JButton(" ");
+				button_courses[i].setText("No Course");
+				button_courses[i].setForeground(Color.black);
+				panel_courses.add(button_courses[i]);
+				button_courses[i].addActionListener(this);
+			}
+			button_courses[0].setText("Please click the date to get information of training at that day.");
 		}
-		for(int i = 0; i < 5; i++){
-			button_courses[i] = new JButton(" ");
-			button_courses[i].setText("No Course");
-			button_courses[i].setForeground(Color.black);
-			panel_courses.add(button_courses[i]);
-			button_courses[i].addActionListener(this);
-		}
-		button_courses[0].setText("Please click the date to get information of training at that day.");
 		JPanel panel_main = new JPanel();
 		panel_main.setLayout(new BorderLayout());
 		panel_main.add(panel_day,BorderLayout.SOUTH);
 		panel_main.add(panel_ym,BorderLayout.NORTH);
-		this.setLayout(new BorderLayout());
-		this.add(getPanel(),BorderLayout.NORTH);
-		this.add(panel_courses,BorderLayout.SOUTH);
-		this.add(panel_main,BorderLayout.CENTER);                               
+		this.setLayout(null);
+		getPanel().setBounds(0,0,800,80);
+		panel_main.setBounds(0,80,800,250);
+		panel_courses.setBounds(0,330,800,120);
+		this.add(getPanel());
+		this.add(panel_main);
+		this.add(panel_courses);                                
     }
 
 	/**
@@ -222,7 +240,11 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
             MonthBox.setSelectedIndex(now_month);
 			this.paintDay(-1);
         }else if(e.getSource()==button_add){
-			GUIController.navigateTo(new AppointLiveTrainingGUI(date));
+			if(CashController.getCash((Customer) GUIController.getUser()) > 100){
+				GUIController.navigateTo(new AppointLiveTrainingGUI(date));
+			}else{
+				button_add.setText("Appoint a live course need 100$, you only have " + CashController.getCash((Customer) GUIController.getUser()) + "$");
+			}
         }else{
 			for(int i = 0; i < button_courses.length; i++){
 				if(e.getSource().equals(button_courses[i])){
@@ -235,17 +257,26 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
 			}
 			for(int i = 0; i < button_day.length; i++){
 				if(e.getSource().equals(button_day[i])){
-					// System.out.println("3");
 					if (button_day[i].getText().equals("")) break;
 					paintDay(i);
 					date = new Date(Integer.parseInt(year_int) - 1900, month_int, Integer.parseInt(button_day[i].getText()));
 					LiveTrainingController liveTrainingController = new LiveTrainingController(date);
 					Courses = liveTrainingController.getListByUser(GUIController.getUser());
-					for(int j = 0; j < button_courses.length; j++){
-						button_courses[j].setText("No course");
-					}
-					for(int k = 0; k < Courses.size(); k++){
-						button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getCustomer().getName() +  " with " + Courses.get(k).getTrainer().getName() + " at time block " + Courses.get(k).getTime());
+					if(GUIController.getUser().getClass() == Admin.class){
+						Courses = liveTrainingController.getTrainingList();
+						String displayed = "";
+						for(LiveTraining course : Courses){
+							displayed += course.toString() + "\n";
+						}
+						coursesArea.setText(displayed);
+					}else{
+						Courses = liveTrainingController.getListByUser(GUIController.getUser());
+						for(int j = 0; j < button_courses.length; j++){
+							button_courses[j].setText("No course");
+						}
+						for(int k = 0; k < Courses.size(); k++){
+							button_courses[Courses.get(k).getTime() - 1].setText(Courses.get(k).getCustomer().getName() +  " with " + Courses.get(k).getTrainer().getName() + " at time block " + Courses.get(k).getTime());
+						}
 					}
 				}
 			}

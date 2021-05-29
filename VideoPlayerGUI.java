@@ -27,14 +27,14 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 	private JLabel videoPath = new JLabel("Video Path", JLabel.CENTER);
 	private Video video;
 	/**
-     * Initialize GUI frame then add the CustomerSchedule panel to the frame
-     * The method will attach the CustomerSchedule panel to the frame
-     * @param frame the frame for display the GUI
+     * Initialize GUI frame then add the VideoPlayerGUI panel to the frame
+     * The method will attach the VideoPlayerGUI panel to the frame
      * @return void
      *
      */
     public VideoPlayerGUI(Video video) {
 		this.video = video;
+		VideoController.addView(video); // Add view count
 		commentController = new CommentController(this.video);
 		commentArea.setText(this.getComment());
         Font font = new Font("Dialog",Font.BOLD,16);
@@ -79,8 +79,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		JPanel panel_remove = new JPanel();
 		panel_remove.setLayout(new GridLayout(2,1,1,1));
 		panel_remove.add(getPanel());
-		if(GUIController.getUser().getClass() == Trainer.class){
-			System.out.println("YES");
+		if(GUIController.getUser().getClass() == Trainer.class || GUIController.getUser().getClass() == Admin.class){
 			button_remove.setFont(font);
 			panel_remove.add(button_remove);
 			button_remove.addActionListener(this);
@@ -112,14 +111,26 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		this.commentInput.addKeyListener(keyListener); // Pressing enter will send the message immediately
     }
 
+	/**
+	 * The getter function for RowsNum
+	 * @return int rowsNum current rows of comment area
+	 */
 	private int getRowsNum(){
 		return rowsNum;
 	}
 
+	/**
+	 * The setter function for RowsNum
+	 * @param int num the number of rows will be in the comment area
+	 */
 	private void setRowsNum(int num){
 		this.rowsNum = num;
 	}
 
+	/**
+	 * The getter function for comment
+	 * @return String commentString current comment string of comment area
+	 */
 	private String getComment() {
 		commentList = commentController.getComments();
 		this.setRowsNum(commentList.size());
@@ -132,6 +143,11 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		return commentString;
 	}
 
+	/**
+     * The method will append new comment to comment area text
+     * @return void
+     * @param JTextField commentInput the input of comment
+     */
 	private void appendComment(JTextField commentInput) {
 		if(commentInput.getText().length() > 0){
 			this.setRowsNum(this.getRowsNum() + 1);
@@ -155,7 +171,7 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 			this.appendComment(commentInput);
 		}else if(e.getSource() == button_remove){
 			System.out.println(this.video.getTitle());
-			if(video.getAuthor() == GUIController.getUser()){
+			if(video.getAuthor() == GUIController.getUser() || GUIController.getUser().getClass() == Admin.class){
 				VideoController.removeVideo(this.video);
 				GUIController.switchPage(new VideoListGUI());
 			}else{
