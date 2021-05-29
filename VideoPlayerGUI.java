@@ -77,12 +77,15 @@ public class VideoPlayerGUI extends LeafGUI implements ActionListener{
 		panel_comment.add(jsp);
 		panel_comment.add(panel_commentInput);
 		JPanel panel_remove = new JPanel();
-		panel_remove.setLayout(new GridLayout(2,1,1,1));
+		panel_remove.setLayout(new GridLayout(3,1,1,1));
 		panel_remove.add(getPanel());
 		if(GUIController.getUser().getClass() == Trainer.class || GUIController.getUser().getClass() == Admin.class){
 			button_remove.setFont(font);
 			panel_remove.add(button_remove);
 			button_remove.addActionListener(this);
+			JLabel viewLabel = new JLabel("View: " + VideoController.getView(video));
+			viewLabel.setHorizontalAlignment(JLabel.CENTER);
+			panel_remove.add(viewLabel);
 		}
 		this.setLayout(new GridLayout(3, 1, 1, 1));
 		this.add(panel_remove);
