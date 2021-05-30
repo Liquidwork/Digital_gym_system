@@ -67,6 +67,7 @@ public class UserDB{
         }
         usersList.add(user);
         passwordMap.put(user, password);
+        loginCountMap.put(user, 0);
         DataHandler.append(id + "," + name + "," + password + "," + type + ",0", userPath); // Login count is 0 initially
     }
 

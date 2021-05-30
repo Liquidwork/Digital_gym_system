@@ -13,9 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
  * A CustomerSchedule class which provide CustomerSchedule GUI panel
@@ -240,7 +237,7 @@ public class CustomerScheduleGUI extends RootGUI implements ActionListener{
             MonthBox.setSelectedIndex(now_month);
 			this.paintDay(-1);
         }else if(e.getSource()==button_add){
-			if(CashController.getCash((Customer) GUIController.getUser()) > 100){
+			if(CashController.getCash((Customer) GUIController.getUser()) >= 100.){
 				GUIController.navigateTo(new AppointLiveTrainingGUI(date));
 			}else{
 				button_add.setText("Appoint a live course need 100$, you only have " + CashController.getCash((Customer) GUIController.getUser()) + "$");
