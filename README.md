@@ -22,3 +22,9 @@ After, the program is compiled properly, to run the program, use:
 \> java Main  
 
 The version of _java_ should not be older than _javac_, or Runtime class will throw an Exception before running.  
+
+## How to run the test method
+
+To run the test method, you should move the _JUnitTest_  in test method to source folder.  
+If you are using IDE, you can add JUnit5.7 dependency. We highly recommend you
+to use IDE to run the JUnit test.  
