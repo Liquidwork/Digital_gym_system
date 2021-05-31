@@ -16,8 +16,8 @@ Then run the _Main_ class _main_ method.
 
 To run the program in command line, you should first enter the source folder of the project.  
 Then run the following command to compile the program:  
-\> javac -cp . ./exceptions/*.java  
-\> javac -cp . ./*.java  
+\> javac -cp . ./exceptions/\*.java  
+\> javac -cp . ./\*.java  
 After, the program is compiled properly, to run the program, use:  
 \> java Main  
 
