@@ -1,7 +1,8 @@
 # Digital_gym_system
 
 A Digital gym system using agile development methods.  
-The target of this system is to apply the knowledge from Software Engineering to build this product based solely on Java.
+The target of this system is to apply the knowledge from Software Engineering to build this product based solely on Java.  
+The project is now ended after the final dilevery, the repository will be archived from now on.  
 
 ## How to run the program
 
@@ -28,3 +29,12 @@ The version of _java_ should not be older than _javac_, or Runtime class will th
 To run the test method, you should move the _JUnitTest_  in test method to source folder.  
 If you are using IDE, you can add JUnit5.7 dependency. We highly recommend you
 to use IDE to run the JUnit test.  
+
+## Acknowledgement
+
+Thank to all the developers who contributed in this project.  
+Special thank to all the lecturers in Software Engineering.  
+
+Proudly presented by _EBU6304-2021 Software Engineering Group 47_
+
+
